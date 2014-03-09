@@ -6,7 +6,7 @@
 // lytt på events
 // tell score pr side
 var express = require('express');
-
+var cors = require('cors');
 var MatchSet = require('./matchset');
 
 module.exports = function (events) {
@@ -15,7 +15,7 @@ module.exports = function (events) {
   var status = 'stopped';
 
   var app = express();
-
+  app.use(cors());
   app.get('/status', function (req, res) {
     respond(res);
   });
