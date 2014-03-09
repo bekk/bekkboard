@@ -15,20 +15,33 @@ var stopGame = function(){
 };
 
 $(function(){
-	var ractiveScore = new Ractive({
+	var ractive = new Ractive({
 		el: 'score',
 		template: '#scoreTemplate',
 		data: {
 			score: {
 				a: 0,
 				b: 0
+			},
+			started: false
+		}
+	});
+
+	ractive.on({
+		action: function(event, action){
+			if(action == "start"){
+				startGame();
+			}
+			else if(action == "stop"){
+				stopGame();
 			}
 		}
 	});
 
 	setInterval(function(){
 		updateStatus(function (status){
-			ractiveScore.set('score', status.score);
+			ractive.set('score', status.score);
+			ractive.set('started', status.status == "started");
 		});
 	}, 1000);
 });

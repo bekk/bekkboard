@@ -8,6 +8,14 @@
 
 	<script id="scoreTemplate" type="text/ractive">
         <span>{{score.a}} - {{score.b}}</span>
+        
+        {{^started}}
+        <button class="controlButton" on-click="action:'start'">Start</button>
+        {{/started}}
+
+        {{#started}}
+        <button class="controlButton" on-click="action:'stop'">Stop</button>
+        {{/started}}
     </script>
 </head>
 <body>
