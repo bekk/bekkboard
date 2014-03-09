@@ -27,20 +27,21 @@ function emitUndo(side){
 }
 
 function handleButton (side) {
-  if(counters[side] && counters[side] >= undoLimit){
-    if(timers[side])
-      clearTimeout(timers[side]);
-    counters[side] = 0;
-    emitUndo(side);
-  } else {
-    if(!counters[side])
-      counters[side] = 0
-    counters[side] += 1;
-    if(!timers[side])
-      timers[side] = setTimeout(function(){
-        emitScore(side);
-      }, undoTimeout);
-  }
+  emitScore(side);
+  // if(counters[side] && counters[side] >= undoLimit){
+  //   if(timers[side])
+  //     clearTimeout(timers[side]);
+  //   counters[side] = 0;
+  //   emitUndo(side);
+  // } else {
+  //   if(!counters[side])
+  //     counters[side] = 0
+  //   counters[side] += 1;
+  //   if(!timers[side])
+  //     timers[side] = setTimeout(function(){
+  //       emitScore(side);
+  //     }, undoTimeout);
+  // }
 }
 
 var undoLimit = 2;
