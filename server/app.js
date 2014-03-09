@@ -26,10 +26,7 @@ module.exports = function (events) {
   });
 
   function respond (res) {
-    res.json({
-      score:  match.score(),
-      status: match.status()
-    });
+    res.json(match.json());
   }
 
   return app;

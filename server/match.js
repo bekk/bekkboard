@@ -34,4 +34,11 @@ function Match (events) {
   self.score = function () {
     return matchset.score;
   };
+
+  self.json = function () {
+    return {
+      score: self.score(),
+      status: self.status()
+    };
+  };
 }
