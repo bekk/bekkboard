@@ -16,6 +16,12 @@ var sp = new SerialPort("/dev/cu.usbmodem1a121", {
 
 var events = new process.EventEmitter();
 
+var undoLimit = 2;
+var undoTimeout = 500;
+
+var timers = {}
+var counters = {}
+
 function emitScore(side){
   console.log("Emitting score for " + side);
   events.emit("score", {side: side});
@@ -27,30 +33,29 @@ function emitUndo(side){
 }
 
 function handleButton (side) {
-  emitScore(side);
-  // if(counters[side] && counters[side] >= undoLimit){
-  //   if(timers[side])
-  //     clearTimeout(timers[side]);
-  //   counters[side] = 0;
-  //   emitUndo(side);
-  // } else {
-  //   if(!counters[side])
-  //     counters[side] = 0
-  //   counters[side] += 1;
-  //   if(!timers[side])
-  //     timers[side] = setTimeout(function(){
-  //       emitScore(side);
-  //     }, undoTimeout);
-  // }
+  //emitScore(side);
+  if(counters[side] && counters[side] >= undoLimit){
+    if(timers[side]){
+      clearTimeout(timers[side]);
+      timers[side] = null;
+    }
+    counters[side] = 0;
+    emitUndo(side);
+  } else {
+    if(!counters[side])
+      counters[side] = 0
+    counters[side] += 1;
+    if(!timers[side])
+      timers[side] = setTimeout(function(){
+        emitScore(side);
+        timers[side] = null;
+        counters[side] = 0;
+      }, undoTimeout);
+  }
 }
 
-var undoLimit = 2;
-var undoTimeout = 500;
-
-var timers = {}
-var counters = {}
-
 function handleData (data) {
+  console.log("Switching data: " + data);
   switch(data){
     case "0":
     handleButton("a");
@@ -58,14 +63,17 @@ function handleData (data) {
     case "1":
     handleButton("b");
     break;
+    default:
+    console.log("unknown data: " + data);
+    break;
   }
 }
 
 sp.on("open", function () {
-  console.log('open');
+  console.log('open3');
   sp.on('data', function(data) {
-    console.log('data received: ' + data);
-    handleData(data);
+      handleData(data);
+    
   });
 });
 module.exports = events;
