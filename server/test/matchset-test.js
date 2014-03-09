@@ -11,7 +11,7 @@ describe("match set", function () {
     s.score.should.deep.equal({ a: 0, b: 0 });
   });
 
-  it("ups a's score on event", function () {
+  it("ups side a's score", function () {
     var s = new MatchSet();
 
     s.point("a");
@@ -19,7 +19,7 @@ describe("match set", function () {
     s.score.should.deep.equal({ a: 1, b: 0 });
   });
 
-  it("ups a and b's score on event", function () {
+  it("ups both sides' score", function () {
     var s = new MatchSet();
 
     s.point('a');
