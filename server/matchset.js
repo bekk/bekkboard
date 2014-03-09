@@ -1,5 +1,7 @@
 
-module.exports = function (events) {
+module.exports = MatchSet;
+
+function MatchSet (events) {
   var self = this;
 
   self.players = { a: 0, b: 0 };
@@ -17,4 +19,4 @@ module.exports = function (events) {
   });
 
   // TODO calculate winner
-};
+}
