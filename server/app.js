@@ -9,16 +9,34 @@ var express = require('express');
 
 var MatchSet = require('./matchset');
 
-var app = express();
+module.exports = function (events) {
 
-var events = new process.EventEmitter();
-var matchset = new MatchSet(events);
+  var matchset = new MatchSet(events);
+  var status = 'stopped';
 
-app.get('/status', function (req, res) {
-  res.json({
-    score: matchset.score,
-    status: 'stopped'
+  var app = express();
+
+  app.get('/status', function (req, res) {
+    respond(res);
   });
-});
 
-module.exports = app;
+  app.post('/start', function (req, res) {
+    status = 'started';
+    respond(res);
+  });
+
+  app.post('/stop', function (req, res) {
+    status = 'stopped';
+    respond(res);
+  });
+
+  function respond (res) {
+    res.json({
+      score: matchset.score,
+      status: status
+    });
+  }
+
+  return app;
+
+};
