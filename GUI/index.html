@@ -2,7 +2,9 @@
 <html>
 <head>
 	<link rel="stylesheet" type="text/css" href="board.css">
+	<script src="jquery.min.js"></script>
 	<script src="Ractive.min.js"></script>
+	<script src="app.js"></script>
 
 	<script id="scoreTemplate" type="text/ractive">
         <span class="score">{{score.a}} - {{score.b}}</span>
@@ -10,18 +12,6 @@
 </head>
 <body>
 	<content id="score"></content>
-	<script>
-		var score = new Ractive({
-			el: 'score',
-			template: '#scoreTemplate',
-			data: {
-				score: {
-					a: 11,
-					b: 8
-				}
-			}
-		});
-	</script>
 </body>
 
 </html>
