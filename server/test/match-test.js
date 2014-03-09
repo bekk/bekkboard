@@ -12,7 +12,7 @@ describe('match', function () {
   it('returns current score', function () {
     var m = new Match(events);
 
-    m.score.should.deep.equal({
+    m.score().should.deep.equal({
       a: 0,
       b: 0
     });
@@ -21,9 +21,11 @@ describe('match', function () {
   it('ups score', function () {
     var m = new Match(events);
 
+    m.start();
+
     events.emit('score', { point: 'a' });
 
-    m.score.should.deep.equal({
+    m.score().should.deep.equal({
       a: 1,
       b: 0
     });

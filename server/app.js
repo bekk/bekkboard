@@ -13,7 +13,6 @@ var Match = require('./match');
 module.exports = function (events) {
 
   var match = new Match(events);
-  var status = 'stopped';
 
   var app = express();
 
@@ -24,19 +23,19 @@ module.exports = function (events) {
   });
 
   app.post('/start', function (req, res) {
-    status = 'started';
+    match.start();
     respond(res);
   });
 
   app.post('/stop', function (req, res) {
-    status = 'stopped';
+    match.status('stopped');
     respond(res);
   });
 
   function respond (res) {
     res.json({
-      score: match.score,
-      status: status
+      score: match.score(),
+      status: match.status()
     });
   }
 
