@@ -1,12 +1,6 @@
-// api som eirik kan kalle
-// GET /status
-// POST /start
-// POST /stop
-//
-// lytt på events
-// tell score pr side
-var express = require('express');
+// TODO trondkla geirsagberg bytt ut denne med deres
+// var events = require('ble-event-module');
+var events = new process.EventEmitter();
 
-var app = express();
-
+var app = require('./app')(events);
 app.listen(3000);
