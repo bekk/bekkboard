@@ -11,6 +11,7 @@ function Match (events) {
 
   self.start = function () {
     status = 'started';
+    matchset = new MatchSet();
   };
 
   self.stop = function () {

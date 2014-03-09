@@ -38,6 +38,17 @@ describe('match', function () {
     m.score().should.deep.equal({ a: 1, b: 0 });
   });
 
+  it('restarts', function () {
+    var m = new Match(events);
+    m.start();
+    events.emit('score', { point: 'a' });
+    m.score().should.deep.equal({ a: 1, b: 0 });
+
+    m.stop();
+    m.start();
+    m.score().should.deep.equal({ a: 0, b: 0 });
+  });
+
   it('serializes to json', function () {
     var m = new Match(events);
     m.json().should.deep.equal({
