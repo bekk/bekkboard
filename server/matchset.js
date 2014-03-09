@@ -4,11 +4,17 @@ module.exports = function (events) {
 
   self.players = { a: 0, b: 0 };
 
-  events.on('score', function (data) {
+  events.on("score", function (data) {
     self.players[data.point]++;
   });
 
-  self.__defineGetter__('score', function () {
-    return self.players.a + "-" + self.players.b;
+  self.__defineGetter__("score", function () {
+    // return copy
+    return {
+      a: self.players.a,
+      b: self.players.b
+    };
   });
+
+  // TODO calculate winner
 };

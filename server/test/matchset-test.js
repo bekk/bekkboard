@@ -14,29 +14,23 @@ describe("match set", function () {
 
   it("has initial score 0-0", function () {
     var s = new MatchSet(events);
-    s.score.should.equal("0-0");
+    s.score.should.deep.equal({ a: 0, b: 0 });
   });
 
   it("ups a's score on event", function () {
     var s = new MatchSet(events);
 
-    events.emit("score", {
-      point: "a"
-    });
+    events.emit("score", { point: "a" });
 
-    s.score.should.equal("1-0");
+    s.score.should.deep.equal({ a: 1, b: 0 });
   });
 
   it("ups a and b's score on event", function () {
     var s = new MatchSet(events);
 
-    events.emit("score", {
-      point: "a"
-    });
-    events.emit("score", {
-      point: "b"
-    });
+    events.emit("score", { point: "a" });
+    events.emit("score", { point: "b" });
 
-    s.score.should.equal("1-1");
+    s.score.should.deep.equal({ a: 1, b: 1 });
   });
 });
