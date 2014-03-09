@@ -29,7 +29,7 @@ function Match (events) {
     if (status == 'stopped') {
       return;
     }
-    matchset.point(data.point);
+    matchset.point(data.side);
   });
 
   self.score = function () {
