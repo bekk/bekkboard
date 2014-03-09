@@ -4,17 +4,17 @@ module.exports = MatchSet;
 function MatchSet () {
   var self = this;
 
-  self.sides = { a: 0, b: 0 };
+  var sides = { a: 0, b: 0 };
 
   self.point = function (side) {
-    self.sides[side]++;
+    sides[side]++;
   };
 
   self.__defineGetter__("score", function () {
     // return copy
     return {
-      a: self.sides.a,
-      b: self.sides.b
+      a: sides.a,
+      b: sides.b
     };
   });
 

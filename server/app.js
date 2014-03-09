@@ -28,13 +28,13 @@ module.exports = function (events) {
   });
 
   app.post('/stop', function (req, res) {
-    match.status('stopped');
+    match.stop();
     respond(res);
   });
 
   function respond (res) {
     res.json({
-      score: match.score(),
+      score:  match.score(),
       status: match.status()
     });
   }

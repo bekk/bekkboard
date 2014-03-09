@@ -6,7 +6,16 @@ module.exports = Match;
 function Match (events) {
   var self = this;
 
-  var _status = 'stopped';
+  var _status  = 'stopped';
+  var matchset = new MatchSet();
+
+  self.start = function () {
+    _status = 'started';
+  };
+
+  self.stop = function () {
+    _status = 'stopped';
+  };
 
   self.status = function (status) {
     if (status) {
@@ -15,20 +24,14 @@ function Match (events) {
     return _status;
   };
 
-  self.start = function () {
-    _status = 'started';
-  };
-
-  self.matchset = new MatchSet();
-
   events.on("score", function (data) {
     if (_status == 'stopped') {
       return;
     }
-    self.matchset.point(data.point);
+    matchset.point(data.point);
   });
 
   self.score = function () {
-    return self.matchset.score;
+    return matchset.score;
   };
 }
