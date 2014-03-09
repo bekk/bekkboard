@@ -24,7 +24,7 @@ describe('match', function () {
     var m = new Match(events);
     m.stop();
 
-    events.emit('score', { point: 'a' });
+    events.emit('score', { side: 'a' });
 
     m.score().should.deep.equal({ a: 0, b: 0 });
   });
@@ -33,9 +33,20 @@ describe('match', function () {
     var m = new Match(events);
     m.start();
 
-    events.emit('score', { point: 'a' });
+    events.emit('score', { side: 'a' });
 
     m.score().should.deep.equal({ a: 1, b: 0 });
+  });
+
+  it('restarts', function () {
+    var m = new Match(events);
+    m.start();
+    events.emit('score', { side: 'a' });
+    m.score().should.deep.equal({ a: 1, b: 0 });
+
+    m.stop();
+    m.start();
+    m.score().should.deep.equal({ a: 0, b: 0 });
   });
 
   it('serializes to json', function () {

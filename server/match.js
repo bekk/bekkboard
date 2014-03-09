@@ -11,6 +11,7 @@ function Match (events) {
 
   self.start = function () {
     status = 'started';
+    matchset = new MatchSet();
   };
 
   self.stop = function () {
@@ -28,7 +29,7 @@ function Match (events) {
     if (status == 'stopped') {
       return;
     }
-    matchset.point(data.point);
+    matchset.point(data.side);
   });
 
   self.score = function () {

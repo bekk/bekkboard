@@ -38,7 +38,7 @@ describe('app', function () {
       .post('/start')
       .expect(200, function () {
 
-        events.emit('score', { point: 'a' });
+        events.emit('score', { side: 'a' });
 
         request(app)
           .get('/status')
