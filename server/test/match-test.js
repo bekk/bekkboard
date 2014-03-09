@@ -38,6 +38,16 @@ describe('match', function () {
     m.score().should.deep.equal({ a: 1, b: 0 });
   });
 
+  it('undos score', function () {
+    var m = new Match(events);
+    m.start();
+
+    events.emit('score', { side: 'a' });
+    events.emit('undo', { side: 'a' });
+
+    m.score().should.deep.equal({ a: 0, b: 0 });
+  });
+
   it('restarts', function () {
     var m = new Match(events);
     m.start();

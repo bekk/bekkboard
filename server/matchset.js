@@ -10,6 +10,13 @@ function MatchSet () {
     sides[side]++;
   };
 
+  self.undoPoint = function (side) {
+    var points = sides[side];
+    if (points > 0) {
+      sides[side]--;
+    }
+  };
+
   self.__defineGetter__("score", function () {
     // return copy
     return {

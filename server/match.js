@@ -25,6 +25,13 @@ function Match (events) {
     return status;
   };
 
+  events.on("undo", function (data) {
+    if (status == 'stopped') {
+      return;
+    }
+    matchset.undoPoint(data.side);
+  });
+
   events.on("score", function (data) {
     if (status == 'stopped') {
       return;

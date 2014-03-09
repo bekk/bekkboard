@@ -27,4 +27,22 @@ describe("match set", function () {
 
     s.score.should.deep.equal({ a: 1, b: 1 });
   });
+
+  it("undos a's score", function () {
+    var s = new MatchSet();
+
+    s.point("a");
+    s.undoPoint("a");
+
+    s.score.should.deep.equal({ a: 0, b: 0 });
+  });
+
+  it('does not undo below 0', function () {
+    var s = new MatchSet();
+
+    s.undoPoint("a");
+    s.undoPoint("a");
+
+    s.score.should.deep.equal({ a: 0, b: 0 });
+  });
 });
