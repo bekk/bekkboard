@@ -1,9 +1,18 @@
-var getScore = function(){
-	return {
-		a: Math.floor((Math.random()*11)+1),
-		b: Math.floor((Math.random()*11)+1)
-	}
-}
+var url = "http://localhost:3000";
+
+var updateStatus = function(callback){
+	$.get(url + "/status", function(data){
+		callback(data);
+	});
+};
+
+var startGame = function(){
+	$.post(url + "/start");
+};
+
+var stopGame = function(){
+	$.post(url + "/stop");
+};
 
 $(function(){
 	var ractiveScore = new Ractive({
@@ -18,7 +27,8 @@ $(function(){
 	});
 
 	setInterval(function(){
-		var score = getScore();
-		ractiveScore.set('score', score);
+		updateStatus(function (status){
+			ractiveScore.set('score', status.score);
+		});
 	}, 1000);
 });
