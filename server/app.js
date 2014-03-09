@@ -7,15 +7,18 @@
 // tell score pr side
 var express = require('express');
 var cors = require('cors');
-var MatchSet = require('./matchset');
+
+var Match = require('./match');
 
 module.exports = function (events) {
 
-  var matchset = new MatchSet(events);
+  var match = new Match(events);
   var status = 'stopped';
 
   var app = express();
+
   app.use(cors());
+
   app.get('/status', function (req, res) {
     respond(res);
   });
@@ -32,11 +35,10 @@ module.exports = function (events) {
 
   function respond (res) {
     res.json({
-      score: matchset.score,
+      score: match.score,
       status: status
     });
   }
 
   return app;
-
 };

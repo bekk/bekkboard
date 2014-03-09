@@ -1,14 +1,14 @@
 
 module.exports = MatchSet;
 
-function MatchSet (events) {
+function MatchSet () {
   var self = this;
 
   self.players = { a: 0, b: 0 };
 
-  events.on("score", function (data) {
-    self.players[data.point]++;
-  });
+  self.point = function (side) {
+    self.players[side]++;
+  };
 
   self.__defineGetter__("score", function () {
     // return copy
