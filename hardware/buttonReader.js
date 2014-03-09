@@ -21,10 +21,10 @@ sp.on("open", function () {
   sp.on('data', function(data) {
     console.log('data received: ' + data);
     switch(data){
-    	case 0:
+    	case "0":
     	events.emit("score", {point: "a"});
     	break;
-    	case 1:
+    	case "1":
     	events.emit("score", {point: "b"});
     	break;
     }
