@@ -15,6 +15,11 @@ describe('match', function () {
     m.score().should.deep.equal({ a: 0, b: 0 });
   });
 
+  it('is initially stopped', function () {
+    var m = new Match(events);
+    m.status().should.equal('stopped');
+  });
+
   it('does not up score when stopped', function () {
     var m = new Match(events);
     m.stop();

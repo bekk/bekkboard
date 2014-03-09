@@ -33,6 +33,7 @@ describe('app', function () {
   });
 
   it('ups score on event', function (done) {
+
     request(app)
       .post('/start')
       .expect(200, function () {
@@ -49,6 +50,7 @@ describe('app', function () {
   });
 
   it('POST /stop', function (done) {
+
     request(app)
       .post('/start')
       .expect(200, function () {
