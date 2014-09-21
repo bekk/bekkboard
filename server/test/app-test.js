@@ -16,18 +16,17 @@ describe('app', function () {
 
     request(app)
       .get('/status')
-      .expect({
-        score: { a: 0, b: 0 },
-        status: 'stopped'
-      }, done);
+      .expect({}, done);
   });
 
   it('POST /start', function (done) {
 
     request(app)
       .post('/start')
+      .send({ a: 'bob', b: 'alice' })
       .expect({
         score: { a: 0, b: 0 },
+        players: { a: 'bob', b: 'alice' },
         status: 'started'
       }, done);
   });
@@ -36,6 +35,7 @@ describe('app', function () {
 
     request(app)
       .post('/start')
+      .send({ a: 'bob', b: 'alice' })
       .expect(200, function () {
 
         events.emit('score', { side: 'a' });
@@ -44,6 +44,7 @@ describe('app', function () {
           .get('/status')
           .expect({
             score: { a: 1, b: 0 },
+            players: { a: 'bob', b: 'alice' },
             status: 'started'
           }, done);
       });
@@ -53,13 +54,29 @@ describe('app', function () {
 
     request(app)
       .post('/start')
+      .send({ a: 'bob', b: 'alice' })
       .expect(200, function () {
 
         request(app)
           .post('/stop')
           .expect({
             score: { a: 0, b: 0 },
+            players: { a: 'bob', b: 'alice' },
             status: 'stopped'
+          }, done);
+      });
+  });
+
+  it('signs up users', function (done) {
+    request(app)
+      .post('/signup')
+      .send({ name: 'bob' })
+      .expect(200, function () {
+
+        request(app)
+          .get('/players')
+          .expect({
+            players: ['bob']
           }, done);
       });
   });
