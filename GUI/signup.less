@@ -1,18 +1,83 @@
 @import "global";
 
+.no-border() {
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+}
+
 .signup {
   .center-contents();
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
+}
+
+.confirmed {
+  display: block;
+  margin: 0 auto;
+  margin-top: 1em;
+  text-align: center;
+  font-size: 9em;
+
+  opacity: 0;
+  transition: all 0.2s;
+  &.confirmed--flash {
+    opacity: 1;
+    .blink();
+  }
 }
 
 .signup-field {
   .font();
   display: block;
   font-size: 8em;
-  color: @color-text-dark;
+  color: @color-text;
   padding: 0.3em 0.6em;
+
+  background-color: @color-bekk-gray;
+  .no-border();
+
+  border-bottom: 1px solid @color-bekk-gray-light;
+
+  &:active,
+  &:focus {
+    .no-border();
+    border-bottom: 1px solid @color-bekk-red;
+  }
+}
+
+
+.blink() {
+  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+
+  -moz-animation-name: blinker;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+
+  animation-name: blinker;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@-moz-keyframes blinker {
+  .frames();
+}
+
+@-webkit-keyframes blinker {
+  .frames();
+}
+
+@keyframes blinker {
+  .frames();
+}
+
+.frames() {
+    0%   { opacity: 0.9; }
+    7%   { opacity: 0.1; }
+    14%  { opacity: 0.9; }
+    50%  { opacity: 1.0; }
+    100% { opacity: 1.0; }
 }

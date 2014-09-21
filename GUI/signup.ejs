@@ -1,16 +1,24 @@
 <link rel="stylesheet" type="text/css" href="signup.css">
+<div class="confirmed">You're on!</div>
 <form method="post" action="" class="signup" autocomplete="off">
   <input class="signup-field" type="text" name="name" placeholder="I want to play!">
 </form>
 
 <script>
   var $form = $('.signup'),
+      $confirmed = $('.confirmed'),
       $input = $('.signup-field');
 
   $input.focus();
 
   $form.submit(function (e) {
     e.preventDefault();
+
+    $confirmed.addClass('confirmed--flash');
+    setTimeout(function () {
+      $confirmed.removeClass('confirmed--flash');
+    }, 1000);
+
     Api.signUp($input.val(), function () {
       console.log('worked.');
     });
