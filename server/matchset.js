@@ -25,5 +25,17 @@ function MatchSet () {
     };
   });
 
-  // TODO calculate winner
+  self.__defineGetter__('done', function () {
+    return hasWinner();
+  });
+
+  function hasWinner () {
+    var hasEnough = (sides.a >= MatchSet.WinnerScore ||
+                     sides.b >= MatchSet.WinnerScore);
+    var hasMoreTwoPointLead = Math.abs(sides.a - sides.b) >= MatchSet.WinningLead;
+    return hasEnough && hasMoreTwoPointLead;
+  }
 }
+
+MatchSet.WinnerScore = 11;
+MatchSet.WinningLead = 2;
