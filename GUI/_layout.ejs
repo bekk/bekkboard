@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="global.css">
+  <script id="scoreTemplate" type="text/ractive">
+    {{#winner}}
+      <div>
+        <h1 class="winner winner-heading">Winner</h1>
+        <h2 class="winner winner-name">{{winner}}</h2>
+      </div>
+    {{/winner}}
+    <span class="score">{{score.a}} - {{score.b}}</span>
+  </script>
+  <script id="adminTemplate" type="text/ractive">
+    {{^started}}
+      <button class="button" on-click="action:'start'">Start</button>
+    {{/started}}
+
+    {{#started}}
+      <button class="button" on-click="action:'stop'">Stop</button>
+    {{/started}}
+  </script>
+</head>
+  <body>
+    <script src="jquery.min.js"></script>
+    <script src="ractive.min.js"></script>
+    <script src="api.js"></script>
+
+    <%- yield %>
+  </body>
+</html>
