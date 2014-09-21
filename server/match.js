@@ -21,6 +21,10 @@ function Match (events) {
   };
 
   self.status = function (newStatus) {
+    if (winner) {
+      this.stop();
+      return status;
+    }
     if (newStatus) {
       status = newStatus;
     }

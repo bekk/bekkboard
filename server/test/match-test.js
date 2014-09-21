@@ -74,6 +74,13 @@ describe('match', function () {
     m.json().should.have.property('winner').and.equal('a');
   });
 
+  it('stops match when there is a winner', function () {
+    var m = new Match(events);
+    m.start();
+    emitScore('a', 11);
+    m.json().should.have.property('status').and.equal('stopped');
+  });
+
   function emitScore (player, points) {
     while (points--) {
       events.emit('score', { side: player });
