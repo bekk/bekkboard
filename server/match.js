@@ -6,7 +6,9 @@ module.exports = Match;
 function Match (events) {
   var self = this;
 
-  var status  = 'stopped';
+  var status = 'stopped',
+      winner;
+
   var matchset = new MatchSet();
 
   self.start = function () {
@@ -37,6 +39,9 @@ function Match (events) {
       return;
     }
     matchset.point(data.side);
+    if (matchset.done) {
+      winner = true;
+    }
   });
 
   self.score = function () {
@@ -44,9 +49,14 @@ function Match (events) {
   };
 
   self.json = function () {
-    return {
+    var o = {
       score: self.score(),
       status: self.status()
     };
+
+    if (winner) {
+      o.winner = matchset.winner;
+    }
+    return o;
   };
 }

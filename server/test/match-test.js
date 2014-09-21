@@ -66,4 +66,17 @@ describe('match', function () {
       status: 'stopped'
     });
   });
+
+  it('contains winner in json', function () {
+    var m = new Match(events);
+    m.start();
+    emitScore('a', 11);
+    m.json().should.have.property('winner').and.equal('a');
+  });
+
+  function emitScore (player, points) {
+    while (points--) {
+      events.emit('score', { side: player });
+    }
+  }
 });
