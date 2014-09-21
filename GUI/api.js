@@ -1,8 +1,11 @@
 var Api = (function () {
   var url = "http://localhost:3000";
   return {
-    getStatus: function (callback){
-      $.get(url + "/status", callback);
+    signUp: function (name, fn) {
+      $.post(url + "/signup", { name: name }, fn);
+    },
+    getStatus: function (fn) {
+      $.get(url + "/status", fn);
     },
     startGame : function(){
       $.post(url + "/start");

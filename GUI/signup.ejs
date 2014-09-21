@@ -1,0 +1,20 @@
+<link rel="stylesheet" type="text/css" href="signup.css">
+<form method="post" action="" class="signup" autocomplete="off">
+  <input class="signup-field" type="text" name="name" placeholder="I want to play!">
+</form>
+
+<script>
+  var $form = $('.signup'),
+      $input = $('.signup-field');
+
+  $input.focus();
+
+  $form.submit(function (e) {
+    e.preventDefault();
+    Api.signUp($input.val(), function () {
+      console.log('worked.');
+    });
+    $input.val("");
+  });
+
+</script>
