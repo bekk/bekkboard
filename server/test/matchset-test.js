@@ -67,6 +67,16 @@ describe("match set", function () {
     s.done.should.equal(true);
   });
 
+  it('determines winner', function () {
+    var s;
+    s = new MatchSet();
+    point(s, 'a', 11);
+    s.winner.should.equal('a');
+
+    s = new MatchSet();
+    point(s, 'b', 11);
+    s.winner.should.equal('b');
+  });
 
   function point (set, player, points) {
     while (points--) {

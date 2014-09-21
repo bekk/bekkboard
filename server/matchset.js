@@ -29,6 +29,12 @@ function MatchSet () {
     return hasWinner();
   });
 
+  self.__defineGetter__('winner', function () {
+    if (hasWinner()) {
+      return sides.a > sides.b ? "a" : "b";
+    }
+  });
+
   function hasWinner () {
     var hasEnough = (sides.a >= MatchSet.WinnerScore ||
                      sides.b >= MatchSet.WinnerScore);
