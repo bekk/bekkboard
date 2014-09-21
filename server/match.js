@@ -3,7 +3,7 @@ var MatchSet = require('./matchset');
 
 module.exports = Match;
 
-function Match (events, playerOne, playerTwo) {
+function Match (events, playerA, playerB) {
   var self = this;
 
   var status = 'stopped',
@@ -53,7 +53,7 @@ function Match (events, playerOne, playerTwo) {
   };
 
   self.players = function () {
-    return { a: playerOne, b: playerTwo };
+    return { a: playerA, b: playerB };
   };
 
   self.json = function () {
