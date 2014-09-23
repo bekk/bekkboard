@@ -1,24 +1,33 @@
 var Api = (function () {
   var url = "http://localhost:3000";
+
   return {
     signUp: function (name, fn) {
-      $.ajax({
-        type: "post",
-        url: url + "/signup",
-        data: JSON.stringify({ name: name }),
-        contentType: 'application/json',
-        dataType: 'json',
-        success: fn
-      });
+      fn = fn || function () {};
+      return postJson("/signup", { name: name }, fn);
     },
     getStatus: function (fn) {
-      $.get(url + "/status", fn);
+      fn = fn || function () {};
+      return $.get(url + "/status", fn);
     },
-    startGame : function(){
-      $.post(url + "/start");
+    startGame : function (fn) {
+      fn = fn || function () {};
+      return postJson("/start", { playerA: 'fake a', playerB: 'fake b' }, fn);
     },
-    stopGame : function(){
-      $.post(url + "/stop");
+    stopGame : function (fn) {
+      fn = fn || function () {};
+      return $.post(url + "/stop", fn);
     }
   };
+
+  function postJson (path, data, fn) {
+    return $.ajax({
+      type: "post",
+      url: url + path,
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      dataType: 'json',
+      success: fn
+    });
+  }
 })();
