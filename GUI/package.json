@@ -5,6 +5,7 @@
     "harp": "^0.11.2"
   },
   "scripts": {
-    "start": "node_modules/.bin/harp server"
+    "start": "./node_modules/.bin/harp server",
+    "start-prod": "NODE_ENV=production ./node_modules/.bin/harp server"
   }
 }
