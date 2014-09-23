@@ -12,6 +12,6 @@
 *.la
 *.a
 
-GUI/node_modules
 npm-debug.log
 .DS_Store
+node_modules
