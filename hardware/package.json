@@ -2,16 +2,15 @@
   "name": "hardware",
   "version": "0.0.0",
   "description": "",
-  "main": "buttonReader.js",
+  "main": "index.js",
   "dependencies": {
-    "bleno": "^0.1.7",
     "noble": "^0.3.5",
-    "serialport": "~1.3.1"
+    "bluebird": "^2.3.2"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC"
+  "author": "@torgeir",
+  "license": "mit"
 }
