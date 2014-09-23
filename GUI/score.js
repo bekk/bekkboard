@@ -8,7 +8,11 @@ function ScoreView (el) {
       return;
     }
     interval = setInterval(function () {
-      Api.getStatus(self.updateScore);
+      Api
+        .getStatus(self.updateScore)
+        .fail(function () {
+          console.log('fetching status failed');
+        });
     }, ms);
   };
 
