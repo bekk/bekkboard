@@ -1,4 +1,5 @@
-var EventEmitter = require('events').EventEmitter;
-var events = new EventEmitter;//require('../hardware/buttonReader');
-var app = require('./app')(events);
+// var EventEmitter = require('events').EventEmitter;
+// var events = new EventEmitter;
+var hardwareEvents = require('../hardware');
+var app = require('./app')(hardwareEvents);
 app.listen(3000);
