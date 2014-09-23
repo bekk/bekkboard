@@ -90,6 +90,7 @@ function discoverPeripheral (peripheralUuid) {
           resolve(peripheral);
         }
         else {
+          noble.off('discover', discover);
           timeout(10000, 'timeout discovering peripheral ' + peripheralUuid, reject);
         }
       });
