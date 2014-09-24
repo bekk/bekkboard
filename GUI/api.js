@@ -10,13 +10,16 @@ var Api = (function () {
       fn = fn || function () {};
       return $.get(url + "/status", fn);
     },
-    startGame : function (fn) {
+    startGame: function (fn) {
       fn = fn || function () {};
       return postJson("/start", { playerA: 'fake a', playerB: 'fake b' }, fn);
     },
-    stopGame : function (fn) {
+    stopGame: function (fn) {
       fn = fn || function () {};
       return $.post(url + "/stop", fn);
+    },
+    getPlayers: function (fn) {
+      return $.get(url + '/players', fn);
     }
   };
 

@@ -1,11 +1,11 @@
 <link rel="stylesheet" type="text/css" href="admin.css">
-<div id="score"></div>
+<div class="score"></div>
 <script src="score.js"></script>
 
-<div id="admin"></div>
+<div class="admin"></div>
 <script src="admin.js"></script>
 
 <script>
-  var s = new ScoreView("#score");
-  s.start(500);
+  new ScoreView(".score").start(500);
+  new AdminView(".admin");
 </script>

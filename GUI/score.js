@@ -9,7 +9,7 @@ function ScoreView (el) {
     }
     interval = setInterval(function () {
       Api
-        .getStatus(self.updateScore)
+        .getStatus(updateScore)
         .fail(function () {
           console.log('fetching status failed');
         });
@@ -30,28 +30,11 @@ function ScoreView (el) {
     }
   });
 
-  ractive.on({
-    action: function (event, action){
-      if (action == "start") {
-        Api.startGame();
-        ractive.set('started', true);
-      }
-      else if (action == "stop") {
-        Api.stopGame();
-        ractive.set('started', false);
-      }
-    }
-  });
-
-  this.updateScore = function updateScore (data) {
-    var winner = data.winner;
-    if (winner) {
-      ractive.set('winner', winner);
-    }
-    else {
-      ractive.set('score', data.score);
-      ractive.set('started', data.status == "started");
-    }
+  function updateScore (data) {
+    ractive.set('winner', data.winner);
+    ractive.set('players', data.players);
+    ractive.set('score', data.score);
+    ractive.set('started', data.status == "started");
   }
 }
 
