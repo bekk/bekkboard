@@ -12,6 +12,10 @@ noble.on('stateChange', function stateChange (state) {
   }
 });
 
+function isDisconnecting (peripheral) {
+  return !peripheral || peripheral && peripheral.state === 'disconnecting';
+}
+
 /** Enables debug logging */
 exports.debug = function () { exports.loggingEnabled = true; };
 
@@ -23,54 +27,81 @@ exports.connect = function connect (peripheralUuid, serviceUuid, characteristicU
 
   var emitter = new EventEmitter();
 
-  var restarting;
-  (function reconnectLoop () {
-    restarting = false;
+  var shouldReconnect = true;
 
-    var peripheral;
-    discoverPeripheral(peripheralUuid)
-      .then(function (device) {
-        peripheral = device.peripheral;
-        device.peripheral.once('disconnect', restart);
-        return device;
-      })
-      .then(discoverService(serviceUuid))
-      .then(discoverCharacteristics(characteristicUuid))
-      .then(function (device) {
-        emitter.emit('connected');
-        device.subscribe(function (value) {
-          emitter.emit('data', value);
-        });
-      })
-      .catch(function (err) {
-        log('errored with:', err);
-        if (peripheral && peripheral.state !== 'disconnecting') {
+  process.once('SIGINT', function () {
+    shouldReconnect = false;
+    noble.stopScanning();
 
-          // if disconnects occur inside noble, our `device.peripheral.once('disconnect', restart)
-          // listener may have been remove. Check if it's still there, or re-add it before we disconnect
-          var hasRestartListener = (peripheral.listeners('disconnect').indexOf(restart) != -1);
-          if (hasRestartListener) {
-            peripheral.once('disconnect', restart);
+    log('\nshutting down peripherals..');
+    var peripherals = noble._peripherals;
+    for (var uuid in peripherals) {
+      var peripheral = peripherals[uuid];
+      if (!isDisconnecting(peripherals)) {
+        peripheral.disconnect();
+      }
+    }
+
+    setTimeout(function () {
+      // noble won't shut down cleanly
+      process.exit(0);
+    }, 1000);
+  });
+
+  discoverPeripheral(peripheralUuid)
+    .then(function (peripheral) {
+
+      var restarting;
+
+      (function reconnectLoop () {
+
+        peripheral.once('disconnect', restart);
+
+        restarting = false;
+
+        connectToPeripheral(peripheral)
+          .then(discoverService(serviceUuid))
+          .then(discoverCharacteristics(characteristicUuid))
+          .then(function (device) {
+            emitter.emit('connected');
+            device.subscribe(function (value) {
+              emitter.emit('data', value);
+            });
+          })
+          .catch(function (err) {
+            log('errored with:', err);
+
+            if (!isDisconnecting(peripheral)) {
+
+              // if disconnects occur inside noble, our `peripheral.once('disconnect', restart)
+              // listener may have been remove. Check if it's still there, or re-add it before we disconnect
+              var hasRestartListener = (peripheral.listeners('disconnect').indexOf(restart) != -1);
+              if (!hasRestartListener) {
+                peripheral.once('disconnect', restart);
+              }
+              peripheral.disconnect();
+            }
+            else {
+              restart();
+            }
+          });
+
+        function restart () {
+          if (!shouldReconnect) {
+            return;
           }
 
-          peripheral.disconnect();
-        }
-        else {
-          restart();
-        }
-      });
+          if (restarting) {
+            log('already restarting, aborting');
+            return;
+          }
 
-    function restart () {
-      if (restarting) {
-        log('already restarting, aborting');
-        return;
-      }
-      restarting = true;
-
-      emitter.emit('disconnected');
-      reconnectLoop();
-    }
-  })();
+          restarting = true;
+          emitter.emit('disconnected');
+          setTimeout(reconnectLoop, 300);
+        }
+      })();
+    });
 
   return emitter;
 };
@@ -79,23 +110,20 @@ exports.connect = function connect (peripheralUuid, serviceUuid, characteristicU
 /** Discoveres and connects to peripheral with uuid */
 function discoverPeripheral (peripheralUuid) {
   return new Promise(function (resolve, reject) {
-      log('discovering..');
+    log('discovering..');
 
-      noble.on('discover', function discover (peripheral) {
-        log('discovering, found:', peripheral.uuid);
+    noble.on('discover', function discover (peripheral) {
+      log('discovering, found:', peripheral.uuid);
 
-        if (peripheral.uuid === peripheralUuid) {
-          noble.off('discover', discover);
-          log('discovered peripheral', peripheral.uuid);
-          resolve(peripheral);
-        }
-        else {
-          noble.off('discover', discover);
-          timeout(2000, 'timeout discovering peripheral ' + peripheralUuid, reject);
-        }
-      });
-    })
-    .then(connectToPeripheral);
+      if (peripheral.uuid === peripheralUuid) {
+        noble.off('discover', discover);
+        noble.stopScanning();
+
+        log('discovered peripheral', peripheral.uuid);
+        resolve(peripheral);
+      }
+    });
+  });
 }
 
 /** Connects to a discovered peripheral */
@@ -191,25 +219,10 @@ function discoverCharacteristics (characteristicUuid) {
   };
 }
 
-// stop scanning on exit
-process.on('SIGINT', exit);
-function exit () {
-  log('\nexiting..');
-  noble.stopScanning();
-  process.exit(0);
-}
-
 // scopes logging
 function log () {
   if (exports.loggingEnabled) {
     var args = [].slice.call(arguments);
     console.log.apply(console, ["noble-emitter>"].concat(args));
   }
-}
-
-// calls fn with error after ms
-function timeout (ms, msg, fn) {
-  setTimeout(function () {
-    fn(new Error(msg));
-  }, ms);
 }
