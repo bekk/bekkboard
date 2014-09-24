@@ -34,23 +34,25 @@ function emitUndo(side){
 
 function handleButton (side) {
   //emitScore(side);
-  if(counters[side] && counters[side] >= undoLimit){
-    if(timers[side]){
+  if (counters[side] && counters[side] >= undoLimit) {
+    if (timers[side]) {
       clearTimeout(timers[side]);
       timers[side] = null;
     }
     counters[side] = 0;
     emitUndo(side);
   } else {
-    if(!counters[side])
-      counters[side] = 0
+    if (!counters[side]) {
+      counters[side] = 0;
+    }
     counters[side] += 1;
-    if(!timers[side])
-      timers[side] = setTimeout(function(){
+    if (!timers[side]) {
+      timers[side] = setTimeout(function () {
         emitScore(side);
         timers[side] = null;
         counters[side] = 0;
       }, undoTimeout);
+    }
   }
 }
 
