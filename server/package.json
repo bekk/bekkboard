@@ -4,8 +4,7 @@
   "description": "Match-serveren",
   "main": "server.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha -R min -w",
-    "start": "node server.js"
+    "test": "node_modules/.bin/mocha -R min -w"
   },
   "author": "@torgeir,@magnuf",
   "license": "mit",

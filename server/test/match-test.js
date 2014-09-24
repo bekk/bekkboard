@@ -64,7 +64,7 @@ describe('match', function () {
   it('contains winner in json', function () {
     m.start();
     emitScore('a', 11);
-    m.json().should.have.property('winner').and.equal('a');
+    m.json().should.have.property('winner').and.equal('alice');
   });
 
   it('stops match when there is a winner', function () {

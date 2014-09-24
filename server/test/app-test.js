@@ -59,11 +59,7 @@ describe('app', function () {
 
         request(app)
           .post('/stop')
-          .expect({
-            score: { a: 0, b: 0 },
-            players: { a: 'bob', b: 'alice' },
-            status: 'stopped'
-          }, done);
+          .expect({}, done);
       });
   });
 
@@ -76,7 +72,7 @@ describe('app', function () {
         request(app)
           .get('/players')
           .expect({
-            players: ['bob']
+            players: [{ name: 'bob' }]
           }, done);
       });
   });

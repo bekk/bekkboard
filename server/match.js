@@ -3,7 +3,7 @@ var MatchSet = require('./matchset');
 
 module.exports = Match;
 
-function Match (events, playerA, playerB) {
+function Match (events, a, b) {
   var self = this;
 
   var status = 'stopped',
@@ -53,7 +53,7 @@ function Match (events, playerA, playerB) {
   };
 
   self.players = function () {
-    return { a: playerA, b: playerB };
+    return { a: a, b: b };
   };
 
   self.json = function () {
@@ -64,7 +64,7 @@ function Match (events, playerA, playerB) {
     };
 
     if (winner) {
-      o.winner = matchset.winner;
+      o.winner = matchset.winner == "a" ? a : b;
     }
 
     return o;

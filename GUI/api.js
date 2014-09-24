@@ -12,7 +12,7 @@ var Api = (function () {
     },
     startGame: function (fn) {
       fn = fn || function () {};
-      return postJson("/start", { playerA: 'fake a', playerB: 'fake b' }, fn);
+      return postJson("/start", { a: 'fake a', b: 'fake b' }, fn);
     },
     stopGame: function (fn) {
       fn = fn || function () {};

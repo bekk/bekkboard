@@ -26,7 +26,10 @@ module.exports = function (events) {
   });
 
   app.post('/stop', function (req, res) {
-    match.stop();
+    if (match) {
+      match.stop();
+      match = null;
+    }
     respond(res);
   });
 
@@ -37,7 +40,9 @@ module.exports = function (events) {
   });
 
   app.get('/players', function (req, res) {
-    res.json({ players: users });
+    res.json({
+      players: users.map(function (name) { return { name: name }; })
+    });
   });
 
   function respond (res) {
