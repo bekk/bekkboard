@@ -5,12 +5,13 @@ var express       = require('express'),
     EventEmitter  = require('events').EventEmitter,
     EventSource   = fayeWebsocket.EventSource;
 
-var Match = require('./match');
+var Match = require('./match'),
+    Users = require('./users');
 
 module.exports = function (events) {
 
   var match;
-  var users = [];
+  var users = new Users();
 
   var browserEvents = new EventEmitter();
 
@@ -45,7 +46,7 @@ module.exports = function (events) {
 
   app.post('/signup', function (req, res) {
     var body = req.body;
-    users.push({ name: body.name });
+    users.push(body.name);
     res.end();
 
     sendSseEventScore();
@@ -53,12 +54,12 @@ module.exports = function (events) {
   });
 
   app.get('/players', function (req, res) {
-    res.json({ players: users });
+    res.json({ players: users.json() });
   });
 
   app.del('/player/:index', function (req, res) {
     var index = req.param('index');
-    users.splice(index, 1);
+    users.remove(index);
     res.end('ok');
     sendSseEventPlayers();
   });
@@ -85,7 +86,7 @@ module.exports = function (events) {
     sendSseEvent('score', match ? match.json() : {});
   }
   function sendSseEventPlayers () {
-    sendSseEvent('players', users);
+    sendSseEvent('players', users.json());
   }
 
   events.on('connected', function () {
@@ -99,7 +100,7 @@ module.exports = function (events) {
   app.get('/es', function(req, res) {
     if (EventSource.isEventSource(req)) {
 
-      var es = new EventSource(req, res, {
+        var es = new EventSource(req, res, {
         headers: { 'Access-Control-Allow-Origin': '*' },
         ping:    15, // seconds
         retry:   1   // seconds
