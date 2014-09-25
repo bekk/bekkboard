@@ -21,6 +21,9 @@ var Api = (function () {
     getPlayers: function (fn) {
       return $.get(url + '/players', fn);
     },
+    removePlayer: function (i, fn) {
+      return postDel('/player/' + i, fn);
+    },
     connect: function (fn) {
       return $.get(url + '/connect', fn);
     }
@@ -31,6 +34,16 @@ var Api = (function () {
       type: "post",
       url: url + path,
       data: JSON.stringify(data),
+      contentType: 'application/json',
+      dataType: 'json',
+      success: fn
+    });
+  }
+
+  function postDel (path, fn) {
+    return $.ajax({
+      type: "delete",
+      url: url + path,
       contentType: 'application/json',
       dataType: 'json',
       success: fn

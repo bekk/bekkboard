@@ -14,6 +14,13 @@
   text-align: center;
 }
 
+.responsive-font-size() {
+  font-size: 2em;
+  @media @tablet  { font-size: 4em; }
+  @media @desktop { font-size: 8em; }
+  @media @tv      { font-size: 9em; }
+}
+
 .signup-field-confirmed {
   position: absolute;
   margin: 0 auto;
@@ -21,10 +28,8 @@
   left: 0;
   right: 0;
   text-align: center;
-  font-size: 2em;
-  @media @tablet  { font-size: 4em; }
-  @media @desktop { font-size: 8em; }
-  @media @tv      { font-size: 12em; }
+
+  .responsive-font-size();
 
   opacity: 0;
   transition: all 0.2s;
@@ -34,15 +39,10 @@
   }
 }
 
-
 .signup-field-name {
   .font();
-
+  .responsive-font-size();
   width: 80%;
-  font-size: 2em;
-  @media @tablet  { font-size: 4em; }
-  @media @desktop { font-size: 8em; }
-  @media @tv      { font-size: 12em; }
 
   color: @color-text;
   padding: 0.3em 0.6em;

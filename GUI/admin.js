@@ -34,21 +34,21 @@ function AdminView (el) {
   });
 
   admin.on({
-    action: function (event, action){
-      if (action == "start") {
+    start: function (event, action){
         var playerA = admin.get(selected[0]).name;
         var playerB = admin.get(selected[1]).name;
         Api.startGame(playerA, playerB);
         admin.set('started', true);
-      }
-      else if (action == "stop") {
-        Api.stopGame();
-        admin.set('started', false);
-      }
     },
 
-    remove: function () {
+    stop: function () {
+      Api.stopGame();
+      admin.set('started', false);
+    },
 
+    remove: function (event, i) {
+      Api.removePlayer(i);
+      event.original.preventDefault();
     }
   });
 }

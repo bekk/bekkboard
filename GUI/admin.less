@@ -8,6 +8,7 @@
 .player {
 
   .player-name {
+    position: relative;
     padding: 1em 2em;
     display: block;
 
@@ -18,6 +19,19 @@
     &:active {
       background-color: @color-bekk-red;
     }
+  }
+
+  .player-name .player-name-remove {
+    position: absolute;
+    right: 1em;
+    top: 0;
+    bottom: 0;
+    padding: 1em;
+  }
+
+  .player-name:hover .player-name-remove {
+    opacity: 1;
+    color: @color-bekk-red;
   }
 
   [type=checkbox] {

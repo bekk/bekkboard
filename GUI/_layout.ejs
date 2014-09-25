@@ -33,6 +33,7 @@
           <input id="player-name-{{i}}" type="checkbox" checked="{{.checked}}">
           <label for="player-name-{{i}}" class="player-name">
             {{name}}
+            <span class="player-name-remove" on-click="remove:{{i}}">x</span>
           </label>
         </li>
       {{/each}}
@@ -40,11 +41,11 @@
 
     <div class="admin-buttons">
       {{^started}}
-        <button class="button button--start button--center" on-click="action:'start'">Start</button>
+        <button class="button button--start button--center" on-click="start">Start</button>
       {{/started}}
 
       {{#started}}
-        <button class="button button--stop button--center" on-click="action:'stop'">Stop</button>
+        <button class="button button--stop button--center" on-click="stop">Stop</button>
       {{/started}}
     </div>
   </script>

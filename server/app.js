@@ -54,6 +54,13 @@ module.exports = function (events) {
     res.json({ players: users });
   });
 
+  app.del('/player/:index', function (req, res) {
+    var index = req.param('index');
+    users.splice(index, 1);
+    res.end('ok');
+    sendSseEventPlayers();
+  });
+
   app.get('/connect', function (req, res) {
     res.end('ok');
 
