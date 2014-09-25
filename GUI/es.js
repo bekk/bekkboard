@@ -4,10 +4,10 @@ var ES = (function () {
   var events = {};
 
   function connect () {
-    es = new EventSource('http://localhost:3000/es');
+    es = new EventSource(API.Url + '/es');
     es.addEventListener('open', function () {
       attachListeners();
-      Api.connect();
+      API.connect();
     });
   }
 

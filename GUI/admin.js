@@ -42,17 +42,17 @@ function AdminView (el) {
       }
       var playerA = admin.get(selected[0]);
       var playerB = admin.get(selected[1]);
-      Api.startGame(playerA.name, playerB.name);
+      API.startGame(playerA.name, playerB.name);
       admin.set('started', true);
     },
 
     stop: function () {
-      Api.stopGame();
+      API.stopGame();
       admin.set('started', false);
     },
 
     remove: function (event, i) {
-      Api.removePlayer(i);
+      API.removePlayer(i);
       admin.splice('players', i, 1);
       var selectedIndex = selected.indexOf(i);
       if (selectedIndex != -1) {
