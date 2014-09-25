@@ -1,11 +1,5 @@
 @import "global";
 
-.no-border() {
-  outline: none;
-  border: none;
-  -webkit-appearance: none;
-}
-
 .signup {
   display: table;
   width: 100%;
@@ -83,18 +77,18 @@
 }
 
 @-moz-keyframes blinker {
-  .frames();
+  .blink-frames();
 }
 
 @-webkit-keyframes blinker {
-  .frames();
+  .blink-frames();
 }
 
 @keyframes blinker {
-  .frames();
+  .blink-frames();
 }
 
-.frames() {
+.blink-frames() {
     0%   { opacity: 0.9; }
     7%   { opacity: 0.1; }
     14%  { opacity: 0.9; }

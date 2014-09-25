@@ -1,0 +1,31 @@
+
+.button {
+  padding: 0.5em 1em;
+  color: @color-text;
+  .pointer();
+  .font();
+  font-size: 2em;
+
+  .no-border();
+
+  .button-clickable() {
+    &:active {
+      background-color: @color-bekk-gray;
+      color: @color-bekk-gray-light;
+    }
+  }
+
+  &.button--start {
+    background-color: @color-bekk-blue;
+    .button-clickable();
+  }
+  &.button--stop {
+    background-color: @color-bekk-red;
+    .button-clickable();
+  }
+
+  &.button--center {
+    margin: 0 auto;
+    display: block;
+  }
+}

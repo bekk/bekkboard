@@ -10,12 +10,33 @@
 @desktop: ~"only screen and (min-width: 960px) and (max-width: 1199px)";
 @tv:      ~"only screen and (min-width: 1200px)";
 
-@import "clearfix";
+@import "buttons";
+
+.no-border() {
+  outline: none;
+  border: none;
+  -webkit-appearance: none;
+}
+
+.uppercase-first-letter() {
+  &:first-letter {
+    text-transform: uppercase;
+  }
+}
 
 .font() {
   font-family: "Helvetica Neue";
   font-weight: 100;
   color: @color-text;
+}
+
+.clearfix() {
+
+  &:after {
+    content: '';
+    display: table;
+    clear: both;
+  }
 }
 
 .center-contents() {
@@ -30,12 +51,18 @@
   justify-content: center;
 }
 
+.pointer() {
+  cursor: pointer;
+}
+
 html,
 body {
   height: 100%;
-  background: @color-bg;
+  background-color: @color-bg;
+
   font-size: 100%;
   .font();
+
   box-sizing: border-box;
 }
 
@@ -44,3 +71,8 @@ body {
   box-sizing: inherit;
 }
 
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
