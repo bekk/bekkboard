@@ -7,7 +7,7 @@ var ES = (function () {
     es = new EventSource('http://localhost:3000/es');
     es.addEventListener('open', function () {
       attachListeners();
-      Api.connectSse();
+      Api.connect();
     });
   }
 
@@ -28,7 +28,7 @@ var ES = (function () {
         fn(data);
       }
       catch (e) {
-        console.error('failed parsing sseData.data as json');
+        console.error('failed parsing sseData.data as json:', e);
       }
     });
   }

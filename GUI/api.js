@@ -10,9 +10,9 @@ var Api = (function () {
       fn = fn || function () {};
       return $.get(url + "/status", fn);
     },
-    startGame: function (fn) {
+    startGame: function (playerA, playerB, fn) {
       fn = fn || function () {};
-      return postJson("/start", { a: 'fake a', b: 'fake b' }, fn);
+      return postJson("/start", { a: playerA, b: playerB }, fn);
     },
     stopGame: function (fn) {
       fn = fn || function () {};

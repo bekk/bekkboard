@@ -20,8 +20,13 @@
         <li>no players</li>
       {{/started}}
 
-      {{#each players:num}}
-        <li><input type="checkbox" on-click="select:{{num}}">{{name}}</li>
+      {{#each players:i}}
+        <li>
+          <label>
+            <input type="checkbox" checked="{{.checked}}">
+            {{name}}
+          </label>
+        </li>
       {{/each}}
     </ul>
 
