@@ -1,12 +1,14 @@
 <link rel="stylesheet" type="text/css" href="signup.css">
-<div class="confirmed">You're on!</div>
 <form method="post" action="" class="signup" autocomplete="off">
-  <input class="signup-field" type="text" name="name" placeholder="I want to play!">
+  <label class="signup-field">
+    <div class="signup-field-confirmed">You're on!</div>
+    <input type="text" class="signup-field-name" name="name" placeholder="I want to play!">
+  </label>
 </form>
 
 <script>
   var $form = $('.signup'),
-      $confirmed = $('.confirmed'),
+      $confirmed = $('.signup-field-confirmed'),
       $input = $('.signup-field');
 
   $input.focus();
