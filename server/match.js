@@ -1,5 +1,6 @@
-
+var EventEmitter = require('events').EventEmitter;
 var MatchSet = require('./matchset');
+var util = require('util');
 
 module.exports = Match;
 
@@ -36,6 +37,7 @@ function Match (events, a, b) {
       return;
     }
     matchset.undoPoint(data.side);
+    self.emit('change');
   });
 
   events.on("score", function (data) {
@@ -46,6 +48,7 @@ function Match (events, a, b) {
     if (matchset.done) {
       winner = true;
     }
+    self.emit('change');
   });
 
   self.score = function () {
@@ -70,3 +73,4 @@ function Match (events, a, b) {
     return o;
   };
 }
+util.inherits(Match, EventEmitter);
