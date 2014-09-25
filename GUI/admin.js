@@ -27,7 +27,7 @@ function AdminView (el) {
       admin.set(shifted + '.checked', false);
     }
 
-    if (newVal) {
+    if (newVal && selected.length <= 2) {
       selected.push(playerKeypath);
     }
     else {
@@ -53,7 +53,7 @@ function AdminView (el) {
 
     remove: function (event, i) {
       Api.removePlayer(i);
-      admin.set('players.'+i+'.checked', false);
+      admin.splice('players', i, 1);
       var selectedIndex = selected.indexOf(i);
       if (selectedIndex != -1) {
         selected.splice(selectedIndex, 1);

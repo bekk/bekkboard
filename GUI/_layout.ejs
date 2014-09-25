@@ -25,7 +25,7 @@
 <script id="adminTemplate" type="text/ractive">
   <ul class="players">
     {{^players}}
-      <li>no players</li>
+      <li>No players</li>
     {{/started}}
 
       {{#each players:i}}
@@ -33,7 +33,7 @@
           <input id="player-name-{{i}}" type="checkbox" checked="{{.checked}}">
           <label for="player-name-{{i}}" class="player-name">
             {{name}}
-            <span class="player-name-remove" on-click="remove:{{i}}">x</span>
+            <span class="player-name-remove" on-click="remove:{{i}}">X</span>
           </label>
         </li>
       {{/each}}
