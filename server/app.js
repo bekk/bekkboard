@@ -39,6 +39,8 @@ module.exports = function (events) {
       match = null;
     }
     respond(res);
+
+    sendSseEventScore();
   });
 
   app.post('/signup', function (req, res) {
@@ -104,8 +106,6 @@ module.exports = function (events) {
       });
 
       var id = parseInt(es.lastEventId, 10) || 0;
-      console.log('es open:', es.url, es.lastEventId);
-
       var sendEvent = function sendEvent (e) {
         es.send(JSON.stringify(e.data), { event: e.type, id: ++id });
       };

@@ -11,7 +11,9 @@ function AdminView (el) {
   ES.on('players', function (players) {
     admin.get('players').forEach(function (player, index) {
       if (player.checked) {
-        players[index].checked = true;
+        if (players[index]) {
+          players[index].checked = true;
+        }
       }
     });
     admin.set('players', players);
@@ -35,10 +37,13 @@ function AdminView (el) {
 
   admin.on({
     start: function (event, action){
-        var playerA = admin.get(selected[0]).name;
-        var playerB = admin.get(selected[1]).name;
-        Api.startGame(playerA, playerB);
-        admin.set('started', true);
+      if (selected.length != 2) {
+        return;
+      }
+      var playerA = admin.get(selected[0]);
+      var playerB = admin.get(selected[1]);
+      Api.startGame(playerA.name, playerB.name);
+      admin.set('started', true);
     },
 
     stop: function () {
@@ -48,6 +53,11 @@ function AdminView (el) {
 
     remove: function (event, i) {
       Api.removePlayer(i);
+      admin.set('players.'+i+'.checked', false);
+      var selectedIndex = selected.indexOf(i);
+      if (selectedIndex != -1) {
+        selected.splice(selectedIndex, 1);
+      }
       event.original.preventDefault();
     }
   });
