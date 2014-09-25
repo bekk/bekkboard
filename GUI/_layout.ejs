@@ -10,8 +10,7 @@
     {{/winner}}
     {{#started}}
       <span class="vs">
-        {{score.a}} - {{score.b}},
-        {{players.a}} - {{players.b}}
+        {{score.a}} - {{score.b}}
       </span>
     {{/started}}
   </script>
@@ -21,9 +20,9 @@
         <li>no players</li>
       {{/started}}
 
-      {{#players}}
-        <li><input type="checkbox">{{name}}</li>
-      {{/players}}
+      {{#each players:num}}
+        <li><input type="checkbox" on-click="select:{{num}}">{{name}}</li>
+      {{/each}}
     </ul>
 
     {{^started}}
@@ -40,6 +39,8 @@
     <script src="jquery.min.js"></script>
     <script src="ractive.min.js"></script>
     <script src="api.js"></script>
+    <script src="es.js"></script>
     <%- yield %>
+    <script>ES.connect();</script>
   </body>
 </html>

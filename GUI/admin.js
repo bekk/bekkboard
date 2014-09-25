@@ -4,15 +4,14 @@ function AdminView (el) {
     el: el,
     template: '#adminTemplate',
     data: {
-      players: []
+      players: [],
+      selected: []
     }
   });
 
-  setInterval(function () {
-    Api.getPlayers(function (data) {
-      admin.set('players', data.players);
-    });
-  }, 1000);
+  ES.on('players', function (players) {
+    admin.set('players', players);
+  });
 
   admin.on({
     action: function (event, action){
@@ -24,6 +23,14 @@ function AdminView (el) {
         Api.stopGame();
         admin.set('started', false);
       }
+    },
+    select: function (e, index) {
+      var selected = admin.get('selected');
+      selected.shift();
+      selected.push(index);
+    },
+    remove: function () {
+
     }
   });
 }

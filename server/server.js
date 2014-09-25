@@ -1,4 +1,4 @@
-// var EventEmitter = require('events').EventEmitter;
+var EventEmitter = require('events').EventEmitter;
 // var events = new EventEmitter();
 var events = require('../hardware');
 
@@ -12,7 +12,7 @@ var events = require('../hardware');
 
 var app = require('./app')(events);
 var server = app.listen(3000, function () {
-  console.log('listening on 3000');
+  console.log('up on 3000');
 });
 process.once('SIGINT', function () {
   console.log('\napi got sigint, shutting down');

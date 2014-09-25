@@ -20,6 +20,9 @@ var Api = (function () {
     },
     getPlayers: function (fn) {
       return $.get(url + '/players', fn);
+    },
+    connect: function (fn) {
+      return $.get(url + '/connect', fn);
     }
   };
 

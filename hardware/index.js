@@ -32,7 +32,7 @@ function emitUndo (side) {
 }
 
 var undoLimit = 2;
-var undoTimeout = 500;
+var undoTimeout = 300;
 
 var timers = {};
 var counters = {};
