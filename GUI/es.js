@@ -28,7 +28,7 @@ var ES = (function () {
         fn(data);
       }
       catch (e) {
-        console.error('failed parsing sseData.data as json:', e);
+        console.error('failed parsing sseData.data as json:', e, 'data was:', sseData.data);
       }
     });
   }

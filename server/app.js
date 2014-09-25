@@ -26,6 +26,7 @@ module.exports = function (events) {
   app.post('/start', function (req, res) {
     var body = req.body;
     match = new Match(events, body.a, body.b);
+    match.on('change', sendSseEventScore);
     match.start();
     respond(res);
 
@@ -38,8 +39,6 @@ module.exports = function (events) {
       match = null;
     }
     respond(res);
-
-    sendSseEventScore();
   });
 
   app.post('/signup', function (req, res) {
@@ -84,12 +83,6 @@ module.exports = function (events) {
     sendSseEventScore();
   });
   events.on('disconnected', function () {
-    sendSseEventScore();
-  });
-  events.on('undo', function () {
-    sendSseEventScore();
-  });
-  events.on('score', function () {
     sendSseEventScore();
   });
 

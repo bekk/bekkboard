@@ -6,6 +6,12 @@
 @color-bekk-gray-light: #847e7e;
 @color-bekk-gray: #262626;
 
+@tablet:  ~"only screen and (min-width: 720px) and (max-width: 959px)";
+@desktop: ~"only screen and (min-width: 960px) and (max-width: 1199px)";
+@tv:      ~"only screen and (min-width: 1200px)";
+
+@import "clearfix";
+
 .font() {
   font-family: "Helvetica Neue";
   font-weight: 100;
@@ -30,5 +36,11 @@ body {
   background: @color-bg;
   font-size: 100%;
   .font();
+  box-sizing: border-box;
+}
+
+// http://www.paulirish.com/2012/box-sizing-border-box-ftw
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
