@@ -1,1 +1,75 @@
 @import "global";
+ul, li {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.pointer() {
+  cursor: pointer;
+}
+
+.player {
+
+  .player-name {
+    padding: 1em 2em;
+    display: block;
+
+    &:hover {
+      .pointer();
+    }
+
+    &:active {
+      background-color: @color-bekk-red;
+    }
+
+  }
+
+  [type=checkbox] {
+    display: none;
+
+    & + .player-name {
+      background-color: @color-bekk-gray;
+    }
+
+    &:checked + .player-name {
+      background-color: @color-bekk-gray-light;
+    }
+  }
+}
+
+.button {
+  padding: 0.5em 1em;
+  color: @color-text;
+  .pointer();
+  .font();
+  font-size: 2em;
+
+  border: none;
+  outline: none;
+
+  .button-clickable() {
+    &:active {
+      background-color: @color-bekk-gray;
+    }
+  }
+
+  &.button--start {
+    background-color: @color-bekk-blue;
+    .button-clickable();
+  }
+  &.button--stop {
+    background-color: @color-bekk-red;
+    .button-clickable();
+  }
+
+  &.button--center {
+    margin: 0 auto;
+    display: block;
+  }
+}
+
+.players,
+.admin-buttons {
+  margin: 1em;
+}

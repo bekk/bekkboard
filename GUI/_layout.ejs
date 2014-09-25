@@ -23,28 +23,30 @@
   {{/started}}
 </script>
 <script id="adminTemplate" type="text/ractive">
-  <ul>
+  <ul class="players">
     {{^players}}
       <li>no players</li>
     {{/started}}
 
       {{#each players:i}}
-        <li>
-          <label>
-            <input type="checkbox" checked="{{.checked}}">
+        <li class="player">
+          <input id="player-name-{{i}}" type="checkbox" checked="{{.checked}}">
+          <label for="player-name-{{i}}" class="player-name">
             {{name}}
           </label>
         </li>
       {{/each}}
     </ul>
 
-    {{^started}}
-      <button class="button" on-click="action:'start'">Start</button>
-    {{/started}}
+    <div class="admin-buttons">
+      {{^started}}
+        <button class="button button--start button--center" on-click="action:'start'">Start</button>
+      {{/started}}
 
-    {{#started}}
-      <button class="button" on-click="action:'stop'">Stop</button>
-    {{/started}}
+      {{#started}}
+        <button class="button button--stop button--center" on-click="action:'stop'">Stop</button>
+      {{/started}}
+    </div>
   </script>
 </head>
   <body>
