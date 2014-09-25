@@ -1,9 +1,12 @@
 <link rel="stylesheet" type="text/css" href="signup.css">
-<form method="post" action="" class="signup" autocomplete="off">
+<form method="post" class="signup" autocomplete="off">
   <label class="signup-field">
-    <div class="signup-field-confirmed">You're on!</div>
-    <input type="text" class="signup-field-name" name="name" placeholder="I want to play!">
+    <div class="signup-field-wrap">
+      <div class="signup-field-confirmed">You're on!</div>
+      <input type="text" class="signup-field-name" name="name" placeholder="Who wants to play?">
+    </div>
   </label>
+  <input type="submit" style="visiblity:hidden;position:absolute;top:-100px;"/>
 </form>
 
 <script>
@@ -13,18 +16,18 @@
 
   $input.focus();
 
-  $form.submit(function (e) {
-    e.preventDefault();
+  $form.submit(function submit (e) {
+    var name = $.trim($input.val());
+    if (!name) return;
 
     $confirmed.addClass('confirmed--flash');
     setTimeout(function () {
       $confirmed.removeClass('confirmed--flash');
-    }, 1000);
+    }, 900);
 
-    Api.signUp($input.val(), function () {
-      console.log('worked.');
-    });
+    API.signUp(name);
     $input.val("");
+    return false;
   });
 
 </script>

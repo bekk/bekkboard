@@ -7,24 +7,27 @@
 }
 
 .signup-field {
-  position: relative;
   margin: 0 auto;
   display: table-cell;
   vertical-align: middle;
   text-align: center;
 }
 
+.signup-field-wrap {
+  position: relative;
+}
+
 .responsive-font-size() {
-  font-size: 2em;
+  font-size: 3em;
   @media @tablet  { font-size: 4em; }
-  @media @desktop { font-size: 8em; }
-  @media @tv      { font-size: 9em; }
+  @media @desktop { font-size: 5em; }
+  @media @tv      { font-size: 7em; }
 }
 
 .signup-field-confirmed {
   position: absolute;
   margin: 0 auto;
-  top: 1em;
+  top: -1.5em;
   left: 0;
   right: 0;
   text-align: center;
@@ -32,7 +35,7 @@
   .responsive-font-size();
 
   opacity: 0;
-  transition: all 0.2s;
+  transition: all 0.28s;
   &.confirmed--flash {
     opacity: 1;
     .blink();
