@@ -6,9 +6,9 @@ var API = (function () {
 
   return {
     Url: url,
-    signUp: function (name, fn) {
+    signUp: function (number, name, fn) {
       fn = fn || noop;
-      return postJson("/signup", { name: name }, fn);
+      return postJson("/signup", { number: number, name: name }, fn);
     },
     getStatus: function (fn) {
       fn = fn || noop;
@@ -26,13 +26,17 @@ var API = (function () {
       fn = fn || noop;
       return $.get(url + '/players', fn);
     },
-    removePlayer: function (name, fn) {
+    removePlayer: function (number, fn) {
       fn = fn || noop;
-      return postDel('/player/' + name, fn);
+      return postDel('/player/' + number, fn);
     },
     connect: function (fn) {
       fn = fn || noop;
       return $.get(url + '/connect', fn);
+    },
+    getName: function (number, fn) {
+      fn = fn || noop;
+      return postJson('/number', { number: number }, fn);
     }
   };
 

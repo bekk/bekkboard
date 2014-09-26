@@ -1,32 +1,50 @@
 var _ = require('lodash');
 var TdcDb = require('./db');
 
-exports.save = function (user, fn) {
-  TdcDb.get(user.name, function (err, existingUser) {
+var PREFIX = 'user';
+function key (number) {
+  return PREFIX + TdcDb.BYTE_START + number + TdcDb.BYTE_START;
+}
 
+exports.save = function (user, fn) {
+
+  var number = user && user.number;
+
+  if (!number) {
+    return fn(new Error("user is missing a number: " + user));
+  }
+
+  TdcDb.get(number, function (err, existingUser) {
     if (err) {
       if (err.notFound) {
-        user.games = 1;
-        return save(user);
+        var newUser = {
+          number: number,
+          name: user.name,
+          registrations: 1
+        };
+        return TdcDb.save(key(number), newUser, fn);
       }
       return fn(err);
     }
 
-    var updatedUser = _.extend(existingUser, user, {
-      games: existingUser.games + 1
-    });
-    save(updatedUser);
+    var updatedUser = {
+      number: number,
+      name: user.name,
+      registrations: (user.registrations || 1) + 1
+    };
+    TdcDb.save(key(number), updatedUser, fn);
   });
-
-  function save (user) {
-    TdcDb.save(user, fn);
-  }
 };
 
 exports.all = function (fn) {
-  TdcDb.all(fn);
+  TdcDb.all(PREFIX, fn);
 };
 
-exports.del = function (name, fn) {
-  TdcDb.del(name, fn);
+exports.get = function (number, fn) {
+  TdcDb.get(key(number), fn);
 };
+
+exports.del = function (number, fn) {
+  TdcDb.del(key(number), fn);
+};
+
