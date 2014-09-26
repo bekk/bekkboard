@@ -59,5 +59,15 @@
     <script src="es.js"></script>
     <%- yield %>
     <script>ES.connect();</script>
+    <script>
+      ES.on('connected', function () {
+        $('.score').addClass('score--connected');
+        $('.score').removeClass('score--disconnected');
+      });
+      ES.on('disconnected', function () {
+        $('.score').addClass('score--disconnected');
+        $('.score').removeClass('score--connected');
+      });
+    </script>
   </body>
 </html>

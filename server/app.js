@@ -98,6 +98,12 @@ module.exports = function (events) {
 
     sendSseEventScore();
     sendSseEventPlayers();
+    if (connected) {
+      sendSseEventConnected();
+    }
+    else {
+      sendSseEventDisconnected();
+    }
   });
 
   function respond (res) {
@@ -111,6 +117,12 @@ module.exports = function (events) {
   function sendSseEvent (type, data) {
     browserEvents.emit('browser-event', { type: type, data: data });
   }
+  function sendSseEventConnected() {
+    sendSseEvent('connected', {});
+  }
+  function sendSseEventDisconnected() {
+    sendSseEvent('disconnected', {});
+  }
   function sendSseEventScore () {
     sendSseEvent('score', match ? match.json() : {});
   }
@@ -120,11 +132,16 @@ module.exports = function (events) {
     });
   }
 
+  var connected = false;
   events.on('connected', function () {
     sendSseEventScore();
+    sendSseEventConnected();
+    connected = true;
   });
   events.on('disconnected', function () {
     sendSseEventScore();
+    sendSseEventDisconnected();
+    connected = false;
   });
 
   // sockets
