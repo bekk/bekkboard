@@ -3,30 +3,66 @@
   <label class="signup-field">
     <div class="signup-field-wrap">
       <div class="signup-field-confirmed">You're on!</div>
-      <input type="text" class="signup-field-name" name="name" placeholder="Who wants to play?">
+      <input type="text" class="signup-field-number" placeholder="What's your number?">
+      <input type="text" class="signup-field-name" placeholder="Who wants to play?">
     </div>
   </label>
   <input type="submit" style="visiblity:hidden;position:absolute;top:-100px;"/>
 </form>
 
 <script>
-  var $form = $('.signup'),
+  var $form      = $('.signup'),
       $confirmed = $('.signup-field-confirmed'),
-      $input = $('.signup-field-name');
+      $number    = $('.signup-field-number'),
+      $name      = $('.signup-field-name');
 
-  $input.focus();
+  $number.focus();
+
+  function isMovementKey (e) {
+    var code  = e.keyCode;
+    var enter = code == 13;
+    var left  = code == 37;
+    var right = code == 39;
+    var tab   = code == 9;
+    var shift = code == 16;
+    return enter ||
+           left  ||
+           right ||
+           enter ||
+           tab   ||
+           shift;
+  }
+
+  $number.keyup(function (e) {
+    if (isMovementKey(e)) {
+      return;
+    }
+
+    $name.val('');
+    API.getUser($number.val(), function (user) {
+      if (user && user.name) {
+        $name.val(user.name);
+      }
+    });
+  });
 
   $form.submit(function submit (e) {
-    var name = $.trim($input.val());
-    if (!name) return;
+    var number = $.trim($number.val()),
+        name   = $.trim($name.val());
+
+    if (!number || !name) {
+      return false;
+    }
 
     $confirmed.addClass('confirmed--flash');
     setTimeout(function () {
       $confirmed.removeClass('confirmed--flash');
     }, 900);
 
-    API.signUp(name);
-    $input.val("");
+    API.signUp(number, name);
+    $number.val("");
+    $name.val("");
+    $number.focus();
     return false;
   });
 

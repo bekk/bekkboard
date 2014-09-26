@@ -5,8 +5,9 @@ var express       = require('express'),
     EventEmitter  = require('events').EventEmitter,
     EventSource   = fayeWebsocket.EventSource;
 
-var Match = require('./match'),
-    Users = require('./users');
+var Match   = require('./match'),
+    Users   = require('./users'),
+    Players = require('./players');
 
 module.exports = function (events) {
 
@@ -17,12 +18,15 @@ module.exports = function (events) {
 
   app.use(cors());
   app.use(bodyParser.json());
+  app.use(app.router);
+  app.use(logErrors);
+  app.use(clientErrorHandler);
 
-  app.get('/status', function (req, res) {
+  app.get('/status', function (req, res, next) {
     respond(res);
   });
 
-  app.post('/start', function (req, res) {
+  app.post('/start', function (req, res, next) {
     var body = req.body;
     match = new Match(events, body.a, body.b);
     match.on('change', sendSseEventScore);
@@ -32,7 +36,7 @@ module.exports = function (events) {
     sendSseEventScore();
   });
 
-  app.post('/stop', function (req, res) {
+  app.post('/stop', function (req, res, next) {
     if (match) {
       match.stop();
       match = null;
@@ -42,40 +46,54 @@ module.exports = function (events) {
     sendSseEventScore();
   });
 
-  app.post('/signup', function (req, res) {
+  app.post('/signup', function (req, res, next) {
     var user = req.body;
+
     Users.save(user, function (err) {
-      if (err) {
-        console.error(err);
-      }
-      else {
-        sendSseEventScore();
-        sendSseEventPlayers();
-      }
+      if (err) return next(err);
     });
-    res.end();
+
+    Players.add(user, function (err) {
+      if (err) return next(err);
+      sendSseEventPlayers();
+    });
+
+    res.json(user);
   });
 
-  app.get('/players', function (req, res) {
+  app.get('/users', function (req, res, next) {
     Users.all(function (err, users) {
-      if (err) {
-        res.status(500).send(err);
-      }
-      else {
-        res.json({ players: users });
-      }
+      if (err) return next(err);
+      res.json(users);
     });
   });
 
-  app.del('/player/:name', function (req, res) {
-    var name = req.param('name');
-    Users.del(name);
-    res.end('ok');
-
-    sendSseEventPlayers();
+  app.get('/users/:number', function (req, res, next) {
+    var number = req.param("number");
+    Users.get(number, function (err, user) {
+      if (err && err.notFound) return res.json({});
+      if (err) return next(err);
+      res.json(user);
+    });
   });
 
-  app.get('/connect', function (req, res) {
+  app.get('/players', function (req, res, next) {
+    Players.all(function (err, players) {
+      if (err) return next(err);
+      res.json(players);
+    });
+  });
+
+  app.del('/players/:number', function (req, res, next) {
+    var number = req.param('number');
+    Players.del(number, function (err) {
+      if (err) return next(err);
+      sendSseEventPlayers();
+      res.end('ok');
+    });
+  });
+
+  app.get('/connect', function (req, res, next) {
     res.end('ok');
 
     sendSseEventScore();
@@ -97,8 +115,8 @@ module.exports = function (events) {
     sendSseEvent('score', match ? match.json() : {});
   }
   function sendSseEventPlayers () {
-    Users.all(function (err, users) {
-      sendSseEvent('players', users);
+    Players.all(function (err, players) {
+      sendSseEvent('players', players);
     });
   }
 
@@ -132,6 +150,15 @@ module.exports = function (events) {
       });
     }
   });
+
+  function logErrors (err, req, res, next) {
+    console.error(err.stack);
+    next(err);
+  }
+
+  function clientErrorHandler (err, req, res, next) {
+    res.status(500).send({ error: err });
+  }
 
   return app;
 };

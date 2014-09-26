@@ -60,7 +60,7 @@ function AdminView (el) {
     },
 
     remove: function (event, i) {
-      API.removePlayer(admin.get('players.'+i).name);
+      API.removePlayer(admin.get('players.'+i).number);
       admin.splice('players', i, 1);
       var selectedIndex = selected.indexOf(i);
       if (selectedIndex != -1) {

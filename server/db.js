@@ -3,15 +3,12 @@ var sublevel = require('level-sublevel');
 
 var noop = function () {};
 
-var BYTE_START = "\x00",
-    BYTE_END   = "\xff";
+var BYTE_START = exports.BYTE_START = "\x00",
+    BYTE_END   = exports.BYTE_END   = "\xff";
 
 var PREFIX_TDC = "tdc" + BYTE_START;
 
-var db = levelup('./tdc.db', {
-  keyEncoding: 'binary',
-  valueEncoding: 'json'
-});
+var db = levelup('./tdc.db', { keyEncoding: 'binary', valueEncoding: 'json' });
 var sub = sublevel(db).sublevel(PREFIX_TDC);
 
 // escape characteds used for keys
@@ -29,41 +26,28 @@ function prepKey (key, prefix) {
   return prefix + trim(escapeKey(key)).toLowerCase();
 }
 
-exports.save = function (user, fn) {
+exports.save = function (inkey, value, fn) {
   fn = fn || noop;
-
-  var number = user.number || '';
-
-  var key = prepKey(number, PREFIX_TDC);
-  if (!key) {
-    fn(new Error("user: user.number is empty"));
-    return;
-  }
-
-  return sub.put(key, user, fn);
+  var key = prepKey(inkey, PREFIX_TDC);
+  return sub.put(key, value, fn);
 };
 
-exports.get = function (number, fn) {
+exports.get = function (inkey, fn) {
   fn = fn || noop;
-
-  var key = prepKey(number, PREFIX_TDC);
-  if (!key) {
-    fn(new Error("user: number is empty"));
-    return;
-  }
+  var key = prepKey(inkey, PREFIX_TDC);
   return sub.get(key, fn);
 };
 
-exports.all = function (fn) {
+exports.all = function (query, fn) {
   fn = fn || noop;
+  query = query || '';
 
-  var start = PREFIX_TDC,
-      end   = PREFIX_TDC + BYTE_END;
+  var start = PREFIX_TDC + query,
+      end   = PREFIX_TDC + query + BYTE_END;
 
   var users = [];
-  sub.createReadStream({
-    start: start, end: end
-  })
+
+  sub.createReadStream({ start: start, end: end })
   .on('data', function (entry) {
     var user = entry.value;
     users.push(user);
@@ -73,12 +57,8 @@ exports.all = function (fn) {
   });
 };
 
-exports.del = function (number, fn) {
+exports.del = function (inkey, fn) {
   fn = fn || noop;
-  var key = prepKey(number, PREFIX_TDC);
-  if (!key) {
-    fn(new Error("user: number is empty"));
-    return;
-  }
+  var key = prepKey(inkey, PREFIX_TDC);
   return sub.del(key, fn);
 };
