@@ -11,8 +11,6 @@ var Match = require('./match'),
 module.exports = function (events) {
 
   var match;
-  var users = new Users();
-
   var browserEvents = new EventEmitter();
 
   var app = express();
@@ -45,22 +43,35 @@ module.exports = function (events) {
   });
 
   app.post('/signup', function (req, res) {
-    var body = req.body;
-    users.push(body.name);
+    var user = req.body;
+    Users.save(user, function (err) {
+      if (err) {
+        console.error(err);
+      }
+      else {
+        sendSseEventScore();
+        sendSseEventPlayers();
+      }
+    });
     res.end();
-
-    sendSseEventScore();
-    sendSseEventPlayers();
   });
 
   app.get('/players', function (req, res) {
-    res.json({ players: users.json() });
+    Users.all(function (err, users) {
+      if (err) {
+        res.status(500).send(err);
+      }
+      else {
+        res.json({ players: users });
+      }
+    });
   });
 
-  app.del('/player/:index', function (req, res) {
-    var index = req.param('index');
-    users.remove(index);
+  app.del('/player/:name', function (req, res) {
+    var name = req.param('name');
+    Users.del(name);
     res.end('ok');
+
     sendSseEventPlayers();
   });
 
@@ -86,7 +97,9 @@ module.exports = function (events) {
     sendSseEvent('score', match ? match.json() : {});
   }
   function sendSseEventPlayers () {
-    sendSseEvent('players', users.json());
+    Users.all(function (err, users) {
+      sendSseEvent('players', users);
+    });
   }
 
   events.on('connected', function () {

@@ -5,7 +5,13 @@ function AdminView (el) {
   var admin = new Ractive({
     el: el,
     template: '#adminTemplate',
-    data: { players: [] }
+    data: {
+      players: []
+    }
+  });
+
+  ES.on('score', function (data) {
+    admin.set('started', data.status == 'started');
   });
 
   ES.on('players', function (players) {
@@ -31,28 +37,30 @@ function AdminView (el) {
       selected.push(playerKeypath);
     }
     else {
-      selected.splice(selected.indexOf(playerKeypath), 1);
+      var selectedIndex = selected.indexOf(playerKeypath);
+      if (selectedIndex != -1) {
+        selected.splice(selectedIndex, 1);
+      }
     }
   });
 
   admin.on({
-    start: function (event, action){
+
+    start: function () {
       if (selected.length != 2) {
         return;
       }
       var playerA = admin.get(selected[0]);
       var playerB = admin.get(selected[1]);
       API.startGame(playerA.name, playerB.name);
-      admin.set('started', true);
     },
 
     stop: function () {
       API.stopGame();
-      admin.set('started', false);
     },
 
     remove: function (event, i) {
-      API.removePlayer(i);
+      API.removePlayer(admin.get('players.'+i).name);
       admin.splice('players', i, 1);
       var selectedIndex = selected.indexOf(i);
       if (selectedIndex != -1) {

@@ -33,6 +33,7 @@
           <input id="player-name-{{i}}" type="checkbox" checked="{{.checked}}">
           <label for="player-name-{{i}}" class="player-name">
             {{name}}
+            {{games}}
             <span class="player-name-remove" on-click="remove:{{i}}">X</span>
           </label>
         </li>

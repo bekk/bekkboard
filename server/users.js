@@ -1,23 +1,32 @@
-module.exports = function Users () {
+var _ = require('lodash');
+var TdcDb = require('./db');
 
-  this.users = [];
+exports.save = function (user, fn) {
+  TdcDb.get(user.name, function (err, existingUser) {
 
-  this.push = function (user) {
-    if (this.has(user)) return;
-    this.users.push(user);
-  };
+    if (err) {
+      if (err.notFound) {
+        user.games = 1;
+        return save(user);
+      }
+      return fn(err);
+    }
 
-  this.has = function (user) {
-    return this.users.indexOf(user) != -1;
-  };
-
-  this.remove = function (index) {
-    this.users.splice(index, 1);
-  };
-
-  this.json = function () {
-    return this.users.map(function (user) {
-      return { name: user };
+    var updatedUser = _.extend(existingUser, user, {
+      games: existingUser.games + 1
     });
-  };
+    save(updatedUser);
+  });
+
+  function save (user) {
+    TdcDb.save(user, fn);
+  }
+};
+
+exports.all = function (fn) {
+  TdcDb.all(fn);
+};
+
+exports.del = function (name, fn) {
+  TdcDb.del(name, fn);
 };

@@ -5,6 +5,17 @@
   margin: 0 auto;
 }
 
+.score {
+  background-color: @color-bekk-gray;
+}
+
+.winner {
+  .font();
+  .uppercase-first-letter();
+  .ellipsis();
+  text-align: center;
+}
+
 .players,
 .admin-buttons {
   margin: 1em;
@@ -51,6 +62,9 @@
 
     &:checked + .player-name {
       background-color: @color-bekk-gray-light;
+      .player-name-remove {
+        opacity: 0;
+      }
     }
   }
 }

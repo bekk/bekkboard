@@ -26,9 +26,9 @@ var API = (function () {
       fn = fn || noop;
       return $.get(url + '/players', fn);
     },
-    removePlayer: function (i, fn) {
+    removePlayer: function (name, fn) {
       fn = fn || noop;
-      return postDel('/player/' + i, fn);
+      return postDel('/player/' + name, fn);
     },
     connect: function (fn) {
       fn = fn || noop;

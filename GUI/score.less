@@ -1,5 +1,17 @@
 @import "global";
 
+.winner {
+  .font();
+  .uppercase-first-letter();
+  .ellipsis();
+  text-align: center;
+
+  font-size: 6em;
+  @media @tablet  { font-size: 10em; }
+  @media @desktop { font-size: 15em; }
+  @media @tv      { font-size: 20em; }
+}
+
 .score {
   display: table;
   width: 100%;
@@ -38,11 +50,10 @@
 }
 
 .vs-players-base() {
-  .uppercase-first-letter;
+  .uppercase-first-letter();
+  .ellipsis();
   float: left;
   width: 50%;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 
 .vs-players {
