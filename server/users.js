@@ -1,10 +1,5 @@
 var _ = require('lodash');
-var TdcDb = require('./db');
-
-var PREFIX = 'user';
-function key (number) {
-  return PREFIX + TdcDb.BYTE_START + number + TdcDb.BYTE_START;
-}
+var UsersDb = require('./db')('user');
 
 exports.save = function (user, fn) {
   var number = user && user.number;
@@ -12,7 +7,7 @@ exports.save = function (user, fn) {
     return fn(new Error("user is missing a number: " + user));
   }
 
-  TdcDb.get(key(number), function (err, existingUser) {
+  UsersDb.get(number, function (err, existingUser) {
     if (err) {
       if (err.notFound) {
         var newUser = {
@@ -20,7 +15,7 @@ exports.save = function (user, fn) {
           name: user.name,
           registrations: 1
         };
-        return TdcDb.save(key(number), newUser, fn);
+        return UsersDb.save(number, newUser, fn);
       }
       return fn(err);
     }
@@ -30,19 +25,19 @@ exports.save = function (user, fn) {
       name: user.name,
       registrations: (existingUser.registrations || 1) + 1
     };
-    TdcDb.save(key(number), updatedUser, fn);
+    UsersDb.save(number, updatedUser, fn);
   });
 };
 
 exports.all = function (fn) {
-  TdcDb.all(PREFIX, fn);
+  UsersDb.all("", fn);
 };
 
 exports.get = function (number, fn) {
-  TdcDb.get(key(number), fn);
+  UsersDb.get(number, fn);
 };
 
 exports.del = function (number, fn) {
-  TdcDb.del(key(number), fn);
+  UsersDb.del(number, fn);
 };
 

@@ -1,10 +1,5 @@
 var _ = require('lodash');
-var TdcDb = require('./db');
-
-var PREFIX = 'players';
-function key (number) {
-  return PREFIX + TdcDb.BYTE_START + number + TdcDb.BYTE_START;
-}
+var PlayersDb = require('./db')('players');
 
 exports.add = function (user, fn) {
   var number = user && user.number;
@@ -14,9 +9,10 @@ exports.add = function (user, fn) {
 
   var userCopy = {
     name: user.name,
-    number: number
+    number: number,
+    registrationTime: new Date()
   };
-  TdcDb.save(key(number), userCopy, fn);
+  PlayersDb.save(number, userCopy, fn);
 };
 
 exports.del = function (number, fn) {
@@ -24,9 +20,15 @@ exports.del = function (number, fn) {
     return fn(new Error("no number for del: " + number));
   }
 
-  TdcDb.del(key(number), fn);
+  PlayersDb.del(number, fn);
 };
 
 exports.all = function (fn) {
-  TdcDb.all(PREFIX, fn);
+  PlayersDb.all("", function (err, players) {
+    if (err) return fn(err);
+    var sortedPlayers = players.sort(function (a, b) {
+      return a.registrationTime > b.registrationTime;
+    });
+    fn(null, sortedPlayers);
+  });
 };

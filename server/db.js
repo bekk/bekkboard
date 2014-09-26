@@ -21,44 +21,54 @@ function trim (str) {
   return str.replace(/^\s+|\s+$/gm,'');
 }
 
-function prepKey (key, prefix) {
-  prefix = prefix || "";
-  return prefix + trim(escapeKey(key)).toLowerCase();
+function prepKey (prefix, key) {
+  return prefix + BYTE_START + trim(escapeKey(key)).toLowerCase();
 }
 
-exports.save = function (inkey, value, fn) {
-  fn = fn || noop;
-  var key = prepKey(inkey, PREFIX_TDC);
-  return sub.put(key, value, fn);
-};
+module.exports = function (prefix) {
 
-exports.get = function (inkey, fn) {
-  fn = fn || noop;
-  var key = prepKey(inkey, PREFIX_TDC);
-  return sub.get(key, fn);
-};
+  var ret = {};
 
-exports.all = function (query, fn) {
-  fn = fn || noop;
-  query = query || '';
+  ret.save = function (inkey, value, fn) {
+    fn = fn || noop;
+    var key = prepKey(prefix, inkey);
+    console.log('putting', key, value);
+    return sub.put(key, value, fn);
+  };
 
-  var start = PREFIX_TDC + query,
-      end   = PREFIX_TDC + query + BYTE_END;
+  ret.get = function (inkey, fn) {
+    fn = fn || noop;
+    var key = prepKey(prefix, inkey);
+    console.log('getting', key);
+    return sub.get(key, fn);
+  };
 
-  var users = [];
+  ret.all = function (query, fn) {
+    fn = fn || noop;
+    query = query || '';
 
-  sub.createReadStream({ start: start, end: end })
-  .on('data', function (entry) {
-    var user = entry.value;
-    users.push(user);
-  })
-  .on('close', function () {
-    fn(null, users);
-  });
-};
+    var start = prefix + BYTE_START + query,
+        end   = prefix + BYTE_START + query + BYTE_END;
 
-exports.del = function (inkey, fn) {
-  fn = fn || noop;
-  var key = prepKey(inkey, PREFIX_TDC);
-  return sub.del(key, fn);
+    var users = [];
+
+    console.log('querying', start, end);
+
+    sub.createReadStream({ start: start, end: end })
+    .on('data', function (entry) {
+      var user = entry.value;
+      users.push(user);
+    })
+    .on('close', function () {
+      fn(null, users);
+    });
+  };
+
+  ret.del = function (inkey, fn) {
+    fn = fn || noop;
+    var key = prepKey(prefix, inkey);
+    return sub.del(key, fn);
+  };
+
+  return ret;
 };

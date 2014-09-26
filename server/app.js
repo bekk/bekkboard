@@ -128,6 +128,7 @@ module.exports = function (events) {
   }
   function sendSseEventPlayers () {
     Players.all(function (err, players) {
+      if (err) return console.error(err);
       sendSseEvent('players', players);
     });
   }
