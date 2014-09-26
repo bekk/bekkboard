@@ -14,7 +14,7 @@
     "express": "~3.5.0",
     "faye-websocket": "^0.7.2",
     "level": "^0.18.0",
-    "level-sublevel": "^6.3.11"
+    "lodash": "^2.4.1"
   },
   "devDependencies": {
     "mocha": "~1.17.1",

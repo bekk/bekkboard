@@ -1,20 +1,18 @@
 var levelup = require('level');
-var sublevel = require('level-sublevel');
 
 var noop = function () {};
 
-var BYTE_START = exports.BYTE_START = "\x00",
-    BYTE_END   = exports.BYTE_END   = "\xff";
+var SEP = "!",
+    END = "~";
 
-var PREFIX_TDC = "tdc" + BYTE_START;
+var TDC = 'tdc';
 
-var db = levelup('./tdc.db', { keyEncoding: 'binary', valueEncoding: 'json' });
-var sub = sublevel(db).sublevel(PREFIX_TDC);
+var db = levelup('./database.db', { keyEncoding: 'utf-8', valueEncoding: 'json' });
 
 // escape characteds used for keys
 function escapeKey (key) {
-  return String(key).replace(new RegExp(BYTE_START, "g"), "")
-                    .replace(new RegExp(BYTE_END,   "g"), "");
+  return String(key).replace(new RegExp(SEP, "g"), "")
+                    .replace(new RegExp(END, "g"), "");
 }
 
 function trim (str) {
@@ -22,7 +20,7 @@ function trim (str) {
 }
 
 function prepKey (prefix, key) {
-  return prefix + BYTE_START + trim(escapeKey(key)).toLowerCase();
+  return TDC + SEP + prefix + SEP + trim(escapeKey(key)).toLowerCase();
 }
 
 module.exports = function (prefix) {
@@ -33,28 +31,28 @@ module.exports = function (prefix) {
     fn = fn || noop;
     var key = prepKey(prefix, inkey);
     console.log('putting', key, value);
-    return sub.put(key, value, fn);
+    return db.put(key, value, fn);
   };
 
   ret.get = function (inkey, fn) {
     fn = fn || noop;
     var key = prepKey(prefix, inkey);
     console.log('getting', key);
-    return sub.get(key, fn);
+    return db.get(key, fn);
   };
 
   ret.all = function (query, fn) {
     fn = fn || noop;
     query = query || '';
 
-    var start = prefix + BYTE_START + query,
-        end   = prefix + BYTE_START + query + BYTE_END;
+    var start = prefix + SEP + query,
+        end   = prefix + SEP + query + END;
 
     var users = [];
 
     console.log('querying', start, end);
 
-    sub.createReadStream({ start: start, end: end })
+    db.createReadStream({ start: start, end: end })
     .on('data', function (entry) {
       var user = entry.value;
       users.push(user);
@@ -67,7 +65,7 @@ module.exports = function (prefix) {
   ret.del = function (inkey, fn) {
     fn = fn || noop;
     var key = prepKey(prefix, inkey);
-    return sub.del(key, fn);
+    return db.del(key, fn);
   };
 
   return ret;
