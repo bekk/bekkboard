@@ -13,8 +13,8 @@ var sub = sublevel(db).sublevel(PREFIX_TDC);
 
 // escape characteds used for keys
 function escapeKey (key) {
-  return key.replace(new RegExp(BYTE_START, "g"), "")
-            .replace(new RegExp(BYTE_END,   "g"), "");
+  return String(key).replace(new RegExp(BYTE_START, "g"), "")
+                    .replace(new RegExp(BYTE_END,   "g"), "");
 }
 
 function trim (str) {

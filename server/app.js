@@ -6,8 +6,9 @@ var express       = require('express'),
     EventSource   = fayeWebsocket.EventSource;
 
 var Match   = require('./match'),
-    Users   = require('./users'),
-    Players = require('./players');
+    Users   = require('./users-db'),
+    Players = require('./players-db'),
+    MatchDb = require('./match-db');
 
 module.exports = function (events) {
 
@@ -29,7 +30,15 @@ module.exports = function (events) {
   app.post('/start', function (req, res, next) {
     var body = req.body;
     match = new Match(events, body.a, body.b);
-    match.on('change', sendSseEventScore);
+    match.on('change', function () {
+      sendSseEventScore();
+      if (match && match.done) {
+        MatchDb.save(match);
+        Players.del(body.a.number);
+        Players.del(body.b.number);
+        sendSseEventPlayers();
+      }
+    });
     match.start();
     respond(res);
 
@@ -81,6 +90,13 @@ module.exports = function (events) {
     Players.all(function (err, players) {
       if (err) return next(err);
       res.json(players);
+    });
+  });
+
+  app.get('/matches', function (req, res, next) {
+    MatchDb.all(function (err, matches) {
+      if (err) return next(err);
+      res.json(matches);
     });
   });
 

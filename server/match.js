@@ -56,8 +56,12 @@ function Match (events, a, b) {
   };
 
   self.players = function () {
-    return { a: a, b: b };
+    return { a: a.name, b: b.name };
   };
+
+  self.__defineGetter__("done", function () {
+    return winner === true;
+  });
 
   self.json = function () {
     var o = {
@@ -67,7 +71,7 @@ function Match (events, a, b) {
     };
 
     if (winner) {
-      o.winner = matchset.winner == "a" ? a : b;
+      o.winner = matchset.winner == "a" ? a.name : b.name;
     }
 
     return o;

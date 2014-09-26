@@ -46,13 +46,19 @@ function AdminView (el) {
 
   admin.on({
 
+    playerClicked: function (event) {
+      if (admin.get('started')) {
+        event.original.preventDefault();
+      }
+    },
+
     start: function () {
       if (selected.length != 2) {
         return;
       }
       var playerA = admin.get(selected[0]);
       var playerB = admin.get(selected[1]);
-      API.startGame(playerA.name, playerB.name);
+      API.startGame(playerA, playerB);
     },
 
     stop: function () {

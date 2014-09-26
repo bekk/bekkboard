@@ -31,7 +31,7 @@
       {{#each players:i}}
         <li class="player">
           <input id="player-name-{{i}}" type="checkbox" checked="{{.checked}}">
-          <label for="player-name-{{i}}" class="player-name">
+          <label for="player-name-{{i}}" class="player-name" on-click="playerClicked">
             {{name}}
             <span class="player-name-remove" on-click="remove:{{i}}">X</span>
           </label>
