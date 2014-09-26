@@ -93,19 +93,19 @@ module.exports = function (events) {
     });
   });
 
-  app.get('/matches', function (req, res, next) {
-    MatchDb.all(function (err, matches) {
-      if (err) return next(err);
-      res.json(matches);
-    });
-  });
-
-  app.del('/players/:number', function (req, res, next) {
+  app.del('/player/:number', function (req, res, next) {
     var number = req.param('number');
     Players.del(number, function (err) {
       if (err) return next(err);
       sendSseEventPlayers();
       res.end('ok');
+    });
+  });
+
+  app.get('/matches', function (req, res, next) {
+    MatchDb.all(function (err, matches) {
+      if (err) return next(err);
+      res.json(matches);
     });
   });
 
