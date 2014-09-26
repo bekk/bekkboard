@@ -1,6 +1,6 @@
 function ScoreView (el) {
 
-  var score = new Ractive({
+  var score = this.ractive = new Ractive({
     el: el,
     template: '#scoreTemplate',
     data: {

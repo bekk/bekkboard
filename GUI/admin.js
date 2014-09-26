@@ -2,7 +2,7 @@ function AdminView (el) {
 
   var selected = [];
 
-  var admin = new Ractive({
+  var admin = this.ractive = new Ractive({
     el: el,
     template: '#adminTemplate',
     data: {
