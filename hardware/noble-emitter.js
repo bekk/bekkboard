@@ -82,7 +82,7 @@ exports.connect = function connect (peripheralUuid, serviceUuid, characteristicU
               peripheral.disconnect();
             }
             else {
-              restart();
+              process.nextTick(restart);
             }
           });
 
