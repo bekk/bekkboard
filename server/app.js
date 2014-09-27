@@ -40,6 +40,7 @@ module.exports = function (events, db) {
         Players.del(body.a.number);
         Players.del(body.b.number);
 
+        sendSseEventMatch(match);
         sendSseEventPlayers(sendSseEventWinner);
       }
     });
@@ -113,6 +114,14 @@ module.exports = function (events, db) {
     });
   });
 
+  app.post('/matches/:time/score', function (req, res, next) {
+    var score = req.body;
+    var time = req.param('time');
+    MatchDb.updateScore(time, score, function () {
+      res.json(score);
+    });
+  });
+
   app.get('/connect', function (req, res, next) {
     res.end('ok');
 
@@ -155,6 +164,9 @@ module.exports = function (events, db) {
   }
   function sendSseEventWinner () {
     sendSseEvent('winner');
+  }
+  function sendSseEventMatch (match) {
+    sendSseEvent('match', match.json());
   }
 
   var connected = false;

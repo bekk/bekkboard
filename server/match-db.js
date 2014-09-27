@@ -5,14 +5,33 @@ module.exports = function (db) {
   var MatchDb = require('./db')('match', db);
 
   var ret = {};
+
+  ret.get = function (time, fn) {
+    MatchDb.get(time, fn);
+  };
+
   ret.save = function (match, fn) {
-    var now = match.time || new Date();
+    var date = new Date(match.date) || new Date();
 
     var matchCopy = _.extend({}, match.json(), {
-      time: now
+      date: date,
     });
 
-    MatchDb.save(now.getTime(), matchCopy, fn);
+    MatchDb.save(date.getTime(), matchCopy, fn);
+  };
+
+  ret.updateScore = function (time, score, fn) {
+    MatchDb.get(time, function (err, match) {
+      if(err) return fn(err);
+
+      match.score.a = score.a;
+      match.score.b = score.b;
+
+      MatchDb.save(new Date(match.date).getTime(), match, function (err, match) {
+        if (err) return fn(err);
+        fn(null, score);
+      });
+    });
   };
 
   ret.all = function (fn) {

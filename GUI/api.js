@@ -40,6 +40,13 @@ var API = (function () {
       }
       fn = fn || noop;
       return $.get(url + '/users/' + number, fn);
+    },
+    getMatches: function (fn) {
+      return $.get(url + '/matches', fn);
+    },
+    updateMatchScore: function (match, score, fn) {
+      var time = new Date(match.date).getTime();
+      return postJson('/matches/' + time + '/score', score, fn);
     }
   };
 
