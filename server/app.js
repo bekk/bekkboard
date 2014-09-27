@@ -37,7 +37,7 @@ module.exports = function (events, db) {
         MatchDb.save(match);
         Players.del(body.a.number);
         Players.del(body.b.number);
-        sendSseEventPlayers();
+        sendSseEventPlayers(sendSseEventWinner);
       }
     });
     match.start();
@@ -143,11 +143,15 @@ module.exports = function (events, db) {
   function sendSseEventScore () {
     sendSseEvent('score', match ? match.json() : {});
   }
-  function sendSseEventPlayers () {
+  function sendSseEventPlayers (fn) {
     Players.all(function (err, players) {
       if (err) return console.error(err);
       sendSseEvent('players', players);
+      if (fn) fn();
     });
+  }
+  function sendSseEventWinner () {
+    sendSseEvent('winner');
   }
 
   var connected = false;

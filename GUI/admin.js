@@ -1,64 +1,96 @@
-function AdminView (el) {
+(function () {
 
-  var selected = [];
-
-  var admin = this.ractive = new Ractive({
-    el: el,
+  var Admin = Ractive.extend({
     template: '#adminTemplate',
     data: {
       players: []
+    },
+
+    playerA: function () {
+      return this.checkedPlayers()[0];
+    },
+
+    playerB: function () {
+      return this.checkedPlayers()[1];
+    },
+
+    checkPlayer: function (i) {
+      if (admin.get('players.' + i))
+        admin.set('players.'+i+'.checked', true);
+    },
+
+    uncheckPlayers: function () {
+      this.set('players.*.checked', false);
+    },
+
+    isPlayerChecked: function (i) {
+      return this.get('players.' + i + '.checked');
+    },
+
+    hasTwoCheckedPlayers: function () {
+      return this.checkedPlayers().length == 2;
+    },
+
+    checkedPlayers: function () {
+      return this.get('players').filter(Admin.isPlayerChecked);
+    },
+
+    checkedPlayersNumbers: function () {
+      return this.checkedPlayers().map(Admin.byNumber);
     }
   });
+
+  Admin.isPlayerChecked = function isPlayerChecked (p) {
+    return p.checked;
+  };
+
+  Admin.byNumber = function byNumber (p) {
+    return p.number;
+  };
+
+  var admin = window.admin = new Admin({ el: '.admin' });
 
   ES.on('score', function (data) {
     admin.set('started', data.status == 'started');
   });
 
   ES.on('players', function (players) {
-    admin.get('players').forEach(function (player, index) {
-      if (player.checked) {
-        if (players[index]) {
-          players[index].checked = true;
-        }
+    // re-check all players from the server
+    var checkedPlayersNumbers = admin.checkedPlayersNumbers();
+    players.forEach(function (player, index) {
+      var wasCheckedPlayer = checkedPlayersNumbers.indexOf(player.number) !== -1;
+      if (wasCheckedPlayer) {
+        player.checked = true;
       }
     });
+
     admin.set('players', players);
   });
 
-  admin.observe('players.*.checked', function (newVal, oldVal, keypath) {
-    var playerKeypath = keypath.replace('.checked', '');
-    // newval is undefined when we add players
-    if (typeof newVal !== 'undefined' && !oldVal && selected.length == 2) {
-      var shifted = selected.pop();
-      admin.set(shifted + '.checked', false);
-    }
-
-    if (newVal && selected.length <= 2) {
-      selected.push(playerKeypath);
-    }
-    else {
-      var selectedIndex = selected.indexOf(playerKeypath);
-      if (selectedIndex != -1) {
-        selected.splice(selectedIndex, 1);
-      }
-    }
+  ES.on('winner', function (data) {
+    admin.uncheckPlayers();
+    admin.checkPlayer(0);
+    admin.checkPlayer(1);
   });
 
   admin.on({
 
-    playerClicked: function (event) {
+    playerClicked: function (event, i) {
       if (admin.get('started')) {
+        event.original.preventDefault();
+      }
+
+      var clickedPlayerIsNotPlaying = admin.hasTwoCheckedPlayers() && !admin.isPlayerChecked(i);
+      if (clickedPlayerIsNotPlaying) {
         event.original.preventDefault();
       }
     },
 
     start: function () {
-      if (selected.length != 2) {
+      if (!admin.hasTwoCheckedPlayers()) {
         return;
       }
-      var playerA = admin.get(selected[0]);
-      var playerB = admin.get(selected[1]);
-      API.startGame(playerA, playerB);
+      API.startGame(admin.playerA(), admin.playerB());
     },
 
     stop: function () {
@@ -67,12 +99,6 @@ function AdminView (el) {
 
     remove: function (event, i) {
       API.removePlayer(admin.get('players.'+i).number);
-      admin.splice('players', i, 1);
-      var selectedIndex = selected.indexOf(i);
-      if (selectedIndex != -1) {
-        selected.splice(selectedIndex, 1);
-      }
-      event.original.preventDefault();
     }
   });
-}
+})();

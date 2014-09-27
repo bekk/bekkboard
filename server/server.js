@@ -1,6 +1,5 @@
-var EventEmitter = require('events').EventEmitter;
+// var EventEmitter = require('events').EventEmitter;
 // var events = new EventEmitter();
-var events = require('../hardware');
 
 // debug
 // events.on('score', function () {
@@ -9,6 +8,8 @@ var events = require('../hardware');
 // events.on('undo', function () {
 //   console.log.apply(console, ['undo'].concat(argumentsAsArray));
 // });
+
+var events = require('../hardware');
 
 var levelup = require('level');
 var options = { keyEncoding: 'utf-8', valueEncoding: 'json' };

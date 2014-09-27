@@ -24,8 +24,12 @@ var ES = (function () {
     events[type] = events[type] || [];
     events[type].push(function (sseData) {
       try {
-        var data = JSON.parse(sseData.data);
-        fn(data);
+        if (sseData.data && sseData.data !== 'undefined' /* wierd */) {
+          fn(JSON.parse(sseData.data));
+        }
+        else {
+          fn();
+        }
       }
       catch (e) {
         console.error('failed parsing sseData.data as json:', e, 'data was:', sseData.data);
