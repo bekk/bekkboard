@@ -3,12 +3,18 @@
 <head>
 <link rel="stylesheet" type="text/css" href="global.css">
 <script id="scoreTemplate" type="text/ractive">
+  {{#draw}}
+    <div>
+      <h2 class="draw">Draw!</h2>
+    </div>
+  {{/draw}}
   {{#winner}}
     <div>
       <h2 class="winner winner-name">{{winner}}</h2>
     </div>
   {{/winner}}
   {{#started}}
+    <div class="time-remaining">{{timeRemaining}}</div>
     <div class="vs">
       <div class="vs-score">
         <span class="vs-score-a">{{score.a}}</span>
@@ -16,8 +22,8 @@
         <span class="vs-score-b">{{score.b}}</span>
       </div>
       <div class="vs-players">
-        <span class="vs-players-a">{{players.a}}</span>
-        <span class="vs-players-b">{{players.b}}</span>
+        <span class="vs-players-a">{{players.a.name}}</span>
+        <span class="vs-players-b">{{players.b.name}}</span>
       </div>
     </div>
   {{/started}}
@@ -33,6 +39,7 @@
           <input id="player-name-{{i}}" type="checkbox" checked="{{.checked}}">
           <label for="player-name-{{i}}" class="player-name" on-click="playerClicked:{{i}}">
             {{name}}
+            <span class="player-number">{{number}}</span>
             <span class="player-name-remove" on-click="remove:{{i}}">X</span>
           </label>
         </li>

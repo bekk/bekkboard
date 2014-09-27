@@ -30,13 +30,16 @@ module.exports = function (events, db) {
 
   app.post('/start', function (req, res, next) {
     var body = req.body;
-    match = new Match(events, body.a, body.b);
+
+    match = new Match(events, body.a, body.b, Match.LengthSeconds);
     match.on('change', function () {
       sendSseEventScore();
       if (match && match.done) {
         MatchDb.save(match);
+
         Players.del(body.a.number);
         Players.del(body.b.number);
+
         sendSseEventPlayers(sendSseEventWinner);
       }
     });

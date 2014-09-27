@@ -18,7 +18,7 @@ module.exports = function (db) {
           var newUser = {
             number: number,
             name: user.name,
-            registrations: 1
+            registrations: [new Date()]
           };
           return UsersDb.save(number, newUser, fn);
         }
@@ -28,7 +28,7 @@ module.exports = function (db) {
       var updatedUser = {
         number: existingUser.number,
         name: user.name,
-        registrations: (existingUser.registrations || 1) + 1
+        registrations: (existingUser.registrations || []).concat(new Date())
       };
       UsersDb.save(number, updatedUser, fn);
     });

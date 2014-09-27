@@ -3,12 +3,13 @@
   <label class="signup-field">
     <div class="signup-field-wrap">
       <div class="signup-field-confirmed">You're on!</div>
-      <input type="text" class="signup-field-number" placeholder="What's your number?">
-      <input type="text" class="signup-field-name" placeholder="Who wants to play?">
+      <input type="text" class="signup-field-number" placeholder="What's your phonenumber?">
+      <input type="text" class="signup-field-name" placeholder="What's your name?">
     </div>
   </label>
   <input type="submit" style="visiblity:hidden;position:absolute;top:-100px;"/>
 </form>
+<p class="explanation">Your phonenumber is safe with us. We just need it to contact the winner!</p>
 
 <script>
   var $form      = $('.signup'),
@@ -18,28 +19,36 @@
 
   $number.focus();
 
-  function isMovementKey (e) {
+  function isInputKey (e) {
     var code  = e.keyCode;
+    var number = (code >= 48 && code <= 57)
     var enter = code == 13;
-    var left  = code == 37;
-    var right = code == 39;
-    var tab   = code == 9;
-    var shift = code == 16;
-    return enter ||
-           left  ||
-           right ||
-           enter ||
-           tab   ||
-           shift;
+    var bs = code == 8;
+
+    /* var left  = code == 37; */
+    /* var right = code == 39; */
+    /* var tab   = code == 9; */
+    /* var shift = code == 16; */
+
+    return number || enter || bs;
   }
 
+  var lastNumber;
   $number.keyup(function (e) {
-    if (isMovementKey(e)) {
+    if (!isInputKey(e)) {
       return;
     }
 
+    var number = $number.val();
+
+    if (number === lastNumber) {
+      return;
+    }
+
+    lastNumber = number;
+
     $name.val('');
-    API.getUser($number.val(), function (user) {
+    API.getUser(number, function (user) {
       if (user && user.name) {
         $name.val(user.name);
       }

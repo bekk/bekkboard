@@ -38,6 +38,12 @@
     }
   }
 
+  .player-number {
+    color: @color-bekk-gray-light;
+    float: right;
+    margin-right: 1em;
+  }
+
   .player-name .player-name-remove {
     position: absolute;
     right: 1em;
@@ -48,9 +54,12 @@
     opacity: 0;
   }
 
-  .player-name:hover .player-name-remove {
-    opacity: 1;
-    color: @color-bekk-red;
+  .player-name:hover {
+
+    .player-name-remove {
+      opacity: 1;
+      color: @color-bekk-red;
+    }
   }
 
   [type=checkbox] {
@@ -66,5 +75,10 @@
         display: none;
       }
     }
+
+    &:checked + .player-name .player-number {
+      color: @color-bekk-gray;
+    }
+
   }
 }

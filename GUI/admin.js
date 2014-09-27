@@ -1,7 +1,9 @@
 (function (exports) {
 
   var Admin = exports.Admin = Ractive.extend({
+
     template: '#adminTemplate',
+
     data: {
       players: []
     },
