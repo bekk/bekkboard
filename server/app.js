@@ -94,7 +94,7 @@ module.exports = function (events, db) {
     });
   });
 
-  app.del('/player/:number', function (req, res, next) {
+  app.del('/players/:number', function (req, res, next) {
     var number = req.param('number');
     Players.del(number, function (err) {
       if (err) return next(err);
