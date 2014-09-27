@@ -7,7 +7,9 @@ describe('match', function () {
 
   beforeEach(function () {
     events = new process.EventEmitter();
-    m = new Match(events, 'alice', 'bob');
+    m = new Match(events,
+                  { name: 'alice', number: 43214321 },
+                  { name: 'bob', number: 12341234 });
   });
 
   it('returns current score', function () {

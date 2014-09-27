@@ -5,12 +5,13 @@ var express       = require('express'),
     EventEmitter  = require('events').EventEmitter,
     EventSource   = fayeWebsocket.EventSource;
 
-var Match   = require('./match'),
-    Users   = require('./users-db'),
-    Players = require('./players-db'),
-    MatchDb = require('./match-db');
+var Match   = require('./match');
 
-module.exports = function (events) {
+module.exports = function (events, db) {
+
+  var Users   = require('./users-db')(db),
+      Players = require('./players-db')(db),
+      MatchDb = require('./match-db')(db);
 
   var match;
   var browserEvents = new EventEmitter();
@@ -60,14 +61,14 @@ module.exports = function (events) {
 
     Users.save(user, function (err) {
       if (err) return next(err);
-    });
 
-    Players.add(user, function (err) {
-      if (err) return next(err);
-      sendSseEventPlayers();
-    });
+      Players.add(user, function (err) {
+        if (err) return next(err);
 
-    res.json(user);
+        res.json(user);
+        sendSseEventPlayers();
+      });
+    });
   });
 
   app.get('/users', function (req, res, next) {

@@ -10,7 +10,11 @@ var events = require('../hardware');
 //   console.log.apply(console, ['undo'].concat(argumentsAsArray));
 // });
 
-var app = require('./app')(events);
+var levelup = require('level');
+var options = { keyEncoding: 'utf-8', valueEncoding: 'json' };
+var level = levelup('./database.db', options);
+
+var app = require('./app')(events, level);
 var server = app.listen(3000, function () {
   console.log('up on 3000');
 });

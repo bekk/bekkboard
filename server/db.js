@@ -1,13 +1,9 @@
-var levelup = require('level');
-
 var noop = function () {};
 
 var SEP = "!",
     END = "~";
 
 var TDC = 'tdc';
-
-var db = levelup('./database.db', { keyEncoding: 'utf-8', valueEncoding: 'json' });
 
 // escape characteds used for keys
 function escapeKey (key) {
@@ -23,7 +19,7 @@ function prepKey (prefix, key) {
   return TDC + SEP + prefix + SEP + trim(escapeKey(key)).toLowerCase();
 }
 
-module.exports = function (prefix) {
+module.exports = function (prefix, db) {
 
   var ret = {};
 
@@ -45,14 +41,14 @@ module.exports = function (prefix) {
     fn = fn || noop;
     query = query || '';
 
-    var start = prefix + SEP + query,
-        end   = prefix + SEP + query + END;
+    var start = prepKey(prefix, query),
+        end   = prepKey(prefix, query) + END;
 
     var users = [];
 
     console.log('querying', start, end);
 
-    db.createReadStream({ start: start, end: end })
+    db.readStream({ start: start, end: end })
     .on('data', function (entry) {
       var user = entry.value;
       users.push(user);
