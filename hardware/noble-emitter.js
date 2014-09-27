@@ -187,6 +187,10 @@ function discoverCharacteristics (characteristicUuid) {
         log('discovered characteristics', characteristicUuid);
         var characteristic = characteristics[0];
 
+        if (!characteristic) {
+          return reject(new Error('found no characteristics for uuid: ' + characteristicUuid));
+        }
+
         var emitter = new EventEmitter();
         function read (data) {
           emitter.emit('ble-data', data);
