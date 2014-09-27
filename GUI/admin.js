@@ -1,6 +1,6 @@
-(function () {
+(function (exports) {
 
-  var Admin = Ractive.extend({
+  var Admin = exports.Admin = Ractive.extend({
     template: '#adminTemplate',
     data: {
       players: []
@@ -15,8 +15,9 @@
     },
 
     checkPlayer: function (i) {
-      if (admin.get('players.' + i))
+      if (admin.get('players.' + i)) {
         admin.set('players.'+i+'.checked', true);
+      }
     },
 
     uncheckPlayers: function () {
@@ -37,6 +38,62 @@
 
     checkedPlayersNumbers: function () {
       return this.checkedPlayers().map(Admin.byNumber);
+    },
+
+    init: function () {
+      var self = this;
+
+      ES.on('score', function (data) {
+        self.set('started', data.status == 'started');
+      });
+
+      ES.on('players', function (players) {
+        // re-check all players from the server
+        var checkedPlayersNumbers = self.checkedPlayersNumbers();
+        players.forEach(function (player, index) {
+          var wasCheckedPlayer = checkedPlayersNumbers.indexOf(player.number) !== -1;
+          if (wasCheckedPlayer) {
+            player.checked = true;
+          }
+        });
+
+        self.set('players', players);
+      });
+
+      ES.on('winner', function (data) {
+        self.uncheckPlayers();
+        self.checkPlayer(0);
+        self.checkPlayer(1);
+      });
+
+      self.on({
+
+        playerClicked: function (event, i) {
+          if (self.get('started')) {
+            event.original.preventDefault();
+          }
+
+          var clickedPlayerIsNotPlaying = self.hasTwoCheckedPlayers() && !self.isPlayerChecked(i);
+          if (clickedPlayerIsNotPlaying) {
+            event.original.preventDefault();
+          }
+        },
+
+        start: function () {
+          if (!self.hasTwoCheckedPlayers()) {
+            return;
+          }
+          API.startGame(self.playerA(), self.playerB());
+        },
+
+        stop: function () {
+          API.stopGame();
+        },
+
+        remove: function (event, i) {
+          API.removePlayer(self.get('players.'+i).number);
+        }
+      });
     }
   });
 
@@ -48,57 +105,4 @@
     return p.number;
   };
 
-  var admin = window.admin = new Admin({ el: '.admin' });
-
-  ES.on('score', function (data) {
-    admin.set('started', data.status == 'started');
-  });
-
-  ES.on('players', function (players) {
-    // re-check all players from the server
-    var checkedPlayersNumbers = admin.checkedPlayersNumbers();
-    players.forEach(function (player, index) {
-      var wasCheckedPlayer = checkedPlayersNumbers.indexOf(player.number) !== -1;
-      if (wasCheckedPlayer) {
-        player.checked = true;
-      }
-    });
-
-    admin.set('players', players);
-  });
-
-  ES.on('winner', function (data) {
-    admin.uncheckPlayers();
-    admin.checkPlayer(0);
-    admin.checkPlayer(1);
-  });
-
-  admin.on({
-
-    playerClicked: function (event, i) {
-      if (admin.get('started')) {
-        event.original.preventDefault();
-      }
-
-      var clickedPlayerIsNotPlaying = admin.hasTwoCheckedPlayers() && !admin.isPlayerChecked(i);
-      if (clickedPlayerIsNotPlaying) {
-        event.original.preventDefault();
-      }
-    },
-
-    start: function () {
-      if (!admin.hasTwoCheckedPlayers()) {
-        return;
-      }
-      API.startGame(admin.playerA(), admin.playerB());
-    },
-
-    stop: function () {
-      API.stopGame();
-    },
-
-    remove: function (event, i) {
-      API.removePlayer(admin.get('players.'+i).number);
-    }
-  });
-})();
+})(this);

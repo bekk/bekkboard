@@ -1,19 +1,23 @@
-(function ScoreView (el) {
+(function (exports) {
 
-  var Score = Ractive.extend({
+  var Score = exports.Score = Ractive.extend({
+
     template: '#scoreTemplate',
+
     data: {
       score: { a: 0, b: 0 },
       started: false
+    },
+
+    init: function () {
+      var self = this;
+      ES.on('score', function (data) {
+        self.set('score',   data.score);
+        self.set('winner',  data.winner);
+        self.set('players', data.players);
+        self.set('started', data.status === "started");
+      });
     }
   });
 
-  var score = window.score = new Score({ el: '.score' });
-
-  ES.on('score', function (data) {
-    score.set('score',   data.score);
-    score.set('winner',  data.winner);
-    score.set('players', data.players);
-    score.set('started', data.status === "started");
-  });
-})();
+})(this);
