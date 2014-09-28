@@ -61,6 +61,9 @@ var API = (function () {
     },
     updateMatchScore: function (match, score, fn) {
       return postJson('/matches/' + match.date.getTime() + '/score', score, fn);
+    },
+    getRanking: function (fn) {
+      return getJson('/ranking', fn);
     }
   };
 
