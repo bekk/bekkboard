@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "noble": "^0.3.5",
-    "bluebird": "^2.3.2"
+    "bluebird": "^2.3.4",
+    "noble": "^0.3.5"
   },
   "devDependencies": {},
   "scripts": {
