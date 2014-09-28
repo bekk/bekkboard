@@ -8,6 +8,10 @@
       players: []
     },
 
+    players: function () {
+      return this.get('players');
+    },
+
     playerA: function () {
       return this.checkedPlayers()[0];
     },
@@ -20,6 +24,15 @@
       if (admin.get('players.' + i)) {
         admin.set('players.'+i+'.checked', true);
       }
+    },
+
+    checkPlayerWithNumber: function (number) {
+      var self = this;
+      this.players().forEach(function (player, i) {
+        if (player.number === number) {
+          self.set('players.' + i + '.checked', true);
+        }
+      });
     },
 
     uncheckPlayers: function () {
@@ -46,7 +59,12 @@
       var self = this;
 
       ES.on('score', function (data) {
-        self.set('started', data.status == 'started');
+        var started = (data.status == 'started');
+        self.set('started', started);
+        if (started) {
+          self.checkPlayerWithNumber(data.players.a.number);
+          self.checkPlayerWithNumber(data.players.b.number);
+        }
       });
 
       ES.on('players', function (players) {
