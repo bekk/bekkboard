@@ -19,7 +19,9 @@ module.exports = function (events, db) {
   var app = express();
 
   app.use(cors());
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({
+    reviver: require('./json-parse-date')
+  }));
   app.use(app.router);
   app.use(logErrors);
   app.use(clientErrorHandler);
@@ -185,7 +187,7 @@ module.exports = function (events, db) {
   app.get('/es', function(req, res) {
     if (EventSource.isEventSource(req)) {
 
-        var es = new EventSource(req, res, {
+      var es = new EventSource(req, res, {
         headers: { 'Access-Control-Allow-Origin': '*' },
         ping:    15, // seconds
         retry:   1   // seconds

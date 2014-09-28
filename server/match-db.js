@@ -11,7 +11,7 @@ module.exports = function (db) {
   };
 
   ret.save = function (match, fn) {
-    var date = new Date(match.date) || new Date();
+    var date = match.date || new Date();
 
     var matchCopy = _.extend({}, match.json(), {
       date: date,
@@ -27,7 +27,7 @@ module.exports = function (db) {
       match.score.a = score.a;
       match.score.b = score.b;
 
-      MatchDb.save(new Date(match.date).getTime(), match, function (err, match) {
+      MatchDb.save(time, match, function (err, match) {
         if (err) return fn(err);
         fn(null, score);
       });
