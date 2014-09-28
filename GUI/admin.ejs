@@ -9,4 +9,7 @@
 <script>
   var admin = new Admin({ el: '.admin'});
   var score = new Score({ el: '.score'});
+  API.getRanking(function (ranking) {
+    score.set('ranking', ranking);
+  });
 </script>

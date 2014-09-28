@@ -1,4 +1,5 @@
 @import "global";
+@import "player";
 
 .admin {
   max-width: 50%;
@@ -22,30 +23,32 @@
   margin: 1em;
 }
 
+[type=checkbox] {
+  display: none;
+
+  & + .player {
+    background-color: @color-bekk-gray;
+  }
+
+  &:checked + .player {
+    background-color: @color-bekk-gray-light;
+    .player-name-remove {
+      display: none;
+    }
+  }
+
+  &:checked + .player .player-number {
+    color: @color-bekk-gray;
+  }
+}
+
 .player {
 
-  .player-name {
-    .uppercase-first-letter();
-    position: relative;
-    padding: 1em 2em;
-    display: block;
-
-    &:hover {
-      .pointer();
-    }
-
-    &:active {
-      background-color: @color-bekk-red;
-    }
-  }
-
-  .player-number {
-    color: @color-bekk-gray-light;
+  .admin & .player-number {
     float: right;
-    margin-right: 1em;
   }
 
-  .player-name .player-name-remove {
+  .player-name-remove {
     position: absolute;
     right: 1em;
     top: 0;
@@ -55,31 +58,10 @@
     opacity: 0;
   }
 
-  .player-name:hover {
-
+  &:hover {
     .player-name-remove {
       opacity: 1;
       color: @color-bekk-red;
     }
-  }
-
-  [type=checkbox] {
-    display: none;
-
-    & + .player-name {
-      background-color: @color-bekk-gray;
-    }
-
-    &:checked + .player-name {
-      background-color: @color-bekk-gray-light;
-      .player-name-remove {
-        display: none;
-      }
-    }
-
-    &:checked + .player-name .player-number {
-      color: @color-bekk-gray;
-    }
-
   }
 }

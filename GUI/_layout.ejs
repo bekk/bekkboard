@@ -29,16 +29,17 @@
       </div>
     {{/started}}
   </div>
-  <div class="score-half score-half--bordered">
+  <div class="score-half score-half--bordered ranking">
+    <h3 class="ranking-heading">Ranking</h3>
     <ul>
     {{^ranking}}
       <li>No players, yet!</li>
     {{/ranking}}
     {{#ranking}}
-      <li class="rank">
-        <span class="rank-player">{{player.name}}</span>
-        <span class="rank-number">{{player.number}}</span>
-        <span class="rank-rating">{{rating}}</span>
+      <li class="player">
+        <span class="player-name">{{player.name}}</span>
+        <span class="player-number">{{player.number}}</span>
+        <span class="player-rating">{{rating}}</span>
       </li>
     {{/ranking}}
     </ul>
@@ -51,10 +52,10 @@
     {{/started}}
 
       {{#each players:i}}
-        <li class="player">
+        <li>
           <input id="player-name-{{i}}" type="checkbox" checked="{{.checked}}">
-          <label for="player-name-{{i}}" class="player-name" on-click="playerClicked:{{i}}">
-            {{name}}
+          <label for="player-name-{{i}}" class="player" on-click="playerClicked:{{i}}">
+            <span class="player-name">{{name}}</span>
             <span class="player-number">{{number}}</span>
             <span class="player-name-remove" on-click="remove:{{i}}">X</span>
           </label>

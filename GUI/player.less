@@ -1,0 +1,30 @@
+
+.player {
+
+  position: relative;
+  padding: 1em 2em;
+  display: block;
+
+  &:hover {
+    .pointer();
+  }
+
+  &:active {
+    background-color: @color-bekk-red;
+  }
+
+  .player-name {
+    .uppercase-first-letter();
+  }
+
+  .player-number {
+    display: inline-block;
+    color: @color-bekk-gray-light;
+    margin-right: 1em;
+  }
+
+  .player-rating {
+    float: right;
+  }
+}
+
