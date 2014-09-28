@@ -116,6 +116,16 @@ module.exports = function (events, db) {
     });
   });
 
+  app.get('/ranking', function (req, res, next) {
+    res.json([{
+      player: {
+        name: 'torgeir',
+        number: '123',
+      },
+      rating: 12345
+    }]);
+  });
+
   app.post('/matches/:time/score', function (req, res, next) {
     var score = req.body;
     var time = req.param('time');
