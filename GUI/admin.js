@@ -82,6 +82,8 @@
 
       ES.on('winner', function (data) {
         self.uncheckPlayers();
+
+        // check the next two players
         self.checkPlayer(0);
         self.checkPlayer(1);
       });
