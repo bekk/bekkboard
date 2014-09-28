@@ -43,10 +43,9 @@ module.exports = function (events, db) {
         Players.del(body.a.number);
         Players.del(body.b.number);
 
-        Rating.calculateRating(function(err){
-          if(err){
-            return next(err);
-          }
+        Rating.calculateRating(function (err, ranking){
+          if (err) return next(err);
+          sendSseEventRankingUpdated(ranking);
         });
 
         sendSseEventMatch(match);
@@ -125,6 +124,7 @@ module.exports = function (events, db) {
 
   app.get('/ranking', function (req, res, next) {
     Rating.getRating(function(err, ratings) {
+      if (err) return next(err);
       res.json(ratings);
     });
   });
@@ -182,6 +182,9 @@ module.exports = function (events, db) {
   }
   function sendSseEventMatch (match) {
     sendSseEvent('match', match.json());
+  }
+  function sendSseEventRankingUpdated (ranking) {
+    sendSseEvent('ranking', ranking);
   }
 
   var connected = false;
