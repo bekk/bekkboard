@@ -61,7 +61,7 @@ module.exports = function (prefix, db) {
   ret.del = function (inkey, fn) {
     fn = fn || noop;
     var key = prepKey(prefix, inkey);
-    console.log('del', start, end);
+    console.log('del', key);
     return db.del(key, fn);
   };
 
