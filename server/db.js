@@ -26,14 +26,14 @@ module.exports = function (prefix, db) {
   ret.save = function (inkey, value, fn) {
     fn = fn || noop;
     var key = prepKey(prefix, inkey);
-    console.log('putting', key, value);
+    console.log('put', key, value);
     return db.put(key, value, fn);
   };
 
   ret.get = function (inkey, fn) {
     fn = fn || noop;
     var key = prepKey(prefix, inkey);
-    console.log('getting', key);
+    console.log('get', key);
     return db.get(key, fn);
   };
 
@@ -46,7 +46,7 @@ module.exports = function (prefix, db) {
 
     var users = [];
 
-    console.log('querying', start, end);
+    console.log('query', start, end);
 
     db.readStream({ start: start, end: end })
     .on('data', function (entry) {
@@ -61,6 +61,7 @@ module.exports = function (prefix, db) {
   ret.del = function (inkey, fn) {
     fn = fn || noop;
     var key = prepKey(prefix, inkey);
+    console.log('del', start, end);
     return db.del(key, fn);
   };
 
