@@ -11,7 +11,8 @@ module.exports = function (events, db) {
 
   var Users   = require('./users-db')(db),
       Players = require('./players-db')(db),
-      MatchDb = require('./match-db')(db);
+      MatchDb = require('./match-db')(db),
+      Rating = require('./rating')(db);
 
   var match;
   var browserEvents = new EventEmitter();
@@ -41,6 +42,12 @@ module.exports = function (events, db) {
 
         Players.del(body.a.number);
         Players.del(body.b.number);
+
+        Rating.calculateRating(function(err){
+          if(err){
+            return next(err);
+          }
+        });
 
         sendSseEventMatch(match);
         sendSseEventPlayers(sendSseEventWinner);
@@ -117,13 +124,9 @@ module.exports = function (events, db) {
   });
 
   app.get('/ranking', function (req, res, next) {
-    res.json([{
-      player: {
-        name: 'torgeir',
-        number: '123',
-      },
-      rating: 12345
-    }]);
+    Rating.getRating(function(err, ratings) {
+      res.json(ratings);
+    });
   });
 
   app.post('/matches/:time/score', function (req, res, next) {
