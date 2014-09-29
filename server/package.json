@@ -6,7 +6,7 @@
   "scripts": {
     "test": "node_modules/.bin/mocha -R min -w"
   },
-  "author": "@torgeir,@magnuf",
+  "author": "@torgeir,@magnuf,@emilmork",
   "license": "mit",
   "dependencies": {
     "aws-sdk": "^2.0.17",
