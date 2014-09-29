@@ -16,4 +16,5 @@ sudo apt-get install \
 # install node version manager (nvm)
 curl https://raw.githubusercontent.com/creationix/nvm/v0.17.1/install.sh | bash
 
-nvm install v0.10.32
+# 0.10.28 is the last version with a prebuilt arm-pi binary for node
+nvm install v0.10.28
