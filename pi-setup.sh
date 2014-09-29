@@ -9,3 +9,8 @@ sudo apt-get install \
   build-essential \
   openssl \
   libssl-dev
+
+# install node version manager (nvm)
+curl https://raw.githubusercontent.com/creationix/nvm/v0.17.1/install.sh | bash
+
+nvm install v0.10.32
