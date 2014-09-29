@@ -4,7 +4,7 @@ sudo apt-get clean
 sudo apt-get update
 
 # useful packages, needed to run bekkboard
-sudo apt-get install \
+sudo apt-get install -y \
   chromium-browser \
   ttf-mscorefonts-installer \
   git \
