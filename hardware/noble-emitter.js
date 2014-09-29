@@ -13,7 +13,7 @@ noble.on('stateChange', function stateChange (state) {
 });
 
 function isDisconnecting (peripheral) {
-  return !peripheral || peripheral && peripheral.state === 'disconnecting';
+  return !peripheral || peripheral && peripheral.state === 'disconnecting';
 }
 
 /** Enables debug logging */
