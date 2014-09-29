@@ -8,7 +8,10 @@ sudo apt-get install \
   vim \
   build-essential \
   openssl \
-  libssl-dev
+  libssl-dev \
+  bluetooth \
+  bluez-utils \
+  blueman
 
 # install node version manager (nvm)
 curl https://raw.githubusercontent.com/creationix/nvm/v0.17.1/install.sh | bash
