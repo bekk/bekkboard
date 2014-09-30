@@ -49,3 +49,7 @@ sudo make install
 cd /etc/init/
 sudo ln -s /home/pi/bekkboard/pi/bekkboard-api.conf
 sudo ln -s /home/pi/bekkboard/pi/bekkboard-gui.conf
+
+# install start as kiosk mode
+cd /etc/xdg/lxsession/LXDE/
+sudo ln -sf /home/pi/bekkboard/pi/autostart
