@@ -3,7 +3,7 @@ var EventEmitter = require('events').EventEmitter;
 var nobleEmitter = require('./noble-emitter');
 // nobleEmitter.debug();
 
-var peripheralUuid     = process.env.UUID_PERIPHERAL     || "f322742f5c984ebfbbd058086c1798dc";
+var peripheralUuid     = process.env.UUID_PERIPHERAL     || "dc76745c6637";
 var serviceUuid        = process.env.UUID_SERVICE        || "2220";
 var characteristicUuid = process.env.UUID_CHARACTERISTIC || "2221";
 
