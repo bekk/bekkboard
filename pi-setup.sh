@@ -24,7 +24,10 @@ sudo apt-get install -y \
   libusb-dev \
   libudev-dev \
   libical-dev \
-  libreadline-dev
+  libreadline-dev \
+
+  # bonjour, so bekkpi.local works
+  libnss-mdns
 
 sudo apt-get install upstart --force-yes
 
