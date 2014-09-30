@@ -1,0 +1,12 @@
+# file: /etc/xdg/lxsession/LXDE/autostart
+
+@lxpanel --profile LXDE
+@pcmanfm --desktop --profile LXDE
+@xscreensaver -no-splash
+@midori -e Fullscreen -a http://localhost:9000
+
+# Auto run the browser?
+# @xset s off
+# @xset -dpms
+# @xset s noblank
+# @midori -e Fullscreen -a http://localhost:9000
