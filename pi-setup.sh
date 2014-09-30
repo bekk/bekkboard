@@ -5,7 +5,7 @@ sudo apt-get update
 
 # useful packages, needed to run bekkboard
 sudo apt-get install -y \
-  cit \
+  git \
   vim \
 
   # node deps
