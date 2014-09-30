@@ -5,7 +5,7 @@ var AWS = require('aws-sdk'),
   games_foler = "games";
 
 var s3 = require('s3');
-var awsS3Client = new AWS.S3({ "accessKeyId": "AKIAICPIPDQPCWHFL5WQ", "secretAccessKey": "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"});
+var awsS3Client = new AWS.S3({ "accessKeyId": process.env.S3_ACCESS_KEY, "secretAccessKey": process.env.S3_SECRET_ACCESS_KEY});
 
 var options = {
   s3Client: awsS3Client,
