@@ -26,6 +26,8 @@ sudo apt-get install -y \
   libical-dev \
   libreadline-dev
 
+sudo apt-get install upstart --force-yes
+
 # install node version manager (nvm)
 curl https://raw.githubusercontent.com/creationix/nvm/v0.17.1/install.sh | bash
 
@@ -39,3 +41,8 @@ cd bluez-4.101
 ./configure --disable-systemd
 make
 sudo make install
+
+# install launch-on-boot scripts
+cd /etc/init/
+sudo ln -s /home/pi/bekkboard/pi/bekkboard-api.conf
+sudo ln -s /home/pi/bekkboard/pi/bekkboard-gui.conf
