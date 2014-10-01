@@ -27,7 +27,10 @@ sudo apt-get install -y \
   libreadline-dev \
 
   # bonjour, so bekkpi.local works
-  libnss-mdns
+  libnss-mdns \
+
+  # to be able to send f11 to the browser to make it go fullscreen
+  xautomation
 
 sudo apt-get install upstart --force-yes
 
@@ -53,3 +56,6 @@ sudo ln -s /home/pi/bekkboard/pi/bekkboard-gui.conf
 # install start as kiosk mode
 cd /etc/xdg/lxsession/LXDE/
 sudo ln -sf /home/pi/bekkboard/pi/autostart
+
+# install shortcut to starting the browser, launched by the autostart file
+sudo ln -s /home/pi/bekkboard/pi/launch-bekkboard-gui /usr/bin/launch-bekkboard-browser

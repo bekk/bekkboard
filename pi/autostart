@@ -4,6 +4,4 @@
 @xset s off
 @xset -dpms
 @xset s noblank
-@epiphany-browser
-@sleep 2s
-@echo key F11 | xte
+@launch-bekkboard-browser
