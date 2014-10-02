@@ -1,12 +1,14 @@
 var fs = require('fs');
-var Ractive = require('ractive');
 
-var ES  = require('./es'),
-    API = require('./api');
+var $       = require('zepto-browserify').$,
+    Ractive = require('ractive');
+
+var ES  = require('../es'),
+    API = require('../api');
 
 module.exports = Ractive.extend({
 
-  template: fs.readFileSync(__dirname + '/../templates/score-template.html', 'utf-8'),
+  template: fs.readFileSync(__dirname + '/../../templates/score-template.html', 'utf-8'),
 
   data: {
     score: { a: 0, b: 0 },

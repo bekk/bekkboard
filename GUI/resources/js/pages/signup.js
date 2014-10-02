@@ -1,13 +1,13 @@
 var fs = require('fs');
 
-var $ = require('zepto-browserify').$,
+var $       = require('zepto-browserify').$,
     Ractive = require('ractive');
 
-var API = require('./api');
+var API = require('../api');
 
 module.exports = Ractive.extend({
 
-  template: fs.readFileSync(__dirname + '/../templates/signup-template.html', 'utf-8'),
+  template: fs.readFileSync(__dirname + '/../../templates/signup-template.html', 'utf-8'),
 
   init: function () {
 

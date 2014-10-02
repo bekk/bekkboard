@@ -1,11 +1,12 @@
 var fs = require('fs');
+
 var Ractive = require('ractive');
 
-var API = require('./api');
+var API = require('../api');
 
 module.exports = Ractive.extend({
 
-  template: fs.readFileSync(__dirname + '/../templates/matches-template.html', 'utf-8'),
+  template: fs.readFileSync(__dirname + '/../../templates/matches-template.html', 'utf-8'),
 
   data: {
     matches: []

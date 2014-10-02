@@ -1,5 +1,6 @@
 <div class="score">
-  <div class="score-half">
+  <connection/>
+  <div class="score-half score-half--bordered ">
     {{#draw}}
       <div>
         <h2 class="draw">Draw!</h2>
@@ -25,7 +26,7 @@
       </div>
     {{/started}}
   </div>
-  <div class="score-half score-half--bordered ranking">
+  <div class="score-half ranking">
     <h3 class="ranking-heading">Ranking</h3>
     <ul>
     {{^ranking}}

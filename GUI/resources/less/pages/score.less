@@ -1,103 +1,90 @@
-.draw,
-.winner {
-  .font();
-  .uppercase-first-letter();
-  .ellipsis();
-  text-align: center;
-
-  font-size: 6em;
-  @media @tablet  { font-size: 10em; }
-  @media @desktop { font-size: 15em; }
-  @media @tv      { font-size: 20em; }
-}
-
-.score-half {
-  .grid-half-width();
-  height: 100%;
-
-  &.score-half--bordered {
-    border-left: 1px solid @color-bekk-gray-light;
-  }
-}
-
 .score {
-  display: table;
-  width: 100%;
-  height: 100%;
-}
-
-.ranking-heading {
-  text-align: center;
-}
-
-.vs {
-  display: table-cell;
-  text-align: center;
-  vertical-align: middle;
-}
-
-.vs-score {
   .clearfix();
 
-  font-size: 6em;
-  @media @tablet  { font-size: 10em; }
-  @media @desktop { font-size: 23em; }
-  @media @tv      { font-size: 33em; }
+  width: 100%;
+  height: 100%;
 
-  .vs-score-a {
+  .score-half {
+    .grid-half-width();
+    height: 100%;
+
+    &.score-half--bordered {
+      border-right: 1px solid @color-bekk-gray-light;
+    }
+  }
+
+  .ranking-heading {
+    text-align: center;
+  }
+
+  .vs {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  .vs-score {
+    .clearfix();
+
+    font-size: 4em;
+    @media @tablet  { font-size: 8em; }
+    @media @desktop { font-size: 11em; }
+    @media @tv      { font-size: 21em; }
+
+    .vs-score-a {
+      float: left;
+      width: 40%;
+      text-align: right;
+    }
+    .vs-score-b {
+      float: left;
+      width: 40%;
+      text-align: left;
+    }
+    .vs-score-sep {
+      float: left;
+      width: 20%;
+      color: @color-bekk-red;
+    }
+  }
+
+  .vs-players-base() {
+    .uppercase-first-letter();
+    .ellipsis();
     float: left;
-    width: 40%;
-    text-align: right;
+    width: 50%;
   }
-  .vs-score-b {
-    float: left;
-    width: 40%;
-    text-align: left;
+
+  .vs-players {
+
+    font-size: 1em;
+    @media @tablet  { font-size: 1em; }
+    @media @desktop { font-size: 2em; }
+    @media @tv      { font-size: 3em; }
+
+    color: @color-bekk-gray-light;
+    @vs-players-offset: 15%;
+
+    .vs-players-a {
+      .vs-players-base();
+      text-align: right;
+      padding-right: 8%;
+    }
+    .vs-players-b {
+      .vs-players-base();
+      text-align: left;
+      padding-left: 8%;
+    }
   }
-  .vs-score-sep {
-    float: left;
-    width: 20%;
-    color: @color-bekk-red;
+
+  .time-remaining {
+    width: 5em;
+    text-align: center;
+    margin: 0 auto;
   }
-}
 
-.vs-players-base() {
-  .uppercase-first-letter();
-  .ellipsis();
-  float: left;
-  width: 50%;
-}
-
-.vs-players {
-
-  font-size: 2em;
-  @media @tablet  { font-size: 4em; }
-  @media @desktop { font-size: 10em; }
-  @media @tv      { font-size: 12em; }
-
-  color: @color-bekk-gray-light;
-  @vs-players-offset: 15%;
-
-  .vs-players-a {
-    .vs-players-base();
-    text-align: right;
-    padding-right: 8%;
-  }
-  .vs-players-b {
-    .vs-players-base();
-    text-align: left;
-    padding-left: 8%;
-  }
-}
-
-.time-remaining {
-  display: table-row;
-  width: 5em;
-  text-align: center;
-}
-
-.player {
-  .player-number {
-    display: none;
+  .player {
+    .player-number {
+      display: none;
+    }
   }
 }

@@ -1,64 +1,68 @@
-.admin {
-  max-width: 50%;
-  margin: 0 auto;
-}
-
-.score {
-  background-color: @color-bekk-gray;
-}
-
 .draw,
 .winner {
   .font();
   .uppercase-first-letter();
   .ellipsis();
   text-align: center;
+
+  font-size: 2em;
+  @media @tablet  { font-size: 6em; }
+  @media @desktop { font-size: 9em; }
+  @media @tv      { font-size: 12em; }
 }
 
-.players,
 .admin-buttons {
   margin: 1em;
 }
 
-[type=checkbox] {
-  display: none;
+.admin {
+  max-width: 80%;
+  margin: 0 auto;
 
-  & + .player {
-    background-color: @color-bekk-gray;
-  }
+  [type=checkbox] {
+    display: none;
 
-  &:checked + .player {
-    background-color: @color-bekk-gray-light;
-    .player-name-remove {
-      display: none;
+    & + .player {
+      background-color: @color-bekk-gray;
+    }
+
+    &:checked + .player {
+      background-color: @color-bekk-gray-light;
+      .player-name-remove {
+        display: none;
+      }
+    }
+
+    &:checked + .player .player-number {
+      color: @color-bekk-gray;
     }
   }
 
-  &:checked + .player .player-number {
-    color: @color-bekk-gray;
-  }
-}
-
-.player {
-
-  .admin & .player-number {
-    float: right;
+  .score .connection {
+    display: none;
   }
 
-  .player-name-remove {
-    position: absolute;
-    right: 1em;
-    top: 0;
-    bottom: 0;
+  .player {
 
-    padding: 1em;
-    opacity: 0;
-  }
+    .admin & .player-number {
+      float: right;
+    }
 
-  &:hover {
     .player-name-remove {
-      opacity: 1;
-      color: @color-bekk-red;
+      position: absolute;
+      right: 1em;
+      top: 0;
+      bottom: 0;
+
+      padding: 1em;
+      opacity: 0;
+    }
+
+    &:hover {
+      .player-name-remove {
+        opacity: 1;
+        color: @color-bekk-red;
+      }
     }
   }
 }

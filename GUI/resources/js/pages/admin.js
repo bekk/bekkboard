@@ -1,13 +1,14 @@
 var fs = require('fs');
+
 var Ractive = require('ractive');
 
-var ES    = require('./es'),
-    API   = require('./api'),
+var ES    = require('../es'),
+    API   = require('../api'),
     Score = require('./score');
 
 var Admin = module.exports = Ractive.extend({
 
-  template: fs.readFileSync(__dirname + '/../templates/admin-template.html', 'utf-8'),
+  template: fs.readFileSync(__dirname + '/../../templates/admin-template.html', 'utf-8'),
 
   data: {
     players: []

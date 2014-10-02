@@ -1,22 +1,17 @@
 var $ = require('zepto-browserify').$,
-    page = require('page');
+    page = require('page'),
+    Ractive = require('ractive');
+
+Ractive.components.connection = require('./components/connection');
 
 var API     = require('./api'),
     ES      = require('./es'),
-    Admin   = require('./admin'),
-    Matches = require('./matches'),
-    Score   = require('./score'),
-    Signup  = require('./signup');
+    Admin   = require('./pages/admin'),
+    Matches = require('./pages/matches'),
+    Score   = require('./pages/score'),
+    Signup  = require('./pages/signup');
 
 ES.connect();
-ES.on('connected', function () {
-  $('.score').addClass('score--connected');
-  $('.score').removeClass('score--disconnected');
-});
-ES.on('disconnected', function () {
-  $('.score').addClass('score--disconnected');
-  $('.score').removeClass('score--connected');
-});
 
 var view, appEl = '.app';
 
