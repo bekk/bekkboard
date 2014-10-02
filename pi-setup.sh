@@ -37,16 +37,17 @@ sudo apt-get install upstart --force-yes
 # go to the home folder
 cd
 
-# clone the repo
-git clone git@github.com:bekk/bekkboard.git
+# create a folder where we'll run bekkboard from
+mkdir bekkboard
+
+# create a folder well host the bare repo in
+mkdir bekkboard.git && cd bekkboard.git
+git init --bare
 ln -s /home/pi/bekkboard/pi/post-receive /home/pi/bekkboard.git/hooks/post-receive
 
-# clone a bare repo from it into bekkboard.git
-git clone --bare bekkboard
-
-# on you personal computer, add a remote to it
+# on you personal computer, add a remote to it, and push away!
 # git remote add pi pi@bekkpi.local:~/bekkboard.git
-# then `git push pi master` to deploy to it
+# git push pi master
 
 # install node version manager (nvm)
 curl https://raw.githubusercontent.com/creationix/nvm/v0.17.1/install.sh | bash
