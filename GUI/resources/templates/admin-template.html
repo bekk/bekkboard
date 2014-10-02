@@ -1,0 +1,30 @@
+<div class="admin">
+  <ul class="players">
+    {{^players}}
+      <li>No players</li>
+    {{/started}}
+
+    {{#each players:i}}
+      <li>
+        <input id="player-name-{{i}}" type="checkbox" checked="{{.checked}}">
+        <label for="player-name-{{i}}" class="player" on-click="playerClicked:{{i}}">
+          <span class="player-name">{{name}}</span>
+          <span class="player-number">{{number}}</span>
+          <span class="player-name-remove" on-click="remove:{{i}}">X</span>
+        </label>
+      </li>
+    {{/each}}
+  </ul>
+
+  <div class="admin-buttons">
+    {{^started}}
+      <button class="button button--start button--center" on-click="start">Start</button>
+    {{/started}}
+
+    {{#started}}
+      <button class="button button--stop button--center" on-click="stop">Stop</button>
+    {{/started}}
+  </div>
+
+  <div class="score"></div>
+</div>

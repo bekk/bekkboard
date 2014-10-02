@@ -1,0 +1,43 @@
+<div class="score">
+  <div class="score-half">
+    {{#draw}}
+      <div>
+        <h2 class="draw">Draw!</h2>
+      </div>
+    {{/draw}}
+    {{#winner}}
+      <div>
+        <h2 class="winner winner-name">{{winner}}!</h2>
+      </div>
+    {{/winner}}
+    {{#started}}
+      <div class="time-remaining">{{timeRemaining}}</div>
+      <div class="vs">
+        <div class="vs-score">
+          <span class="vs-score-a">{{score.a}}</span>
+          <span class="vs-score-sep">-</span>
+          <span class="vs-score-b">{{score.b}}</span>
+        </div>
+        <div class="vs-players">
+          <span class="vs-players-a">{{players.a.name}}</span>
+          <span class="vs-players-b">{{players.b.name}}</span>
+        </div>
+      </div>
+    {{/started}}
+  </div>
+  <div class="score-half score-half--bordered ranking">
+    <h3 class="ranking-heading">Ranking</h3>
+    <ul>
+    {{^ranking}}
+      <li>No players, yet!</li>
+    {{/ranking}}
+    {{#ranking}}
+      <li class="player">
+        <span class="player-name">{{player.name}}</span>
+        <span class="player-number">{{player.number}}</span>
+        <span class="player-rating">{{rating}}</span>
+      </li>
+    {{/ranking}}
+    </ul>
+  </div>
+</div>

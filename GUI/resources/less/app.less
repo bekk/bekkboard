@@ -10,8 +10,6 @@
 @desktop: ~"only screen and (min-width: 960px) and (max-width: 1399px)";
 @tv:      ~"only screen and (min-width: 1400px)";
 
-@import "buttons";
-
 .grid() {
   float: left;
 }
@@ -103,3 +101,17 @@ ul, li {
 h1, h2, h3 {
   .font();
 }
+
+.app {
+  height: 100%;
+  width:  100%;
+}
+
+@import "modules/buttons";
+@import "modules/player";
+
+@import "pages/admin";
+@import "pages/matches";
+@import "pages/score";
+@import "pages/signup";
+

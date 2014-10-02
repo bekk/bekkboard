@@ -1,0 +1,15 @@
+<ul>
+  {{^matches}}
+    <li>No matches, yet!</li>
+  {{/matches}}
+  {{#matches}}
+    {{#editing}}
+      <input type="text" name="score-a" value="{{score.a}}"/>
+      <input type="text" name="score-b" value="{{score.b}}"/>
+      <input type="submit" on-click="save" value="Save"/>
+    {{/editing}}
+    {{^editing}}
+      <li on-dblclick="edit">{{score.a}} ({{players.a.name}}) vs. {{score.b}} ({{players.b.name}})</li>
+    {{/editing}}
+  {{/matches}}
+</ul>

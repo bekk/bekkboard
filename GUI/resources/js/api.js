@@ -1,19 +1,23 @@
-function parseIsoDateToJsDate (key, value) {
-  if (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:[.,]\d+)?Z/i.test(value))
-    return new Date(value);
-  return value;
-}
+var request = require('superagent'),
+    $ = require('zepto-browserify').$;
 
-$.ajaxSetup({
-  converters: {
-    "text json": function (str) {
-      // automatically parse utc dates in json to js dates
-      return JSON.parse(str, parseIsoDateToJsDate);
-    }
+
+// fix date parsing on serializing json
+request.parse['application/json'] = (function () {
+
+  function parseIsoDateToJsDate (key, value) {
+    if (/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:[.,]\d+)?Z/i.test(value))
+      return new Date(value);
+    return value;
   }
-});
 
-var API = (function () {
+  // automatically parse utc dates in json to js dates
+  return function (str) {
+    return JSON.parse(str, parseIsoDateToJsDate);
+  };
+})();
+
+var API = module.exports = (function () {
 
   var noop = function () {};
 
@@ -68,28 +72,21 @@ var API = (function () {
   };
 
   function getJson (path, fn) {
-    return json('get', path, null, fn);
+    return request.get(url + path).end(handleResponse(fn));
   }
 
   function postJson (path, data, fn) {
-    return json('post', path, data, fn);
+    return request.post(url + path).send(data).end(handleResponse(fn));
   }
 
   function delJson (path, fn) {
-    return json('delete', path, null, fn);
+    return request.del(url + path).end(handleResponse(fn));
   }
 
-  function json (type, path, data, fn) {
-    var options = {
-      type: type,
-      url: url + path,
-      contentType: 'application/json',
-      dataType: 'json',
-      success: function () {
-        if (typeof fn == 'function') fn.apply(null, arguments);
-      }
+  function handleResponse (fn) {
+    return function (res) {
+      return fn(res.body);
     };
-    if (data) options.data = JSON.stringify(data);
-    return $.ajax(options);
   }
+
 })();

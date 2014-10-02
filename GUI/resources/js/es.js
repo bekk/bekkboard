@@ -1,4 +1,6 @@
-var ES = (function () {
+var API = require('./api');
+
+module.exports = (function () {
 
   var es;
   var events = {};
@@ -13,9 +15,11 @@ var ES = (function () {
 
   function attachListeners () {
     for (var type in events) {
-      var listeners = events[type] || [];
-      for (var i = 0; i < listeners.length; i++) {
-        es.addEventListener(type, listeners[i]);
+      if (events.hasOwnProperty(type)) {
+        var listeners = events[type] || [];
+        for (var i = 0; i < listeners.length; i++) {
+          es.addEventListener(type, listeners[i]);
+        }
       }
     }
   }
@@ -41,4 +45,5 @@ var ES = (function () {
     connect: connect,
     on: on
   };
+
 })();
