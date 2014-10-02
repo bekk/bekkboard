@@ -49,6 +49,9 @@ ln -s /home/pi/bekkboard/pi/post-receive /home/pi/bekkboard.git/hooks/post-recei
 # git remote add pi pi@bekkpi.local:~/bekkboard.git
 # git push pi master
 
+# move back to home
+cd
+
 # install node version manager (nvm)
 curl https://raw.githubusercontent.com/creationix/nvm/v0.17.1/install.sh | bash
 
