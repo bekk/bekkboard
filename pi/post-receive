@@ -9,7 +9,7 @@ $NODE_VERSION="$(nvm current)"
 echo "-> node version $NODE_VERSION"
 
 echo "-> GUI: npm install.."
-cd /home/pi/bekkboard/GUI/ && npm install
+cd /home/pi/bekkboard/GUI/ && npm run compile-prod
 
 echo "-> server: npm install.."
 cd /home/pi/bekkboard/server/ && npm install
