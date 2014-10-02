@@ -18,7 +18,6 @@
     "gulp-embedlr": "^0.5.2",
     "gulp-htmlmin": "^0.2.0",
     "gulp-if": "^1.2.4",
-    "gulp-imagemin": "^1.0.1",
     "gulp-jshint": "^1.8.4",
     "gulp-less": "^1.3.5",
     "gulp-livereload": "^2.1.1",
