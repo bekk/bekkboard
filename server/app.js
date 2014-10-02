@@ -142,12 +142,18 @@ module.exports = function (events, db) {
 
     sendSseEventScore();
     sendSseEventPlayers();
+
     if (connected) {
       sendSseEventConnected();
     }
     else {
       sendSseEventDisconnected();
     }
+
+    Rating.calculateRating(function (err, ranking){
+      if (err) return next(err);
+      sendSseEventRankingUpdated(ranking);
+    });
   });
 
   function respond (res) {
