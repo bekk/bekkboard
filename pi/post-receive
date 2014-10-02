@@ -5,14 +5,14 @@ echo "-> checking out.."
 git checkout -f
 
 . $HOME/.nvm/nvm.sh
-$NODE_VERSION="$(nvm current)"
+NODE_VERSION="$(nvm current)"
 echo "-> node version $NODE_VERSION"
 
 echo "-> GUI: npm install.."
-cd /home/pi/bekkboard/GUI/ && npm run compile-prod
+cd $GIT_WORK_TREE/GUI && npm run compile-prod
 
 echo "-> server: npm install.."
-cd /home/pi/bekkboard/server/ && npm install
+cd $GIT_WORK_TREE/server && npm install
 
 echo "-> hardware: npm install.."
-cd /home/pi/bekkboard/hardware/ && npm install
+cd $GIT_WORK_TREE/hardware && npm install
