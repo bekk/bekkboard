@@ -206,7 +206,7 @@ module.exports = function (events, db) {
       var es = new EventSource(req, res, {
         headers: { 'Access-Control-Allow-Origin': '*' },
         ping:    15, // seconds
-        retry:   1   // seconds
+        retry:   3   // seconds
       });
 
       var id = parseInt(es.lastEventId, 10) || 0;
