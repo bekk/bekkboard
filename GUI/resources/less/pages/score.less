@@ -1,9 +1,16 @@
 .score {
-  .clearfix();
+  overflow: hidden;
+
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
 
   .score-half {
-    .grid-half-width();
     height: 100%;
+    width: 50%;
+    float: left;
 
     &.score-half--bordered {
       border-right: 1px solid @color-bekk-gray-light;
