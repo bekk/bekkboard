@@ -15,4 +15,4 @@ module.exports = function () {
   };
 };
 
-module.exports.deps = ['fonts', 'images', 'html', 'scripts'];
+module.exports.deps = ['fonts', 'html', 'scripts'];
