@@ -44,6 +44,7 @@ mkdir bekkboard
 mkdir bekkboard.git && cd bekkboard.git
 git init --bare
 ln -s /home/pi/bekkboard/pi/post-receive /home/pi/bekkboard.git/hooks/post-receive
+chmod +x /home/pi/bekkboard.git/hooks/post-receive
 
 # on you personal computer, add a remote to it, and push away!
 # git remote add pi pi@bekkpi.local:~/bekkboard.git
