@@ -1,4 +1,4 @@
 # http://raspberrypi.stackexchange.com/questions/14454/beta-epiphany-browser-web-browser-comand-line-auto-start
-epiphany-browser http://localhost:9000/
+epiphany
 sleep 2s # give it time to start
 echo key F11 | xte -x :0 # simulate pressing f11 on display ":0"
