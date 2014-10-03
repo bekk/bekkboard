@@ -9,7 +9,7 @@ NODE_VERSION="$(nvm current)"
 echo "-> node version $NODE_VERSION"
 
 echo "-> GUI: npm install.."
-cd $GIT_WORK_TREE/GUI && npm run compile-prod
+cd $GIT_WORK_TREE/GUI && npm install
 
 echo "-> server: npm install.."
 cd $GIT_WORK_TREE/server && npm install
