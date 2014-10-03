@@ -4,7 +4,6 @@ module.exports = function (minify) {
 
     var buffer     = require('vinyl-buffer'),
         browserify = require('browserify'),
-        es6ify     = require('es6ify'),
         gulp       = require('gulp'),
         gulpif     = require('gulp-if'),
         source     = require('vinyl-source-stream'),
@@ -13,15 +12,9 @@ module.exports = function (minify) {
 
     var c = require("./config");
 
-    es6ify.traceurOverrides = {
-      experimental: true,
-      blockBinding: true,
-      asyncFunctions: true
-    };
-
     var watch = process.env.GULP_IS_WATCH;
 
-    var bundler = browserify(es6ify.runtime, {
+    var bundler = browserify(c.PATH_JS_ENTRY, {
       debug: !minify, // source maps
       cache: {},
       packageCache: {},
@@ -33,10 +26,7 @@ module.exports = function (minify) {
     }
 
     bundler
-      // https://github.com/sebastiandeutsch/es6ify-test/blob/master/browserify.js
-      .add(c.PATH_JS_ENTRY)
       .transform('brfs')
-      .transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/))
       .on('update', rebundle);
 
     return rebundle();
