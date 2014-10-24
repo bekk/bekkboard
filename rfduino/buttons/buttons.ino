@@ -31,30 +31,39 @@ void setup()
   RFduinoBLE.begin();
 }
 
+int previousA;
+
 void loop()
 {
   digitalWrite(led_g, LOW);
 
-  // Sleep until RFduino_pinWake pins are HIGH
   Serial.println("sleeping");
+//
+//  Serial.println(digitalRead(button_a));
+//  Serial.println(digitalRead(button_b));
+//  Serial.println("--");
+//  return;
 
   RFduino_ULPDelay(INFINITE);
 
   digitalWrite(led_g, HIGH);
 
-  if (RFduino_pinWoke(button_a))
-  {
+  Serial.println(digitalRead(button_a));
+  Serial.println(digitalRead(button_b));
+
+  if (RFduino_pinWoke(button_a)) {
     Serial.println("awoke from pin 5");
     RFduinoBLE.sendInt(0);
-    RFduino_resetPinWake(button_a);
+    delay(500);
   }
 
-  if (RFduino_pinWoke(button_b))
-  {
+  if (RFduino_pinWoke(button_b)) {
     Serial.println("awoke from pin 6");
     RFduinoBLE.sendInt(1);
-    RFduino_resetPinWake(button_b);
+    delay(500);
   }
+  RFduino_resetPinWake(button_a);
+  RFduino_resetPinWake(button_b);
 }
 
 void RFduinoBLE_onAdvertisement(bool start)
