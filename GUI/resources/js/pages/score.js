@@ -36,9 +36,18 @@ module.exports = Ractive.extend({
       self.set('ranking', ranking);
     });
 
+    API.continueStream();
+
+    var videoTimeout;
+
     var SPACE = 32;
     $(document).keypress(function (e) {
       if (e.keyCode !== SPACE) return;
+
+      if (videoTimeout) {
+        clearTimeout(videoTimeout);
+        videoTimeout = null;
+      }
 
       var shouldStream = !self.get('streaming');
       if (shouldStream) {
@@ -47,8 +56,41 @@ module.exports = Ractive.extend({
       }
       else {
         API.replay();
-        setTimeout(function () {
+        videoTimeout = setTimeout(function () {
           self.set('streaming', shouldStream);
+
+          var video = self.find('video');
+
+          var REPLAY_TIME = 4;
+          function currentTime () {
+            var duration = video.duration;
+            if (duration < REPLAY_TIME) {
+              return 0;
+            }
+            else {
+              return duration - REPLAY_TIME;
+            }
+          }
+
+          video.onloadeddata = function () {
+            video.playbackRate = 0.4;
+            video.currentTime = currentTime();
+            video.play();
+
+            var i = 0;
+            video.onended = function () {
+              console.log('on end', i);
+              video.currentTime = currentTime();
+              video.play();
+
+              i++;
+              if (i === 2) {
+                API.continueStream();
+                self.set('streaming', true);
+              }
+            };
+          };
+
         }, 1000);
       }
     });
