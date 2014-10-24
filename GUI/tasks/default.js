@@ -1,4 +1,4 @@
 module.exports = function () {
 
 };
-module.exports.deps = ['fonts', 'html', 'scripts'];
+module.exports.deps = ['fonts', 'html', 'scripts', 'images'];

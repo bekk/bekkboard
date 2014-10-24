@@ -9,10 +9,11 @@ module.exports = function () {
 
     gulp.watch(c.PATH_INDEX,           ['html']);
     gulp.watch(c.all(c.FOLDER_LESS),   ['less']);
+    gulp.watch(c.all(c.FOLDER_IMAGES), ['images']);
 
     livereload.listen();
     gulp.watch(c.TARGET_FOLDER_ALL).on('change', livereload.changed);
   };
 };
 
-module.exports.deps = ['fonts', 'html', 'scripts'];
+module.exports.deps = ['fonts', 'html', 'scripts', 'images'];

@@ -11,6 +11,10 @@ c.TARGET_FOLDER = "./dist";
 c.FOLDER_FONTS        = './node_modules/font-awesome/fonts/*';
 c.TARGET_FOLDER_FONTS = 'fonts';
 
+// images
+c.FOLDER_IMAGES        = './resources/images/*';
+c.TARGET_FOLDER_IMAGES = 'images';
+
 // less
 c.FOLDER_LESS       = './resources/less';
 c.PATH_LESS_ENTRY   = './resources/less/app.less';

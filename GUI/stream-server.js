@@ -52,11 +52,7 @@ app.get('/continue', function (req, res) {
 });
 
 app.get('/stream', function (req, res) {
-  // res.set({
-  //   'Content-Type': 'video/mp4',
-  // })
   var fileName = __dirname + '/' + STREAM_FILE_NAME;
   res.sendFile(fileName);
-  // fs.createReadStream(fileName).pipe(res);
 });
 app.listen(3001);
