@@ -74,6 +74,9 @@ var API = module.exports = (function () {
     },
     continueStream: function (fn) {
       request.get('http://localhost:3001/continue').end(handleResponse(fn));
+    },
+    getStreamHost: function (fn) {
+      request.get('http://localhost:3001/lookup').end(handleResponse(fn));
     }
   };
 
