@@ -68,6 +68,12 @@ var API = module.exports = (function () {
     },
     getRanking: function (fn) {
       return getJson('/ranking', fn);
+    },
+    replay: function (fn) {
+      request.get('http://localhost:3001/replay').end(handleResponse(fn));
+    },
+    continueStream: function (fn) {
+      request.get('http://localhost:3001/continue').end(handleResponse(fn));
     }
   };
 

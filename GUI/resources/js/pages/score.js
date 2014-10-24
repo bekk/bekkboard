@@ -13,7 +13,8 @@ module.exports = Ractive.extend({
   data: {
     score: { a: 0, b: 0 },
     started: false,
-    ranking: []
+    ranking: [],
+    streaming: true
   },
 
   init: function () {
@@ -33,6 +34,23 @@ module.exports = Ractive.extend({
 
     API.getRanking(function (ranking) {
       self.set('ranking', ranking);
+    });
+
+    var SPACE = 32;
+    $(document).keypress(function (e) {
+      if (e.keyCode !== SPACE) return;
+
+      var shouldStream = !self.get('streaming');
+      if (shouldStream) {
+        API.continueStream();
+        self.set('streaming', shouldStream);
+      }
+      else {
+        API.replay();
+        setTimeout(function () {
+          self.set('streaming', shouldStream);
+        }, 1000);
+      }
     });
   }
 });

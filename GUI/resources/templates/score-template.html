@@ -26,19 +26,31 @@
       </div>
     {{/started}}
   </div>
-  <div class="score-half ranking">
-    <h3 class="ranking-heading">Ranking</h3>
-    <ul>
-    {{^ranking}}
-      <li>No players, yet!</li>
-    {{/ranking}}
-    {{#ranking}}
-      <li class="player">
-        <span class="player-name">{{player.name}}</span>
-        <span class="player-number">{{player.number}}</span>
-        <span class="player-rating">{{rating}}</span>
-      </li>
-    {{/ranking}}
-    </ul>
+  <div class="score-half">
+    <div class="replay">
+      {{#streaming}}
+        <img src="http://10.1.20.44:8080/video"/>
+      {{/streaming}}
+      {{^streaming}}
+        <video autoplay>
+          <source type="video/mp4" src="http://localhost:3001/stream">
+        </video>
+      {{/streaming}}
+    </div>
+    <div class="ranking">
+      <h3 class="ranking-heading">Ranking</h3>
+      <ul>
+      {{^ranking}}
+        <li>No players, yet!</li>
+      {{/ranking}}
+      {{#ranking}}
+        <li class="player">
+          <span class="player-name">{{player.name}}</span>
+          <span class="player-number">{{player.number}}</span>
+          <span class="player-rating">{{rating}}</span>
+        </li>
+      {{/ranking}}
+      </ul>
+    </div>
   </div>
 </div>
