@@ -36,7 +36,7 @@ startFfmpeg();
 
 var app = express();
 
-app.use(cors({ allowedOrigins: ['http://localhost:3000'] }));
+app.use(cors({ allowedOrigins: ['http://localhost:3000', 'http://192.168.1.92:9000'] }));
 
 app.get('/lookup', function (req, res) {
   res.json({ host: STREAM_HOST });
