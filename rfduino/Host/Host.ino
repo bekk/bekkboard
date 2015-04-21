@@ -24,7 +24,6 @@ int led_b = 4; // pin 4 on is RGB shield blue led
 void setup()
 {
   Serial.begin(9600);
-  Serial.println("waiting for connection...");
   pinMode(led_r, OUTPUT);
   pinMode(led_g, OUTPUT);
   pinMode(led_b, OUTPUT);
@@ -40,24 +39,18 @@ void loop()
 void RFduinoGZLL_onReceive(device_t device, int rssi, char *data, int len)
 {
   char state = data[0];
- 
-  Serial.println("Received " + String(len) + " something!!" + String(data) + " o");
-  Serial.print(state);
   switch(state){
     case 0:
-    Serial.println("Received 0!");
+    Serial.println("0");
     digitalWrite(led_r, HIGH);
     digitalWrite(led_g, LOW);
     break;
     case 1:
-    Serial.println("Received 1!");
+    Serial.println("1");
     digitalWrite(led_r, LOW);
     digitalWrite(led_g, HIGH);
     break;
   }
-  delay(500);
-  digitalWrite(led_r, LOW);
-  digitalWrite(led_g, LOW);
   
 
   // no data to piggyback on the acknowledgement sent back to the Device
