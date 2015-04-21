@@ -22,7 +22,7 @@ void setup()
   RFduino_pinWake(button_a, HIGH);
   RFduino_pinWake(button_b, HIGH);
 
-  RFduinoBLE.deviceName = "pings";
+  RFduinoBLE.deviceName = "pingis";
   RFduinoBLE.advertisementData = "pingpong";
 
   // TODO try lower tx power
@@ -45,6 +45,7 @@ void loop()
 //  return;
 
   RFduino_ULPDelay(INFINITE);
+  //RFduino_systemOff();
 
   digitalWrite(led_g, HIGH);
 
@@ -106,5 +107,6 @@ void RFduinoBLE_onAdvertisement(bool start)
 /* void RFduinoBLE_onReceive(char *data, int len) */
 /* { */
 /* } */
+
 
 
