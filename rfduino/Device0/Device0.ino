@@ -21,6 +21,8 @@ void setup()
 
   // start the GZLL stack
   RFduinoGZLL.begin(role);
+
+  RFduino_ULPDelay(INFINITE);
 }
 
 void onClickA()
@@ -28,15 +30,17 @@ void onClickA()
   if (RFduino_pinWoke(button_a)) {
     Serial.println("awoke from pin 5");
     RFduinoGZLL.sendToHost(0);
+    Serial.println("sent 0");
   }
   RFduino_resetPinWake(button_a);
   RFduino_resetPinWake(button_b);
 }
-void onClickB() 
+void onClickB()
 {
   if (RFduino_pinWoke(button_b)) {
     Serial.println("awoke from pin 6");
     RFduinoGZLL.sendToHost(1);
+    Serial.println("sent 1");
   }
   RFduino_resetPinWake(button_a);
   RFduino_resetPinWake(button_b);
@@ -44,25 +48,34 @@ void onClickB()
 
 void sendToHost(char player)
 {
-  // send state to Host
-  Serial.println("Trying to send " + player);
   RFduinoGZLL.sendToHost(player);
-  Serial.println("Did send " + player);
 }
 
 int prevA = 0;
 int prevB = 0;
+int currentA = 0;
+int currentB = 0;
 
 void loop()
 {
   buttonA.tick();
   buttonB.tick();
-  
-  if(prevA == 2 && buttonA.getState() == 0 || prevB == 2 && buttonB.getState() == 0){
+
+  currentA = buttonA.getState();
+  currentB = buttonB.getState();
+
+  Serial.println("prevA: " + String(prevA));
+  Serial.println("prevB: " + String(prevB));
+  Serial.println("currentA: " + String(currentA));
+  Serial.println("currentB: " + String(currentB));
+
+  if (prevA >= 2 && currentA == 0 || prevB >= 2 && currentB == 0) {
     RFduino_ULPDelay(INFINITE);
   } else {
     delay(10);
   }
+  prevA = currentA;
+  prevB = currentB;
 }
 
 void RFduinoGZLL_onReceive(device_t device, int rssi, char *data, int len)
