@@ -21,5 +21,6 @@ var server = app.listen(3000, function () {
 });
 process.once('SIGINT', function () {
   console.log('\napi got sigint, shutting down');
+  app.close();
   server.close();
 });

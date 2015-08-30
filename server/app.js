@@ -156,6 +156,12 @@ module.exports = function (events, db) {
     });
   });
 
+  app.close = function () {
+    if (match) {
+      match.stop();
+    }
+  }
+
   function newDefaultMatch () {
     if (match) {
       match.stop();
