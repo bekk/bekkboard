@@ -1,0 +1,8 @@
+{
+  "name": "bekkboard-rfduino",
+  "version": "0.0.1",
+  "description": "rfduino hardware",
+  "scripts": {
+    "screen": "screen /dev/tty.usbserial-DC008KBF 9600"
+  }
+}
