@@ -65,23 +65,29 @@
   }
 
   .vs-score {
-    .clearfix();
+    display: flex;
 
-    font-size: 4em;
-    @media @tablet  { font-size: 8em; }
-    @media @desktop { font-size: 11em; }
+    font-size: 5em;
+    @media @tablet  { font-size: 14em; }
+    @media @desktop { font-size: 16em; }
     @media @tv      { font-size: 21em; }
 
     .vs-score-a {
-      float: left;
       width: 40%;
       text-align: right;
     }
+
     .vs-score-b {
-      float: left;
-      width: 40%;
+      width: 35%;
       text-align: left;
     }
+
+    .vs-score-aset,
+    .vs-score-bset {
+      font-size: 35%;
+      width: 10%;
+    }
+
     .vs-score-sep {
       float: left;
       width: 20%;
@@ -99,9 +105,9 @@
   .vs-players {
 
     font-size: 1em;
-    @media @tablet  { font-size: 1em; }
-    @media @desktop { font-size: 2em; }
-    @media @tv      { font-size: 3em; }
+    @media @tablet  { font-size: 2em; }
+    @media @desktop { font-size: 3em; }
+    @media @tv      { font-size: 4em; }
 
     color: @color-bekk-gray-light;
     @vs-players-offset: 15%;
