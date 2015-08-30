@@ -224,7 +224,7 @@ module.exports = function (events, db) {
 
       es.on('close', function() {
         es = null;
-        browserEvents.off('browser-event', sendEvent);
+        browserEvents.removeListener('browser-event', sendEvent);
       });
     }
   });
