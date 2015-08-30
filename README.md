@@ -21,3 +21,26 @@ Installer avhengigheter ved å kjøre ``npm install`` i ``server`` mappa. Start 
 Mappen ``GUI`` inneholder brukergrensesnittet som viser pågående kamp. All data informasjon leses fra server API-et.
 
 Installer avhengigheter ved å kjøre ``npm install``i ``GUI``mappa. Starter serveren som hoster GUI-et ved å kjøre ``npm run start``.
+
+## ssh til pi'en
+
+Pien kjører på BEKK trådløsnettet og er tilgjengelig på `pi@bekkpi.local`.
+
+Installer `ssh-copy-id` med `brew install ssh-copy-id`. Kjør `ssh-copy-id pi@bekkpi.local` og skriv passordet som står på pi'en.
+
+Deretter kan du ssh'e inn uten passord.
+
+## deploy
+
+### gui
+```
+cd GUI/
+# dette bygger frontenden på DIN pc (da pien er sjukt treg) og scp'er det over til pien og restarter gui-serveren
+./deploy
+```
+
+### server
+```
+git remote add pi pi@bekkpi.local:~/bekkboard.git
+git push pi master
+```
