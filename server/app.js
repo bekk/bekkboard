@@ -167,15 +167,19 @@ module.exports = function (events, db) {
   function sendSseEvent (type, data) {
     browserEvents.emit('browser-event', { type: type, data: data });
   }
+
   function sendSseEventConnected() {
     sendSseEvent('connected', {});
   }
+
   function sendSseEventDisconnected() {
     sendSseEvent('disconnected', {});
   }
+
   function sendSseEventScore () {
     sendSseEvent('score', match ? match.json() : {});
   }
+
   function sendSseEventPlayers (fn) {
     Players.all(function (err, players) {
       if (err) return console.error(err);
@@ -183,12 +187,15 @@ module.exports = function (events, db) {
       if (fn) fn();
     });
   }
+
   function sendSseEventWinner () {
     sendSseEvent('winner');
   }
+
   function sendSseEventMatch (match) {
     sendSseEvent('match', match.json());
   }
+  
   function sendSseEventRankingUpdated (ranking) {
     sendSseEvent('ranking', ranking);
   }
