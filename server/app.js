@@ -160,8 +160,8 @@ module.exports = function (events, db) {
     if (match) {
       match.stop();
     }
-    
-    match = new Match(events, 'playerA', 'playerB');
+
+    match = new Match(events, {name: 'playerA'}, {name: 'playerB'});
     match.on('change', function () {
       sendSseEventScore();
       if (match) {
@@ -230,6 +230,8 @@ module.exports = function (events, db) {
     sendSseEventDisconnected();
     connected = false;
   });
+
+  events.on('restart', newDefaultMatch);
 
   // sockets
   app.get('/es', function(req, res) {
