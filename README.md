@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/bekk/bekkboard.png?label=ready&title=Ready)](https://waffle.io/bekk/bekkboard)
 # bekkboard
 
 Statistikk og hardware for å holde orden på score for ping pong bord i Trondheim.
