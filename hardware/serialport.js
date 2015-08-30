@@ -1,7 +1,7 @@
 var EventEmitter = require('events').EventEmitter;
 var serialport = require("serialport");
 var SerialPort = serialport.SerialPort
-var serialPort = new SerialPort("/dev/tty.usbserial-DC008KBF", {
+var serialPort = new SerialPort(process.env.DEVICE || "/dev/tty.usbserial-DC008KBF", {
   parser: serialport.parsers.readline("\n"),
   baudrate: 9600
 }, false);

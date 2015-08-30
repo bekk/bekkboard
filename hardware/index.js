@@ -17,6 +17,9 @@ var commands = {
   },
   3: function () {
     emitUndo('b');
+  },
+  4: function () {
+    hardware.emit('restart');
   }
 };
 

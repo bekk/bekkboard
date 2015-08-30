@@ -156,6 +156,24 @@ module.exports = function (events, db) {
     });
   });
 
+  function newDefaultMatch () {
+    if (match) {
+      match.stop();
+    }
+    
+    match = new Match(events, 'playerA', 'playerB');
+    match.on('change', function () {
+      sendSseEventScore();
+      if (match) {
+        sendSseEventMatch(match);
+        sendSseEventPlayers(sendSseEventWinner);
+      }
+    });
+    match.start();
+
+    sendSseEventScore();
+  }
+
   function respond (res) {
     if (match) {
       res.json(match.json());
@@ -195,7 +213,7 @@ module.exports = function (events, db) {
   function sendSseEventMatch (match) {
     sendSseEvent('match', match.json());
   }
-  
+
   function sendSseEventRankingUpdated (ranking) {
     sendSseEvent('ranking', ranking);
   }
@@ -206,6 +224,7 @@ module.exports = function (events, db) {
     sendSseEventConnected();
     connected = true;
   });
+
   events.on('disconnected', function () {
     sendSseEventScore();
     sendSseEventDisconnected();

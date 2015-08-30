@@ -18,10 +18,12 @@ function Match (events, a, b, timelimit) {
   var timeout,
       matchTimeout,
       tickInterval,
-      timeRemaining = timelimit;
+      timeRemaining = timelimit,
+      timeElapsed;
 
   self.start = function () {
     status = 'started';
+    timeElapsed = 0;
     matchset = new MatchSet();
 
     if (timelimit) {
@@ -31,6 +33,11 @@ function Match (events, a, b, timelimit) {
 
       tickInterval = setInterval(function () {
         timeRemaining -= 1; // sec
+        self.emit('change');
+      }, 1000);
+    } else {
+      tickInterval = setInterval(function () {
+        timeElapsed += 1; // sec
         self.emit('change');
       }, 1000);
     }
@@ -50,14 +57,7 @@ function Match (events, a, b, timelimit) {
     status = 'stopped';
   };
 
-  self.status = function (newStatus) {
-    if (this.done) {
-      this.stop();
-      return status;
-    }
-    if (newStatus) {
-      status = newStatus;
-    }
+  self.status = function () {
     return status;
   };
 
@@ -76,6 +76,7 @@ function Match (events, a, b, timelimit) {
     matchset.point(data.side);
     if (matchset.done) {
       winner = true;
+      self.stop();
     }
     self.emit('change');
   });
@@ -86,6 +87,11 @@ function Match (events, a, b, timelimit) {
 
   self.timeRemaining = function () {
     var duration = moment.duration(timeRemaining, 'seconds');
+    return duration.format("mm:ss");
+  };
+
+  self.timeElapsed = function () {
+    var duration = moment.duration(timeElapsed, 'seconds');
     return duration.format("mm:ss");
   };
 
@@ -105,7 +111,8 @@ function Match (events, a, b, timelimit) {
       score: self.score(),
       status: self.status(),
       players: self.players(),
-      timeRemaining: self.timeRemaining()
+      timeRemaining: self.timeRemaining(),
+      timeElapsed: self.timeElapsed()
     };
 
     if (timeout) {
