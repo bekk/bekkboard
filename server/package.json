@@ -4,12 +4,14 @@
   "description": "Match-serveren",
   "main": "server.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha -R min -w"
+    "start": "DEVICE=/dev/tty.usbserial-DC008KBF node server-hook.js",
+    "start-mock": "node server-hook.js"
   },
   "author": "@torgeir,@magnuf,@emilmork,@follesoe",
   "license": "mit",
   "dependencies": {
     "aws-sdk": "^2.0.17",
+    "babel": "^5.8.23",
     "body-parser": "1.8.3",
     "cors": "~2.2.0",
     "elorating": "^1.0.0",
@@ -30,9 +32,5 @@
     "chai": "~1.9.0",
     "mocha": "~1.17.1",
     "supertest": "~0.9.0"
-  },
-  "scripts": {
-    "start" : "DEVICE=/dev/tty.usbserial-DC008KBF node server.js",
-    "start-mock" : "node server.js"
   }
 }

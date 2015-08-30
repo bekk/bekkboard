@@ -9,9 +9,9 @@
 //   console.log.apply(console, ['undo'].concat(argumentsAsArray));
 // });
 
-var events = require('../hardware');
+import events from '../hardware';
+import levelup from 'level';
 
-var levelup = require('level');
 var options = { keyEncoding: 'utf-8', valueEncoding: 'json' };
 var level = levelup('./database.db', options);
 
