@@ -12,6 +12,7 @@ module.exports = Ractive.extend({
 
   data: {
     score: { a: 0, b: 0 },
+    sets: { a: 0, b: 0 },
     started: false,
     ranking: [],
     streaming: true,
@@ -22,6 +23,7 @@ module.exports = Ractive.extend({
     var self = this;
     ES.on('score', function (data) {
       self.set('score', data.score);
+      self.set('sets', data.sets);
       self.set('winner', data.winner);
       self.set('players', data.players);
       self.set('draw', data.draw);
