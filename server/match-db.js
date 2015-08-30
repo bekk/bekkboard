@@ -14,7 +14,7 @@ module.exports = function (db) {
     var date = match.date || new Date();
 
     var matchCopy = _.extend({}, match.json(), {
-      date: date,
+      date: date
     });
 
     MatchDb.save(date.getTime(), matchCopy, fn);
