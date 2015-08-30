@@ -29,8 +29,9 @@ c.TARGET_FILE_JS   = 'app.js';
 c.TARGET_PATH_JS   = 'js/app.js';
 c.TARGET_FOLDER_JS = 'js';
 
-// index file
+// html files
 c.PATH_INDEX = "./resources/html/index.html";
+c.FOLDER_TEMPLATES = "./resources/templates";
 
 // tests
 c.FOLDER_TESTS = './resources/js/tests';
