@@ -13,6 +13,7 @@
   "dependencies": {
     "aws-sdk": "^2.0.17",
     "babel": "^5.8.23",
+    "babel-core": "^5.8.23",
     "body-parser": "1.8.3",
     "cors": "~2.2.0",
     "elorating": "^1.0.0",
