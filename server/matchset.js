@@ -16,7 +16,7 @@ function MatchSet () {
       sides[side]--;
     }
   };
-
+  
   self.__defineGetter__("score", function () {
     // return copy
     return {
