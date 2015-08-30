@@ -1,0 +1,2 @@
+git push pi master
+ssh pi@bekkpi.local sudo restart bekkboard-api
