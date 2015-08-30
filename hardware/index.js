@@ -9,19 +9,22 @@ var e = (process.env.DEVICE) ?
 
 var commands = {
   0: function () {
-    emitScore('a');
+    emitScore('a'); // single click
   },
   1: function () {
-    emitScore('b');
+    emitScore('b'); // single click
   },
   2: function () {
-    emitUndo('a');
+    emitUndo('a'); // double click
   },
   3: function () {
-    emitUndo('b');
+    emitUndo('b'); // double click
   },
   4: function () {
-    hardware.emit('restart');
+    hardware.emit('restart'); // long press
+  },
+  5: function () {
+    hardware.emit('restart'); // long press
   }
 };
 
