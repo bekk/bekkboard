@@ -1,9 +1,9 @@
-var EventEmitter = require('events').EventEmitter,
-    util         = require('util'),
-    moment       = require('moment'),
-    momentFormat = require('moment-duration-format');
+import { EventEmitter } from 'events';
+import util from 'util';
+import moment from 'moment';
+import 'moment-duration-format';
 
-var MatchSet = require('./matchset');
+import MatchSet from './matchset';
 
 module.exports = Match;
 
@@ -14,6 +14,7 @@ function Match (events, a, b, timelimit) {
       winner;
 
   var matchset = new MatchSet();
+  var allSets = [];
 
   var timeout,
       matchTimeout,
@@ -79,11 +80,21 @@ function Match (events, a, b, timelimit) {
     }
     matchset.point(data.side);
     if (matchset.done) {
-      winner = true;
-      self.stop();
+      allSets.push(matchset);
+      var matchScore = self.sets();
+      if (matchScore.a >= Match.SetGoal || matchScore.b >= Match.SetGoal) {
+        winner = true;
+        self.stop();
+      } else {
+        self.newSet();
+      }
     }
     self.emit('change');
   });
+
+  self.newSet = () => {
+    matchset = new MatchSet();
+  };
 
   self.score = function () {
     return matchset.score;
@@ -101,6 +112,14 @@ function Match (events, a, b, timelimit) {
     };
   };
 
+  self.sets = () => allSets.reduce((prev, current) => {
+    return {
+      a: prev.a + (current.winner === 'a' ? 1 : 0),
+      b: prev.b + (current.winner === 'b' ? 1 : 0)
+    };
+  }, {a:0, b:0});
+  
+
   self.__defineGetter__("done", function () {
     return timeout === true || winner === true;
   });
@@ -110,7 +129,8 @@ function Match (events, a, b, timelimit) {
       score: self.score(),
       status: self.status(),
       players: self.players(),
-      time: self.time()
+      time: self.time(),
+      sets: self.sets()
     };
 
     if (timeout) {
@@ -126,5 +146,6 @@ function Match (events, a, b, timelimit) {
 }
 
 Match.LengthSeconds = 4 * 60;
+Match.SetGoal = 2;
 
 util.inherits(Match, EventEmitter);
