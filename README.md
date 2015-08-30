@@ -42,5 +42,11 @@ cd GUI/
 ### server
 ```
 git remote add pi pi@bekkpi.local:~/bekkboard.git
+# dette sjekker ut bekkboard-repoet på pien, og kjører npm install i hardware/, GUI/ og server/ mappene.
 git push pi master
+ssh pi@bekkpi.local sudo restart bekkboard-api
 ```
+
+## logger
+
+Både `api` og `gui` serverene logger til `/var/log/`, henholdsvis til `bekkboard-api.log` og `bekkboard-gui.log`.
