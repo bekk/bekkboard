@@ -25,7 +25,7 @@ module.exports = Ractive.extend({
       self.set('winner', data.winner);
       self.set('players', data.players);
       self.set('draw', data.draw);
-      self.set('timeRemaining', data.timeRemaining);
+      self.set('time', data.time);
       self.set('started', data.status === "started");
     });
 

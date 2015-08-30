@@ -18,12 +18,16 @@ function Match (events, a, b, timelimit) {
   var timeout,
       matchTimeout,
       tickInterval,
-      timeRemaining = timelimit,
-      timeElapsed;
+      time = timelimit;
 
   self.start = function () {
     status = 'started';
-    timeElapsed = 0;
+    if (timelimit) {
+      time = timelimit;
+    } else {
+      time = 0;
+    }
+
     matchset = new MatchSet();
 
     if (timelimit) {
@@ -32,12 +36,12 @@ function Match (events, a, b, timelimit) {
       }, timelimit * 1000);
 
       tickInterval = setInterval(function () {
-        timeRemaining -= 1; // sec
+        time -= 1; // sec
         self.emit('change');
       }, 1000);
     } else {
       tickInterval = setInterval(function () {
-        timeElapsed += 1; // sec
+        time += 1; // sec
         self.emit('change');
       }, 1000);
     }
@@ -85,13 +89,8 @@ function Match (events, a, b, timelimit) {
     return matchset.score;
   };
 
-  self.timeRemaining = function () {
-    var duration = moment.duration(timeRemaining, 'seconds');
-    return duration.format("mm:ss");
-  };
-
-  self.timeElapsed = function () {
-    var duration = moment.duration(timeElapsed, 'seconds');
+  self.time = function () {
+    var duration = moment.duration(time, 'seconds');
     return duration.format("mm:ss");
   };
 
@@ -111,8 +110,7 @@ function Match (events, a, b, timelimit) {
       score: self.score(),
       status: self.status(),
       players: self.players(),
-      timeRemaining: self.timeRemaining(),
-      timeElapsed: self.timeElapsed()
+      time: self.time()
     };
 
     if (timeout) {

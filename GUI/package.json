@@ -45,6 +45,7 @@
   },
   "scripts": {
     "compile": "npm install && gulp",
+    "watch": "gulp watch",
     "compile-prod": "npm install && NODE_ENV=production gulp",
     "start": "PORT=3001 node server",
     "start-prod": "NODE_ENV=production node server"

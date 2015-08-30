@@ -7,9 +7,10 @@ module.exports = function () {
 
     var c = require('./config');
 
-    gulp.watch(c.PATH_INDEX,           ['html']);
-    gulp.watch(c.all(c.FOLDER_LESS),   ['less']);
-    gulp.watch(c.all(c.FOLDER_IMAGES), ['images']);
+    gulp.watch(c.PATH_INDEX,            ['html']);
+    gulp.watch(c.all(c.FOLDER_LESS),    ['less']);
+    gulp.watch(c.all(c.FOLDER_IMAGES),  ['images']);
+    gulp.watch(c.all(c.FOLDER_JS),      ['scripts']);
 
     livereload.listen();
     gulp.watch(c.TARGET_FOLDER_ALL).on('change', livereload.changed);
