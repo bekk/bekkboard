@@ -19,8 +19,10 @@ void setup()
   RFduino_pinWake(button_b, HIGH);
 
   buttonA.attachClick(onClickA);
-  buttonA.attachLongPressStop(onLongPressA);
   buttonB.attachClick(onClickB);
+  buttonA.attachDoubleClick(onDoubleClickA);
+  buttonB.attachDoubleClick(onDoubleClickB);
+  buttonA.attachLongPressStop(onLongPressA);
   buttonB.attachLongPressStop(onLongPressB);
 
   // start the GZLL stack
@@ -34,19 +36,34 @@ void onClickA()
   sendToHost(0);
   resetAndSleep();
 }
+
 void onClickB()
 {
   sendToHost(1);
   resetAndSleep();
 }
-void onLongPressA()
+
+void onDoubleClickA()
 {
   sendToHost(2);
   resetAndSleep();
 }
-void onLongPressB()
+
+void onDoubleClickB()
 {
   sendToHost(3);
+  resetAndSleep();
+}
+
+void onLongPressA()
+{
+  sendToHost(4);
+  resetAndSleep();
+}
+
+void onLongPressB()
+{
+  sendToHost(5);
   resetAndSleep();
 }
 
@@ -73,10 +90,11 @@ void loop()
 {
   tick();
   if (shouldSleep) {
-      delay(10);
+      delay(10); // Ekstra delay for aa forsikre seg at data blir sendt.
       RFduino_ULPDelay(INFINITE);
       shouldSleep = false;
   }
+  delay(10); // Kan ikke kalle tick for ofte... 
 }
 
 void RFduinoGZLL_onReceive(device_t device, int rssi, char *data, int len)

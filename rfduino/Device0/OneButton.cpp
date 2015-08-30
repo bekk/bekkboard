@@ -23,6 +23,7 @@ OneButton::OneButton(int pin, int activeLow)
   _pin = pin;
 
   _clickTicks = 100;        // number of millisec that have to pass by before a click is detected.
+  _dblClickTicks = 350;     // number of millisec that two clicks must occur within for a double click to be detected.
   _pressTicks = 1000;       // number of millisec that have to pass by before a long button press is detected.
  
   _state = 0; // starting with state 0: waiting for button to be pressed
@@ -137,7 +138,7 @@ void OneButton::tick(void)
     } // if
 
   } else if (_state == 2) { // waiting for menu pin being pressed the second time or timeout.
-    if (now > _startTime + _clickTicks) {
+    if (now > _startTime + _dblClickTicks) {
       // this was only a single short click
       if (_clickFunc) _clickFunc();
       _state = 0; // restart.

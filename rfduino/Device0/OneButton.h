@@ -54,9 +54,10 @@ public:
   bool isLongPressed();
 
 private:
-  int _pin;        // hardware pin number. 
-  int _clickTicks; // number of ticks that have to pass by before a click is detected
-  int _pressTicks; // number of ticks that have to pass by before a lonn button press is detected
+  int _pin;           // hardware pin number. 
+  int _clickTicks;    // number of ticks that have to pass by before a click is detected
+  int _dblClickTicks; // number of millisec that two clicks must occur within for a double click to be detected.
+  int _pressTicks;    // number of ticks that have to pass by before a lonn button press is detected
 
   int _buttonReleased;
   int _buttonPressed;
