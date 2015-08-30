@@ -1,5 +1,5 @@
 var EventEmitter = require('events').EventEmitter;
-var serialport = require("serialport");
+var serialport = require('serialport');
 var SerialPort = serialport.SerialPort
 
 module.exports = function (device) {
@@ -16,9 +16,8 @@ module.exports = function (device) {
     }
     else {
       emitter.emit('connected');
-
       serialPort.on('data', function (data) {
-        emitter.emit('data', data);
+        emitter.emit('data', data.toString());
       });
 
       serialPort.on('error', function () {
