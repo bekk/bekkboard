@@ -32,6 +32,7 @@
     "supertest": "~0.9.0"
   },
   "scripts": {
-    "start" : "node server.js"
+    "start" : "DEVICE=/dev/tty.usbserial-DC008KBF node server.js",
+    "start-mock" : "node server.js"
   }
 }
