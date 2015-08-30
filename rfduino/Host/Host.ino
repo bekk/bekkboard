@@ -50,6 +50,16 @@ void RFduinoGZLL_onReceive(device_t device, int rssi, char *data, int len)
     digitalWrite(led_r, LOW);
     digitalWrite(led_g, HIGH);
     break;
+    case 2:
+    Serial.println("2");
+    digitalWrite(led_r, HIGH);
+    digitalWrite(led_g, LOW);
+    break;
+    case 3:
+    Serial.println("3");
+    digitalWrite(led_r, LOW);
+    digitalWrite(led_g, HIGH);
+    break;
   }
   
 
