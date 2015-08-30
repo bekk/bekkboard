@@ -32,7 +32,10 @@ e.on('connected', function () {
 
 e.on('data', function (data) {
   console.log('data: ', data);
-  commands[data]();
+  if(commands[data])
+    commands[data]();
+  else
+    console.log('unknown command "' + data + '"');
 });
 
 e.on('disconnected', function () {
