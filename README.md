@@ -30,7 +30,7 @@ Installer `ssh-copy-id` med `brew install ssh-copy-id`. Kjør `ssh-copy-id pi@be
 
 Deretter kan du ssh'e inn uten passord.
 
-## deploy
+## Deploy
 
 ### gui
 ```
@@ -47,6 +47,10 @@ git push pi master
 ssh pi@bekkpi.local sudo restart bekkboard-api
 ```
 
-## logger
+## Logger
 
 Både `api` og `gui` serverene logger til `/var/log/`, henholdsvis til `bekkboard-api.log` og `bekkboard-gui.log`.
+
+## Oppstartsscripts på pien
+
+Både `api` og `gui` serverene startes automatisk når pien booter. Oppstartsscripts fins i `/etc/init/bekkboard-api.conf` og `/etc/init/bekkboard-gui.conf`.
