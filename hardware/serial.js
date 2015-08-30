@@ -17,7 +17,7 @@ module.exports = function (device) {
     else {
       emitter.emit('connected');
       serialPort.on('data', function (data) {
-        emitter.emit('data', data.toString());
+        emitter.emit('data', parseInt(data, 10));
       });
 
       serialPort.on('error', function () {

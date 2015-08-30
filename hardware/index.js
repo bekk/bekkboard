@@ -4,7 +4,7 @@ var hardware = module.exports = new EventEmitter();
 //var e = nobleEmitter.connect(peripheralUuid, serviceUuid, characteristicUuid);
 
 var e = (process.env.DEVICE) ?
-          require('./serialport')(process.env.DEVICE) :
+          require('./serial')(process.env.DEVICE) :
           require('./stdin-mock');
 
 var commands = {
