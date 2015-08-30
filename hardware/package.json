@@ -5,7 +5,8 @@
   "main": "index.js",
   "dependencies": {
     "bluebird": "^2.3.4",
-    "noble": "^0.3.5"
+    "noble": "^0.3.5",
+    "serialport": "^1.6.3"
   },
   "devDependencies": {},
   "scripts": {

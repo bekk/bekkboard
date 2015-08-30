@@ -1,22 +1,17 @@
 var EventEmitter = require('events').EventEmitter;
 
-var nobleEmitter = require('./noble-emitter');
-if (process.env.DEBUG_NOBLE) nobleEmitter.debug();
-
-var peripheralUuid     = process.env.UUID_PERIPHERAL     || "dc76745c6637";
-var serviceUuid        = process.env.UUID_SERVICE        || "2220";
-var characteristicUuid = process.env.UUID_CHARACTERISTIC || "2221";
-
 var hardware = module.exports = new EventEmitter();
+//var e = nobleEmitter.connect(peripheralUuid, serviceUuid, characteristicUuid);
 
-var e = nobleEmitter.connect(peripheralUuid, serviceUuid, characteristicUuid);
+var e = require('./serialport');
+
 e.on('connected', function () {
   console.log('ble connected');
   hardware.emit('connected');
 });
 e.on('data', function (data) {
-  var value = data.readInt16LE(0);
-  handleButton(value === 0 ? 'a' : 'b');
+  handleButton(data == 0 ? 'a' : 'b');
+  console.log(data);
 });
 e.on('disconnected', function () {
   console.log('ble disconnected');
