@@ -31,10 +31,10 @@ module.exports = Ractive.extend({
       self.set('players', data.players);
       self.set('draw', data.draw);
       self.set('time', data.time);
-      self.set('showscore', (data.status === 'ready' || data.status === 'started' || data.status === 'stopped'));
-      self.set('vsinvertedclass', (data.sets.a + data.sets.b) % 2 === 0 ? '' : 'vs-score-inverted');
-      self.set('playeraclass', data.servingPlayer === 'a' ? 'serving-player' : '');
-      self.set('playerbclass', data.servingPlayer === 'b' ? 'serving-player' : '');
+      self.set('showscore', data && (data.status === 'ready' || data.status === 'started' || data.status === 'stopped'));
+      self.set('vsinvertedclass', data && ((data.sets.a + data.sets.b) % 2 === 0 ? '' : 'vs-score-inverted'));
+      self.set('playeraclass', data && (data.servingPlayer === 'a' ? 'serving-player' : ''));
+      self.set('playerbclass', data && (data.servingPlayer === 'b' ? 'serving-player' : ''));
     });
 
     ES.on('ranking', function (ranking) {
