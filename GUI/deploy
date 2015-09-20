@@ -1,3 +1,3 @@
 npm run compile-prod
-scp -r dist/* pi@bekkpi.local:/home/pi/bekkboard/GUI/dist/
+scp -r dist/* pi@bekkpi2.local:/home/pi/bekkboard/GUI/dist/
 ssh pi@bekkpi.local sudo restart bekkboard-gui
