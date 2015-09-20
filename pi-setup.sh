@@ -9,20 +9,12 @@
 sudo apt-get clean
 sudo apt-get update
 
-sudo apt-get install -y \
-
-  vim \
-
-  # node deps
-  build-essential \
+sudo apt-get install -y vim \
+  build-essential \ # node deps
   openssl \
   libssl-dev \
-
-  # bonjour, so bekkpi.local works
-  libnss-mdns \
-
-  # to be able to send f11 to the browser to make it go fullscreen
-  xautomation
+  libnss-mdns \ # bonjour, so bekkpi.local works
+  xautomation  # to be able to send f11 to the browser to make it go fullscreen
 
 sudo apt-get install upstart --force-yes
 
