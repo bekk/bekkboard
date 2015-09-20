@@ -3,10 +3,6 @@ export GIT_WORK_TREE=/home/pi/bekkboard
 
 echo "-> checking out.."
 git checkout -f
-
-. $HOME/.nvm/nvm.sh
-NODE_VERSION="$(nvm current)"
-echo "-> node version $NODE_VERSION"
 git clean -fxd
 
 echo "-> GUI: npm install.."
