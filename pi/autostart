@@ -6,3 +6,4 @@
 @xset s noblank
 @setterm -powersave off -blank
 @epiphany-browser -a --profile /home/pi/epiphany/ http://bekkpi2.local:9000
+@sleep 2 && echo key F11 | xte -x:0
