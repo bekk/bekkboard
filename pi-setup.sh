@@ -34,7 +34,7 @@ ln -s /home/pi/bekkboard/pi/post-receive /home/pi/bekkboard.git/hooks/post-recei
 chmod +x /home/pi/bekkboard.git/hooks/post-receive
 
 # on you personal computer, add a remote to it, and push away!
-# git remote add pi pi@bekkpi.local:~/bekkboard.git
+# git remote add pi pi@bekkpi2.local:~/bekkboard.git
 # git push pi master
 
 # move back to home
