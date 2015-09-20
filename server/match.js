@@ -15,7 +15,8 @@ function Match (events, a, b, timelimit) {
       servingPlayer = 'not set';
 
   var matchset = new MatchSet();
-  var allSets = [];
+  var allSets = [],
+      points = [];
 
   var timeout,
       matchTimeout,
@@ -72,20 +73,43 @@ function Match (events, a, b, timelimit) {
     return status;
   };
 
+  self.lastPointIsFromSide = function (side) {
+    return points[points.length - 1] === side;
+  };
+
+  self.hasPreviouslyPlayedSet = function () {
+    return allSets.length > 0;
+  };
+
   events.on("undo", function (data) {
     if (status == 'stopped') {
       return;
     }
 
-    if (matchset.score.a === 0 && matchset.score.b === 0 && allSets.length > 0) {
-      matchset = allSets.pop();
-      servingPlayer = (servingPlayer === 'a') ? 'b' : 'a';
+    if (points.length == 0) {
+      return;
     }
 
     if (self.shouldInvertSide()) {
       data.side = invertSide(data.side);
     }
 
+    var isLastScoredPointInPreviousSet = !matchset.hasScored() && self.hasPreviouslyPlayedSet();
+    
+    if (isLastScoredPointInPreviousSet) {
+      data.side = invertSide(data.side);
+    }
+
+    if (!self.lastPointIsFromSide(data.side)) {
+      return;
+    }
+
+    if (isLastScoredPointInPreviousSet) {
+      matchset = allSets.pop();
+      servingPlayer = (servingPlayer === 'a') ? 'b' : 'a';
+    }
+
+    points.pop();
     matchset.undoPoint(data.side);
     self.emit('change');
   });
@@ -103,6 +127,7 @@ function Match (events, a, b, timelimit) {
       data.side = invertSide(data.side);
     }
 
+    points.push(data.side);
     matchset.point(data.side);
 
     if (matchset.done) {
@@ -123,11 +148,9 @@ function Match (events, a, b, timelimit) {
     var sum = matchset.score.a + matchset.score.b;
     var compare = (sum > 20) ? sum : Math.floor(sum / 2);
 
-    if (compare % 2 == 0)
-    {
+    if (compare % 2 == 0) {
       return servingPlayer;
-    }
-    else if(servingPlayer == 'a') {
+    } else if (servingPlayer == 'a') {
       return 'b';
     } else {
       return 'a';
