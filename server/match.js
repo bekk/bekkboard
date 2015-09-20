@@ -77,11 +77,15 @@ function Match (events, a, b, timelimit) {
       return;
     }
 
-    if(matchset.score.a === 0 && matchset.score.b === 0 && allSets.length > 0){
+    if (matchset.score.a === 0 && matchset.score.b === 0 && allSets.length > 0) {
       matchset = allSets.pop();
       servingPlayer = (servingPlayer === 'a') ? 'b' : 'a';
     }
-    
+
+    if (self.shouldInvertSide()) {
+      data.side = invertSide(data.side);
+    }
+
     matchset.undoPoint(data.side);
     self.emit('change');
   });
@@ -95,10 +99,8 @@ function Match (events, a, b, timelimit) {
       return;
     }
 
-    var currentSets = self.sets();
-    var invert = (currentSets.a + currentSets.b) % 2 !== 0;
-    if (invert) {
-      data.side = (data.side === 'a' ? 'b' : 'a');
+    if (self.shouldInvertSide()) {
+      data.side = invertSide(data.side);
     }
 
     matchset.point(data.side);
@@ -159,6 +161,14 @@ function Match (events, a, b, timelimit) {
     };
   }, {a:0, b:0});
 
+  self.shouldInvertSide = function () {
+    var currentSets = self.sets();
+    return (currentSets.a + currentSets.b) % 2 !== 0;
+  };
+
+  function invertSide (side) {
+    return (side === 'a' ? 'b' : 'a');
+  }
 
   self.__defineGetter__("done", function () {
     return timeout === true || winner === true;
@@ -184,6 +194,7 @@ function Match (events, a, b, timelimit) {
 
     return o;
   };
+
 }
 
 Match.LengthSeconds = 4 * 60;
