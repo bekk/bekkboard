@@ -16,6 +16,7 @@ module.exports = Ractive.extend({
     started: false,
     palyeraclass: '',
     playerbclass: '',
+    vsinvertedclass: '',
     ranking: [],
     streaming: true,
     streamHost: undefined
@@ -31,6 +32,7 @@ module.exports = Ractive.extend({
       self.set('draw', data.draw);
       self.set('time', data.time);
       self.set('showscore', true);
+      self.set('vsinvertedclass', (data.sets.a + data.sets.b) % 2 === 0 ? '' : 'vs-score-inverted');
       self.set('playeraclass', data.servingPlayer === 'a' ? 'serving-player' : '');
       self.set('playerbclass', data.servingPlayer === 'b' ? 'serving-player' : '');
     });

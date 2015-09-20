@@ -3,7 +3,7 @@
   <div>
     {{#showscore}}
       <div class="time">{{time}}</div>
-      <div class="vs-score {{ (sets.a + sets.b) % 2 == 0 ? '' : 'vs-score-inverted' }}">
+      <div class="vs-score {{vsinvertedclass}}">
         <div class="vs-score-a-container">
           <span class="vs-score-a">{{score.a}}</span>
           <span class="vs-score-aset">{{sets.a}}</span>
