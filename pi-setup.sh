@@ -14,7 +14,8 @@ sudo apt-get install -y vim \
   openssl \
   libssl-dev \
   libnss-mdns \ # bonjour, so bekkpi.local works
-  xautomation  # to be able to send f11 to the browser to make it go fullscreen
+  xautomation \ # to be able to send f11 to the browser to make it go fullscreen
+  epiphany
 
 sudo apt-get install upstart --force-yes
 
