@@ -46,14 +46,6 @@ tar -xvf node-v4.1.0-linux-armv7l.tar.gz
 cd node-v4.1.0-linux-armv7
 sudo cp -R * /usr/local/
 
-# install bluez 4.101 - https://github.com/sandeepmistry/noble/wiki/Getting-started#linux-specific
-wget https://www.kernel.org/pub/linux/bluetooth/bluez-4.101.tar.bz2
-tar xvjf bluez-4.101.tar.bz2
-cd bluez-4.101
-./configure --disable-systemd
-make
-sudo make install
-
 # install launch-on-boot scripts
 cd /etc/init/
 sudo ln -s /home/pi/bekkboard/pi/bekkboard-api.conf
