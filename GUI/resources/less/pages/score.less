@@ -59,51 +59,68 @@
     text-align: center;
   }
 
-  .vs {
-    text-align: center;
-    vertical-align: middle;
-  }
-
   .vs-score {
-    display: flex;
-
     font-size: 5em;
     @media @tablet  { font-size: 14em; }
     @media @desktop { font-size: 16em; }
     @media @tv      { font-size: 21em; }
 
-    .vs-score-a {
-      width: 40%;
-      text-align: right;
-    }
-
-    .vs-score-b {
-      width: 35%;
-      text-align: left;
-    }
-
     .vs-score-aset,
     .vs-score-bset {
       font-size: 35%;
-      width: 10%;
     }
 
     .vs-score-sep {
-      float: left;
-      width: 20%;
       color: @color-bekk-red;
+      position: absolute;
+      width: 25px;
+      margin-left: -12px;
+      left: 50%;
+    }
+
+    .vs-score-a-container,
+    .vs-score-b-container {
+      transition: all 1s ease-in;
+      position: absolute;
+      width: 50%;
+      text-align: center;
+    }
+
+    .vs-score-a-container {
+      left: 0%;
+    }
+
+    .vs-score-b-container {
+      left: 50%;
+    }
+  }
+
+  .vs-score-inverted {
+    .vs-score-a-container {
+      left: 50%;
+    }
+
+    .vs-score-b-container {
+      left: 0%;
     }
   }
 
   .vs-players-base() {
     .uppercase-first-letter();
     .ellipsis();
-    float: left;
-    width: 50%;
+    font-size: 0.4em;
+    color: @color-bekk-gray-light;
+    @vs-players-offset: 15%;
+  }
+
+  .vs-players-a {
+    .vs-players-base();
+  }
+  .vs-players-b {
+    .vs-players-base();
   }
 
   .vs-players {
-
     font-size: 1em;
     @media @tablet  { font-size: 2em; }
     @media @desktop { font-size: 3em; }
@@ -111,17 +128,6 @@
 
     color: @color-bekk-gray-light;
     @vs-players-offset: 15%;
-
-    .vs-players-a {
-      .vs-players-base();
-      text-align: right;
-      padding-right: 8%;
-    }
-    .vs-players-b {
-      .vs-players-base();
-      text-align: left;
-      padding-left: 8%;
-    }
   }
 
   .time {

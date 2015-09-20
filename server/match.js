@@ -78,7 +78,9 @@ function Match (events, a, b, timelimit) {
     if (status == 'stopped') {
       return;
     }
+
     matchset.point(data.side);
+    
     if (matchset.done) {
       allSets.push(matchset);
       var matchScore = self.sets();
@@ -118,7 +120,7 @@ function Match (events, a, b, timelimit) {
       b: prev.b + (current.winner === 'b' ? 1 : 0)
     };
   }, {a:0, b:0});
-  
+
 
   self.__defineGetter__("done", function () {
     return timeout === true || winner === true;
