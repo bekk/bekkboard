@@ -36,7 +36,7 @@ cd
 
 # install node
 wget https://nodejs.org/dist/v4.1.0/node-v4.1.0-linux-armv7l.tar.gz
-tar -xvf node-v4.1.0-linux-armv7l.tar.gz
+tar xvfz node-v4.1.0-linux-armv7l.tar.gz
 cd node-v4.1.0-linux-armv7
 sudo cp -R * /usr/local/
 
