@@ -89,6 +89,12 @@ function Match (events, a, b, timelimit) {
       return;
     }
 
+    var currentSets = self.sets();
+    var invert = (currentSets.a + currentSets.b) % 2 !== 0;
+    if (invert) {
+      data.side = (data.side === 'a' ? 'b' : 'a');
+    }
+
     matchset.point(data.side);
 
     if (matchset.done) {
