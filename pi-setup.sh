@@ -79,7 +79,7 @@ cd /etc/xdg/lxsession/LXDE/
 sudo ln -sf /home/pi/bekkboard/pi/autostart
 
 # make folder for epiphany profile
-mkdir /home/pi/epiphany
+mkdir -p /home/pi/epiphany
 
 # npm install stuff
 rm -rf /home/pi/bekkboard/GUI/node_modules
