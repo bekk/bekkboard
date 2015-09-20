@@ -79,6 +79,9 @@ sudo ln -s /home/pi/bekkboard/pi/bekkboard-gui.conf
 sudo rm -rf /etc/xdg/lxsession/LXDE/autostart
 cd /etc/xdg/lxsession/LXDE/
 sudo ln -sf /home/pi/bekkboard/pi/autostart
+sudo rm -rf /etc/xdg/lxsession/LXDE-pi/autostart
+cd /etc/xdg/lxsession/LXDE-pi/
+sudo ln -sf /home/pi/bekkboard/pi/autostart
 
 # make folder for epiphany profile
 mkdir -p /home/pi/epiphany
