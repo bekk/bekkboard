@@ -76,6 +76,12 @@ function Match (events, a, b, timelimit) {
     if (status == 'stopped') {
       return;
     }
+
+    if(matchset.score.a === 0 && matchset.score.b === 0 && allSets.length > 0){
+      matchset = allSets.pop();
+      servingPlayer = (servingPlayer === 'a') ? 'b' : 'a';
+    }
+    
     matchset.undoPoint(data.side);
     self.emit('change');
   });
