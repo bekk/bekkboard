@@ -81,4 +81,12 @@ sudo ln -sf /home/pi/bekkboard/pi/autostart
 # make folder for epiphany profile
 mkdir /home/pi/epiphany
 
+# npm install stuff
+rm -rf /home/pi/bekkboard/GUI/node_modules
+rm -rf /home/pi/bekkboard/server/node_modules
+rm -rf /home/pi/bekkboard/hardware/node_modules
+cd /home/pi/bekkboard/GUI && npm install
+cd /home/pi/bekkboard/server && npm install
+cd /home/pi/bekkboard/hardware && npm install
+
 echo "Run this to restart: sudo shutdown -r now"
