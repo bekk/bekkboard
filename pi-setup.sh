@@ -13,19 +13,6 @@ sudo apt-get install -y \
   openssl \
   libssl-dev \
 
-  # bluetooth deps
-  bluetooth \
-  bluez-utils \
-  blueman \
-
-  # noble deps
-  libglib2.0-dev \
-  libdbus-1-dev \
-  libusb-dev \
-  libudev-dev \
-  libical-dev \
-  libreadline-dev \
-
   # bonjour, so bekkpi.local works
   libnss-mdns \
 
