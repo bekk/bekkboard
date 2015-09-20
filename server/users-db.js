@@ -1,5 +1,3 @@
-var _ = require('lodash');
-
 module.exports = function (db) {
 
   var UsersDb = require('./db')('user', db);
