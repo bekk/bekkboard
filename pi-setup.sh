@@ -57,13 +57,15 @@ chmod u+x /home/pi/bekkboard.git/hooks/post-receive
 cd
 
 # install node
-rm node-v4.1.0-linux-armv7l.tar.gz
-rm -rf node-v4.1.0-linux-armv7l
-
-wget https://nodejs.org/dist/v4.1.0/node-v4.1.0-linux-armv7l.tar.gz
-tar xvfz node-v4.1.0-linux-armv7l.tar.gz
-cd node-v4.1.0-linux-armv7
-sudo cp -R * /usr/local/
+# rm node-v4.1.0-linux-armv7l.tar.gz
+# rm -rf node-v4.1.0-linux-armv7l
+# wget https://nodejs.org/dist/v4.1.0/node-v4.1.0-linux-armv7l.tar.gz
+# tar xvfz node-v4.1.0-linux-armv7l.tar.gz
+# cd node-v4.1.0-linux-armv7
+# sudo cp -R * /usr/local/
+rm -r iojs-v2.5.0-linux-armv7l.tar.gz
+wget https://iojs.org/dist/v2.5.0/iojs-v2.5.0-linux-armv7l.tar.gz
+sudo tar -C /usr/local --strip-components 1 -xzf iojs-v2.5.0-linux-armv7l.tar.gz
 
 # install launch-on-boot scripts
 sudo rm -rf /etc/init/bekkboard-api.conf
