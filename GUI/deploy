@@ -1,4 +1,4 @@
 npm run compile-prod
 scp -r dist pi@bekkpi2.local:/home/pi/bekkboard/GUI/dist
 ssh pi@bekkpi2.local sudo restart bekkboard-gui
-ssh pi@bekkpi2.local echo key F5 | xte -x:0 # reloads the browser using xautomation
+ssh pi@bekkpi2.local "echo key F5 | xte -x:0" # reloads the browser using xautomation
