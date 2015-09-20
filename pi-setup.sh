@@ -25,7 +25,7 @@ sudo apt-get install upstart --force-yes
 cd
 
 # create a folder where we'll run bekkboard from
-mkdir bekkboard
+git clone https://github.com/bekk/bekkboard
 
 # create a folder well host the bare repo in
 mkdir bekkboard.git && cd bekkboard.git
