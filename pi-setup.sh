@@ -1,11 +1,14 @@
+# - perform these manually to start the installation
+# sudo apt-get clean
+# sudo apt-get update
+# sudo apt-get install -y git
+# git clone https://github.com/bekk/bekkboard
+# cd bekkboard
 # chmod u+x pi-setup.sh
+# ./pi-setup.sh
 
-sudo apt-get clean
-sudo apt-get update
-
-# useful packages, needed to run bekkboard
 sudo apt-get install -y \
-  git \
+
   vim \
 
   # node deps
@@ -24,21 +27,15 @@ sudo apt-get install upstart --force-yes
 # go to the home folder
 cd
 
-# create a folder where we'll run bekkboard from
-git clone https://github.com/bekk/bekkboard
-
 # create a folder well host the bare repo in
 mkdir bekkboard.git && cd bekkboard.git
 git init --bare
 ln -s /home/pi/bekkboard/pi/post-receive /home/pi/bekkboard.git/hooks/post-receive
-chmod +x /home/pi/bekkboard.git/hooks/post-receive
+chmod u+x /home/pi/bekkboard.git/hooks/post-receive
 
 # on you personal computer, add a remote to it, and push away!
 # git remote add pi pi@bekkpi2.local:~/bekkboard.git
 # git push pi master
-
-# move back to home
-cd
 
 # install node
 wget https://nodejs.org/dist/v4.1.0/node-v4.1.0-linux-armv7l.tar.gz
