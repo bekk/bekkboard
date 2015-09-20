@@ -36,6 +36,9 @@ chmod u+x /home/pi/bekkboard.git/hooks/post-receive
 # git remote add pi pi@bekkpi2.local:~/bekkboard.git
 # git push pi master
 
+# go to the home folder
+cd
+
 # install node
 wget https://nodejs.org/dist/v4.1.0/node-v4.1.0-linux-armv7l.tar.gz
 tar -xvf node-v4.1.0-linux-armv7l.tar.gz
