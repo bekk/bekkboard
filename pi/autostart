@@ -4,4 +4,5 @@
 @xset s off
 @xset -dpms
 @xset s noblank
+@setterm -powersave off -blank
 @launch-bekkboard-browser
