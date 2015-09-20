@@ -4,7 +4,6 @@
 # sudo apt-get install -y git
 # git clone https://github.com/bekk/bekkboard
 # cd bekkboard
-# chmod u+x pi-setup.sh
 # ./pi-setup.sh
 
 sudo apt-get install -y \
