@@ -78,8 +78,7 @@ sudo rm -rf /etc/xdg/lxsession/LXDE/autostart
 cd /etc/xdg/lxsession/LXDE/
 sudo ln -sf /home/pi/bekkboard/pi/autostart
 
-# install shortcut to starting the browser, launched by the autostart file
-sudo rm -rf /usr/bin/launch-bekkboard-browser
-sudo ln -s /home/pi/bekkboard/pi/launch-bekkboard-browser /usr/bin/launch-bekkboard-browser
+# make folder for epiphany profile
+mkdir /home/pi/epiphany
 
 echo "Run this to restart: sudo shutdown -r now"
