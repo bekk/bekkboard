@@ -5,4 +5,4 @@
 @xset -dpms
 @xset s noblank
 @setterm -powersave off -blank
-@epiphany-browser -a --profile /home/pi/epiphany/ http://localhost:8080
+@epiphany-browser -a --profile /home/pi/epiphany/ http://bekkpi2.local/
