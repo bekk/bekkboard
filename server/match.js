@@ -11,7 +11,8 @@ function Match (events, a, b, timelimit) {
   var self = this;
 
   var status = 'stopped',
-      winner;
+      winner,
+      servingPlayer = 'not set';
 
   var matchset = new MatchSet();
   var allSets = [];
@@ -20,6 +21,11 @@ function Match (events, a, b, timelimit) {
       matchTimeout,
       tickInterval,
       time = timelimit;
+
+  self.ready = function () {
+    status = 'ready';
+    self.emit('change');
+  };
 
   self.start = function () {
     status = 'started';
@@ -75,12 +81,16 @@ function Match (events, a, b, timelimit) {
   });
 
   events.on("score", function (data) {
-    if (status == 'stopped') {
+    if (status === 'stopped') {
+      return;
+    } else if (status === 'ready') {
+      servingPlayer = data.side;
+      self.start();
       return;
     }
 
     matchset.point(data.side);
-    
+
     if (matchset.done) {
       allSets.push(matchset);
       var matchScore = self.sets();
@@ -90,9 +100,25 @@ function Match (events, a, b, timelimit) {
       } else {
         self.newSet();
       }
+      servingPlayer = (servingPlayer === 'a') ? 'b' : 'a';
     }
     self.emit('change');
   });
+
+  self.findCurrentServer = function () {
+    var sum = matchset.score.a + matchset.score.b;
+    var compare = (sum > 20) ? sum : Math.floor(sum / 2);
+
+    if (compare % 2 == 0)
+    {
+      return servingPlayer;
+    }
+    else if(servingPlayer == 'a') {
+      return 'b';
+    } else {
+      return 'a';
+    }
+  };
 
   self.newSet = () => {
     matchset = new MatchSet();
@@ -132,7 +158,8 @@ function Match (events, a, b, timelimit) {
       status: self.status(),
       players: self.players(),
       time: self.time(),
-      sets: self.sets()
+      sets: self.sets(),
+      servingPlayer: self.findCurrentServer()
     };
 
     if (timeout) {

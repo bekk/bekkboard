@@ -80,7 +80,7 @@
 
     .vs-score-a-container,
     .vs-score-b-container {
-      transition: all 1s ease-in;
+      transition: all 700ms ease-in-out;
       position: absolute;
       width: 50%;
       text-align: center;
@@ -128,6 +128,10 @@
 
     color: @color-bekk-gray-light;
     @vs-players-offset: 15%;
+  }
+
+  .serving-player {
+    border-bottom: solid 1px @color-bekk-red;
   }
 
   .time {

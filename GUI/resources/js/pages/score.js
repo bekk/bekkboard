@@ -14,6 +14,8 @@ module.exports = Ractive.extend({
     score: { a: 0, b: 0 },
     sets: { a: 0, b: 0 },
     started: false,
+    palyeraclass: '',
+    playerbclass: '',
     ranking: [],
     streaming: true,
     streamHost: undefined
@@ -28,7 +30,9 @@ module.exports = Ractive.extend({
       self.set('players', data.players);
       self.set('draw', data.draw);
       self.set('time', data.time);
-      self.set('started', data.status === "started");
+      self.set('showscore', data.status === 'started' || data.status === 'ready');
+      self.set('playeraclass', data.servingPlayer === 'a' ? 'serving-player' : '');
+      self.set('playerbclass', data.servingPlayer === 'b' ? 'serving-player' : '');
     });
 
     ES.on('ranking', function (ranking) {

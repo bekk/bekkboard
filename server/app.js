@@ -175,7 +175,7 @@ module.exports = function (events, db) {
         sendSseEventPlayers(sendSseEventWinner);
       }
     });
-    match.start();
+    match.ready();
 
     sendSseEventScore();
   }
