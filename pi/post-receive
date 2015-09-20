@@ -7,6 +7,7 @@ git checkout -f
 . $HOME/.nvm/nvm.sh
 NODE_VERSION="$(nvm current)"
 echo "-> node version $NODE_VERSION"
+git clean -fxd
 
 echo "-> GUI: npm install.."
 cd $GIT_WORK_TREE/GUI && npm install
