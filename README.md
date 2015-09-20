@@ -24,9 +24,9 @@ Installer avhengigheter ved å kjøre ``npm install``i ``GUI``mappa. Starter ser
 
 ## ssh til pi'en
 
-Pien kjører på BEKK trådløsnettet og er tilgjengelig på `pi@bekkpi.local`.
+Pien kjører på BEKK trådløsnettet og er tilgjengelig på `pi@bekkpi2.local`.
 
-Installer `ssh-copy-id` med `brew install ssh-copy-id`. Kjør `ssh-copy-id pi@bekkpi.local` og skriv passordet som står på pi'en.
+Installer `ssh-copy-id` med `brew install ssh-copy-id`. Kjør `ssh-copy-id pi@bekkpi2.local` og skriv passordet som står på pi'en.
 
 Deretter kan du ssh'e inn uten passord.
 
@@ -41,10 +41,10 @@ cd GUI/
 
 ### server
 ```
-git remote add pi pi@bekkpi.local:~/bekkboard.git
+git remote add pi pi@bekkpi2.local:~/bekkboard.git
 # dette sjekker ut bekkboard-repoet på pien, og kjører npm install i hardware/, GUI/ og server/ mappene.
 git push pi master
-ssh pi@bekkpi.local sudo restart bekkboard-api
+ssh pi@bekkpi2.local sudo restart bekkboard-api
 ```
 
 ## Logger
