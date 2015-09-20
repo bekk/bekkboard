@@ -43,6 +43,7 @@ sudo apt-get install upstart --force-yes
 cd
 
 # create a folder well host the bare repo in
+rm -rf bekkboard.git
 mkdir bekkboard.git && cd bekkboard.git
 git init --bare
 ln -s /home/pi/bekkboard/pi/post-receive /home/pi/bekkboard.git/hooks/post-receive
@@ -65,18 +66,18 @@ cd node-v4.1.0-linux-armv7
 sudo cp -R * /usr/local/
 
 # install launch-on-boot scripts
-rm -rf /etc/init/bekkboard-api.conf
-rm -rf /etc/init/bekkboard-gui.conf
+sudo rm -rf /etc/init/bekkboard-api.conf
+sudo rm -rf /etc/init/bekkboard-gui.conf
 
 cd /etc/init/
 sudo ln -s /home/pi/bekkboard/pi/bekkboard-api.conf
 sudo ln -s /home/pi/bekkboard/pi/bekkboard-gui.conf
 
 # install start as kiosk mode
-rm -rf /etc/xdg/lxsession/LXDE/autostart
+sudo rm -rf /etc/xdg/lxsession/LXDE/autostart
 cd /etc/xdg/lxsession/LXDE/
 sudo ln -sf /home/pi/bekkboard/pi/autostart
 
 # install shortcut to starting the browser, launched by the autostart file
-rm -rf /usr/bin/launch-bekkboard-browser
+sudo rm -rf /usr/bin/launch-bekkboard-browser
 sudo ln -s /home/pi/bekkboard/pi/launch-bekkboard-browser /usr/bin/launch-bekkboard-browser
