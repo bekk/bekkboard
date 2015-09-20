@@ -1,16 +1,6 @@
 <div class="score">
   <connection/>
   <div>
-    {{#draw}}
-      <div>
-        <h2 class="draw">Draw!</h2>
-      </div>
-    {{/draw}}
-    {{#winner}}
-      <div>
-        <h2 class="winner winner-name">{{winner}}!</h2>
-      </div>
-    {{/winner}}
     {{#showscore}}
       <div class="time">{{time}}</div>
       <div class="vs-score {{ (sets.a + sets.b) % 2 == 0 ? '' : 'vs-score-inverted' }}">
@@ -27,6 +17,12 @@
         </div>
       </div>
     {{/showscore}}
+    <div class="game-result {{draw ? '' : 'game-result-hidden'}}">
+      <h2 class="draw">Draw!</h2>
+    </div>
+    <div class="game-result {{winner ? '' : 'game-result-hidden'}}">
+      <h2 class="winner winner-name">{{winner}} wins!</h2>
+    </div>
   </div>
   <!--<div class="score-half">
     <div class="ranking">

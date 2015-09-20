@@ -30,7 +30,7 @@ module.exports = Ractive.extend({
       self.set('players', data.players);
       self.set('draw', data.draw);
       self.set('time', data.time);
-      self.set('showscore', data.status === 'started' || data.status === 'ready');
+      self.set('showscore', true);
       self.set('playeraclass', data.servingPlayer === 'a' ? 'serving-player' : '');
       self.set('playerbclass', data.servingPlayer === 'b' ? 'serving-player' : '');
     });

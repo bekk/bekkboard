@@ -61,9 +61,9 @@
 
   .vs-score {
     font-size: 5em;
-    @media @tablet  { font-size: 14em; }
-    @media @desktop { font-size: 16em; }
-    @media @tv      { font-size: 21em; }
+    @media @tablet  { font-size: 8em; }
+    @media @desktop { font-size: 9em; }
+    @media @tv      { font-size: 10em; }
 
     .vs-score-aset,
     .vs-score-bset {
@@ -121,9 +121,9 @@
 
   .vs-players {
     font-size: 1em;
-    @media @tablet  { font-size: 2em; }
-    @media @desktop { font-size: 3em; }
-    @media @tv      { font-size: 4em; }
+    @media @tablet  { font-size: 1.2em; }
+    @media @desktop { font-size: 1.3em; }
+    @media @tv      { font-size: 1.4em; }
 
     color: @color-bekk-gray-light;
     @vs-players-offset: 15%;
@@ -145,4 +145,29 @@
       display: none;
     }
   }
+}
+
+.game-result {
+  transition: all 700ms ease-in-out;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  bottom: 25%;
+}
+
+.game-result-hidden {
+  bottom: -50%;
+}
+
+.draw,
+.winner {
+  .font();
+  .uppercase-first-letter();
+  .ellipsis();
+  text-align: center;
+
+  font-size: 2em;
+  @media @tablet  { font-size: 4em; }
+  @media @desktop { font-size: 5em; }
+  @media @tv      { font-size: 6em; }
 }
