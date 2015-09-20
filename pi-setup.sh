@@ -41,7 +41,7 @@ chmod +x /home/pi/bekkboard.git/hooks/post-receive
 cd
 
 # install node version manager (nvm)
-curl https://raw.githubusercontent.com/creationix/nvm/v0.17.1/install.sh | bash
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.26.1/install.sh | bash
 
 # 0.10.28 is the last version with a prebuilt arm-pi binary for node
 nvm install v0.10.28
