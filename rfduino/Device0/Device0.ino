@@ -119,11 +119,11 @@ void loop()
   if (shouldSleep) {
       // Hvis GZLL-stacken er paa, sov i 1 sek og sjekk s p nytt om stacken kan slaas av.
       if(gzllRunning) {
-        RFduino_ULPDelay(1000);
+        RFduino_ULPDelay(gzllTimeout);
       }
       else {
-        RFduino_ULPDelay(INFINITE);
         shouldSleep = false;
+        RFduino_ULPDelay(INFINITE);
       }
   }
   
