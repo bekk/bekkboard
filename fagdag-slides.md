@@ -1,87 +1,126 @@
-# HANDS ON fagdag 6. nov - bekkboard
+name: head
+class: center, middle, inverse
+---
+template: head
+# Internet-enabled bordtennisbord
+## Fagdag 6. nov - HANDS ON
+### [github.com/bekk/bekkboard](https://github.com/bekk/bekkboard)
 
-## huskeliste
+---
+template: head
+class: left
+# Agenda
+## - Komponenter
+## - Kode
+## - Demo
+## - Idemyldring
+## - ..HANDS ON!
+---
+template: head
+# Komponenter
+---
 
-- [x] mus, tastatur, skjerm
-- [ ] rydde i koden
-- [ ] lage introduksjon-slides: gå igjennom relevant kode, fortell om oppsett, vis hvordan det funker
+# Komponenter
+
+TODO bilde
+https://www.lucidchart.com/invitations/accept/a552ed26-cc39-46ae-a059-e95c9f01e212
+
+???
+eirik foklarer
+
+- Hardware (hw)
+- server
+- GUI
+
+---
+template: head
+# Kode
+---
+
+# Kode
+
+## RFduino (nesten Arduino)
+
+TODO bilde
+
+### - `setup()`
+### - `loop()`
+
+???
+- vis arduino-koden
 
 ---
 
-### ta med til oslo
+# Kode
 
-- gaffa-teip
-- rackets + noen baller (kjøp fler?)
-- macer
-- pi + strøm + hdmi
-- bordtennisbord: sendes i posten
-- ruter + strøm fra blikkboksen (torgeir)
-- arduino + shields (torgeir)
-- arduino + shields (eirik)
-- batteri
-- noen ekstra tp-kabler
-- loddebolt, tinn, leds, motstander, ledninger, prototype-board, flere pushbuttons
-- aperemeter
-- kamera
+## Server
+
+### - javascript, node.js
+### - node-serialport
+### - express
+### - SSE
+
+TODO versjon: iojs....)
 
 ---
 
-## installere
+# Kode
 
-- Teksteditor eller IDE
-- Installere git
-- Installere siste nodejs
-- Installere arduino + rfduino drivere (http://www.rfduino.com/wp-content/uploads/2015/08/RFduino-Quick-Start-Guide-08.21.15-11.40AM.pdf)
-- Git clone prosjektet (https://github.com/bekk/bekkboard)
-- Kjør `npm install` i `server`, `GUI` og `hardware`
+## Klient
 
----
+### - javascript, ractive.js
+### - ajax
 
-## forkunnskaper
+TODO torgeir
 
-En eller flere av disse:
-
-- nodejs
-- frontendprogging
-- raspberry pi + linux
-- devops (git deploy + bygging på linux)
-- arduino/rfduino
-- bordtennis
-- https://github.com/bekk/bekkboard
+???
+torgeir forklarer
+- dum klient
+- får all state, rendrer på nytt
+- Ractive? ikke React?! laget før react
 
 ---
 
-## bordoppsett
+# Raspberry PI
 
-Gruppebord
+## init.d startupscript
 
-## Kablet nett
+### - server-kode
+### - klient-kode
+### - hvordan deploye server-kode
+### - hvordan deploye klient-kode
 
-Ja + switch
+---
+template: head
 
-## Beskrivelse
-
-Vi hacker videre på BEKK Trondheims internet-enabled bordtennisbord! Her blir det HANDS ON med Digitalisering og BEKKOps på høyt nivå, i både hardware og software: nodejs, arduino/rfduino, raspberry pi, linux, devops (git deploy + bygging), bluetooth low energy, flipperspillknapper og et bordtennisbord. Bordet har allerede et realtime scoring-system som vises i et dashboard på en storskjerm, men trenger en rekke nye features: QR-kode for registrering av spillere til kamper, oppslag i adresselista for å signe opp i kamper og å vise stats på skjermen, et ranking-system så vi kan se hvem som er best+++ Her er det bare fantasien som setter grenser!
+# Demo
 
 ---
 
-## oppgaveforslag
+# Bluetooth Low Energy
 
-- qr-kode innlogging
-- lagre bruker + qr-kode og printe qr-kode til adgangskort
-- oppslag av BEKK-spillere
-- lagre scrores i database igjen
-- exception håndtering/logging og stabilitet
-- forbedre hw-kode (strømforbruk)
-- kan vi vise gjenværende batterispenning?
-- elo-ranking
-- grafer, statistikk?
-- leds i knappene?
-- lodde noe?
+## kommunikasjon mellom rfduino <=> rfduino
+
+### GaZeLL (GZZL)
+
+> Gazell , or GZLL, is a proprietary packet radio protocol released by Nordic Semiconductor. The protocol defines a star topology with one HOST and up to seven DEVICE's
+
+[GaZeLL Protocol Testing](http://thomasolson.com/PROJECTS/GZLL/)
 
 ---
 
-## andre ideer
+# Idemyldring
 
-- ideemyldring ved start av workshoppen
-- turnering
+- QR-kode innlogging
+- Lagre bruker + qr-kode
+- Generere qr-kode som kan festes på adgangskort
+- Oppslag av spillere i adresselista til BEKK
+- Lagre scrores i database (igjen)
+- Exception håndtering
+- Logging
+- Stabilitet
+- Forbedre hw-kode mtp. strømforbruk
+- Vise gjenværende batterispenning?
+- Rankingsystem
+- Realtime grafer og statistikk
+- Turnering!
