@@ -2,10 +2,12 @@
 
 ## TODO
 
+- [ ] torgeir: test router
+- [ ] torgeir: test pi+buttons
+- [ ] torgeir: lag gh-pages branch med slides
 - [ ] Lag turnering-skjema med deltagerene
-- [ ] rydde i koden
 - [x] router
-- [x] Mail ang√•ende bord
+- [x] Mail angående bord
 
 - [ ] lage introduksjon-slides: gå igjennom relevant kode, fortell om oppsett, vis hvordan det funker
 - [ ] kjøp rackets + baller
