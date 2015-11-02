@@ -106,7 +106,7 @@ module.exports = function (events, db) {
     });
   });
 
-  app.del('/players/:number', function (req, res, next) {
+  app.delete('/players/:number', function (req, res, next) {
     var number = req.param('number');
     Players.del(number, function (err) {
       if (err) return next(err);
