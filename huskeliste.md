@@ -1,4 +1,4 @@
-# huskeliste
+ # huskeliste
 
 ## TODO
 
@@ -24,6 +24,7 @@
 - [ ] loddebolt, tinn, leds, motstander, ledninger, prototype-board, flere pushbuttons
 - [ ] amperemeter
 - [ ] kamera (sp√∏r emil)
+- [ ] verktøy. Tang, shiftnøkkel, umbracosett, skrujern
 - [x] mus, tastatur, skjerm
 - [x] rfduino fra pi+bord
 - [x] ruter + str√∏m fra blikkboksen
