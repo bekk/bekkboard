@@ -23,5 +23,5 @@ connect()
   })
   .use(serveStatic('./dist', { maxAge: oneYear }))
   .listen(PORT, function () {
-    console.log(' listening on', PORT);
+    console.log('gui listening on', PORT);
   });
