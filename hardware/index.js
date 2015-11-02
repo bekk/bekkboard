@@ -34,7 +34,7 @@ e.on('connected', function () {
 
 e.on('data', function (data) {
   console.log('data: ', data);
-  if(commands[data])
+  if (commands[data])
     commands[data]();
   else
     console.log('unknown command "' + data + '"');
