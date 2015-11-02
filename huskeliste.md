@@ -4,8 +4,8 @@
 
 - [ ] eirik: komponenter, rfudino-kode, gzzl
 - [ ] torgeir: server, klient, raspberry pi-kode
-- [ ] torgeir: test router
-- [ ] torgeir: test pi+buttons
+- [x] torgeir: test router
+- [x] torgeir: test pi+buttons
 - [ ] torgeir: lag gh-pages branch med slides
 - [ ] Lag turnering-skjema med deltagerene
 - [x] router
