@@ -1,6 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 var serialport = require('serialport');
-var SerialPort = serialport.SerialPort
+var SerialPort = serialport.SerialPort;
 
 module.exports = function (device) {
   var serialPort = new SerialPort(device, {
@@ -27,4 +27,4 @@ module.exports = function (device) {
   });
 
   return emitter;
-}
+};
