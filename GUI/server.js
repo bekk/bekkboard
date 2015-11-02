@@ -8,7 +8,7 @@ var connect     = require('connect'),
 var oneDay = 86400000,
     oneYear = oneDay * 365;
 
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT || 9000;
 
 connect()
   .use(compression())
