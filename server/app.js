@@ -160,7 +160,7 @@ module.exports = function (events, db) {
     if (match) {
       match.stop();
     }
-  }
+  };
 
   function newDefaultMatch () {
     if (match) {
