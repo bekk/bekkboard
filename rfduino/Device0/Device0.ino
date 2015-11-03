@@ -3,6 +3,8 @@
 
 device_t role = DEVICE0;
 
+int gzllTimeout = 10000;
+
 int button_a = 5;
 int button_b = 6;
 
@@ -10,6 +12,9 @@ OneButton buttonA(button_a, false);
 OneButton buttonB(button_b, false);
 
 bool shouldSleep = false;
+
+bool gzllRunning = false;
+long gzllLastCommandTime = 0;
 
 void setup()
 {
@@ -24,9 +29,6 @@ void setup()
   buttonB.attachDoubleClick(onDoubleClickB);
   buttonA.attachLongPressStop(onLongPressA);
   buttonB.attachLongPressStop(onLongPressB);
-
-  // start the GZLL stack
-  RFduinoGZLL.begin(role);
 
   resetAndSleep();
 }
@@ -76,8 +78,27 @@ void resetAndSleep()
 
 void sendToHost(int command)
 {
+  startGzll();
   RFduinoGZLL.sendToHost(command);
-  Serial.println("sent " + String(command));
+  // Serial.println("sent " + String(command));
+  gzllLastCommandTime = millis();
+  delay(10);
+}
+
+void startGzll()
+{
+  if(!gzllRunning){
+    gzllRunning = true;
+    RFduinoGZLL.begin(role);
+  }
+}
+
+void stopGzll()
+{
+  if(gzllRunning){
+    RFduinoGZLL.end();
+    gzllRunning = false;  
+  }
 }
 
 void tick()
@@ -88,12 +109,24 @@ void tick()
 
 void loop()
 {
-  tick();
-  if (shouldSleep) {
-      delay(10); // Ekstra delay for aa forsikre seg at data blir sendt.
-      RFduino_ULPDelay(INFINITE);
-      shouldSleep = false;
+  // Hvis GZLL har kjrt lengre enn timeout, avslutt GZLL-stacken.
+  if(gzllLastCommandTime != 0 && (millis() - gzllLastCommandTime) > gzllTimeout){
+    stopGzll();
   }
+  
+  tick();
+  
+  if (shouldSleep) {
+      // Hvis GZLL-stacken er paa, sov i 1 sek og sjekk s p nytt om stacken kan slaas av.
+      if(gzllRunning) {
+        RFduino_ULPDelay(gzllTimeout);
+      }
+      else {
+        shouldSleep = false;
+        RFduino_ULPDelay(INFINITE);
+      }
+  }
+  
   delay(10); // Kan ikke kalle tick for ofte... 
 }
 

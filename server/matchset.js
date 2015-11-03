@@ -17,6 +17,10 @@ function MatchSet () {
     }
   };
 
+  self.hasScored = function () {
+    return sides.a !== 0 || sides.b !== 0;
+  };
+
   self.__defineGetter__("score", function () {
     // return copy
     return {
