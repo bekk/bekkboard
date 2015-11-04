@@ -17,14 +17,15 @@
 ## ta med til oslo
 
 - [ ] rackets + noen baller
-- [ ] arduino + shields (torgeir)
+- [x] arduino + shields (torgeir)
 - [ ] arduino + shields (eirik)
-- [ ] batteri
-- [ ] gaffa-teip
-- [ ] loddebolt, tinn, leds, motstander, ledninger, prototype-board, flere pushbuttons
-- [ ] amperemeter
-- [ ] kamera (sp√∏r emil)
-- [ ] verktøy. Tang, shiftnøkkel, umbracosett, skrujern
+- [x] batteri
+- [x] gaffa-teip
+- [x] loddebolt, tinn, leds, motstander, ledninger, prototype-board, flere pushbuttons
+- [x] amperemeter
+- [x] kamera (spør emil)
+- [x] verktøy: lita tang, umbracosett, leatherman
+- [ ] verktøy: shiftnøkkel, skrujern
 - [x] mus, tastatur, skjerm
 - [x] rfduino fra pi+bord
 - [x] ruter + str√∏m fra blikkboksen
