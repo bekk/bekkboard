@@ -76,8 +76,7 @@ template: head
 
 # Komponenter
 
-TODO bilde
-https://www.lucidchart.com/invitations/accept/a552ed26-cc39-46ae-a059-e95c9f01e212
+![](./diagram.png)
 
 ???
 eirik foklarer
@@ -86,22 +85,54 @@ eirik foklarer
 - server
 - GUI
 
+https://www.lucidchart.com/invitations/accept/a552ed26-cc39-46ae-a059-e95c9f01e212
+
 ---
 template: head
 # Kode
 ---
 
-# Kode
+# RFduino (nesten Arduino med BLE)
 
-## RFduino (nesten Arduino)
-
-TODO bilde
-
-### - `setup()`
-### - `loop()`
+![](./rfduino.jpg)
 
 ???
-- vis arduino-koden
+- programmerbart mikrokontrollerbrett
+- med samme interface som en arduino, med BLE og er bitteliten.
+- analoge GPIO-porter man kan lese og skrive til.
+- stackable
+- programmerer i et enkelt C-lignende språk. Fra samme software som arduino
+
+---
+# RFduino
+
+```
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("Ping pong");
+}
+```
+
+???
+- flasher kode på kortet. Setup kjører med en gang den får strøm.
+- setup. For initialisering av variabler, sette opp pins, sette opp biblioteker o.l.
+- loop. Loopes kontinuerlig etter at setup er ferdig.
+- vis arduino-koden til bordtennisbordet
+
+---
+
+# Bluetooth Low Energy
+
+## Kommunikasjon mellom RFduino <=> RFduino
+
+### GaZeLL (GZZL)
+
+> Gazell , or GZLL, is a proprietary packet radio protocol released by Nordic Semiconductor. The protocol defines a star topology with one HOST and up to seven DEVICE's
+
+[GaZeLL Protocol Testing](http://thomasolson.com/PROJECTS/GZLL/)
 
 ---
 
@@ -160,26 +191,21 @@ template: head
 
 ---
 
-# Bluetooth Low Energy
-
-## kommunikasjon mellom rfduino <=> rfduino
-
-### GaZeLL (GZZL)
-
-> Gazell , or GZLL, is a proprietary packet radio protocol released by Nordic Semiconductor. The protocol defines a star topology with one HOST and up to seven DEVICE's
-
-[GaZeLL Protocol Testing](http://thomasolson.com/PROJECTS/GZLL/)
-
----
-
 # Oppgaveforslag
 
 - Logging og retry-logikk i `serial.js`.
 - Få alt til å kjøre på nyeste Node.
-- Smoothere deploy til raspberry pi (både gui og server)
+- Smoothere deploy til raspberry pi (både gui og server).
+- QR-kode-registrering av spillere.
+- Lagring av resultater i en database
+- Exception-håndtering, logging og stabilitet
+- Rankingsystem (ELO-rating)
+- Statistikk og realtime grafer.
 
----
+##
+Andre forslag?
 
+???
 # Idemyldring
 
 - QR-kode innlogging
@@ -195,6 +221,14 @@ template: head
 - Rankingsystem
 - Realtime grafer og statistikk
 - Turnering!
+
+---
+template: head
+
+# Lets hack this table!
+
+---
+
     </textarea>
     <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
     </script>
