@@ -18,8 +18,6 @@ long gzllLastCommandTime = 0;
 
 void setup()
 {
-  Serial.begin(9600);
-  Serial.println("waiting for connection...");
   RFduino_pinWake(button_a, HIGH);
   RFduino_pinWake(button_b, HIGH);
 
@@ -80,7 +78,6 @@ void sendToHost(int command)
 {
   startGzll();
   RFduinoGZLL.sendToHost(command);
-  // Serial.println("sent " + String(command));
   gzllLastCommandTime = millis();
   delay(10);
 }
