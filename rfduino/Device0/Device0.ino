@@ -114,7 +114,7 @@ void loop()
   tick();
   
   if (shouldSleep) {
-      // Hvis GZLL-stacken er paa, sov i 1 sek og sjekk s p nytt om stacken kan slaas av.
+      // Hvis GZLL-stacken er paa, sov til timeout og sjekk s p nytt om stacken kan slaas av.
       if(gzllRunning) {
         RFduino_ULPDelay(gzllTimeout);
       }
