@@ -10,7 +10,6 @@ var Match   = require('./match');
 module.exports = function (events, db) {
 
   var Users   = require('./users-db')(db),
-      Players = require('./players-db')(db),
       MatchDb = require('./match-db')(db),
       Rating = require('./rating')(db);
 
@@ -40,16 +39,12 @@ module.exports = function (events, db) {
       if (match && match.done) {
         MatchDb.save(match);
 
-        Players.del(body.a.number);
-        Players.del(body.b.number);
-
         Rating.calculateRating(function (err, ranking){
           if (err) return next(err);
           sendSseEventRankingUpdated(ranking);
         });
 
         sendSseEventMatch(match);
-        sendSseEventPlayers(sendSseEventWinner);
       }
     });
     match.start();
@@ -73,13 +68,7 @@ module.exports = function (events, db) {
 
     Users.save(user, function (err) {
       if (err) return next(err);
-
-      Players.add(user, function (err) {
-        if (err) return next(err);
-
-        res.json(user);
-        sendSseEventPlayers();
-      });
+      res.json(user);
     });
   });
 
@@ -96,22 +85,6 @@ module.exports = function (events, db) {
       if (err && err.notFound) return res.json({});
       if (err) return next(err);
       res.json(user);
-    });
-  });
-
-  app.get('/players', function (req, res, next) {
-    Players.all(function (err, players) {
-      if (err) return next(err);
-      res.json(players);
-    });
-  });
-
-  app.delete('/players/:number', function (req, res, next) {
-    var number = req.param('number');
-    Players.del(number, function (err) {
-      if (err) return next(err);
-      sendSseEventPlayers();
-      res.end('ok');
     });
   });
 
@@ -141,7 +114,6 @@ module.exports = function (events, db) {
     res.end('ok');
 
     sendSseEventScore();
-    sendSseEventPlayers();
 
     if (connected) {
       sendSseEventConnected();
@@ -172,7 +144,6 @@ module.exports = function (events, db) {
       sendSseEventScore();
       if (match) {
         sendSseEventMatch(match);
-        sendSseEventPlayers(sendSseEventWinner);
       }
     });
     match.ready();
@@ -202,14 +173,6 @@ module.exports = function (events, db) {
 
   function sendSseEventScore () {
     sendSseEvent('score', match ? match.json() : {});
-  }
-
-  function sendSseEventPlayers (fn) {
-    Players.all(function (err, players) {
-      if (err) return console.error(err);
-      sendSseEvent('players', players);
-      if (fn) fn();
-    });
   }
 
   function sendSseEventWinner () {
