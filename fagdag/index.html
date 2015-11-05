@@ -135,36 +135,29 @@ void loop() {
 [GaZeLL Protocol Testing](http://thomasolson.com/PROJECTS/GZLL/)
 
 ---
-template: head
-
 # Arkitektur
-
-<a href="bordtennis-kode.png" target="_blank">Oversikt</a>
-
+<img src="bordtennis-kode.png" target="_blank"/>
 ---
+# Server
 
-# Kode
-
-## Server
-
-### - javascript, node.js
+### - Javascript - Node.js
+### - REST API
 ### - node-serialport
-### - express
-### - SSE
+### - Express.js
+### - Server sent events (SSE)
 
 Har kjørt på iojs på pi'en - vil oppgradere til node 4.2.1!
 
 ---
+# Klient
 
-# Kode
-
-## Klient
-
-### - javascript, ractive.js
-### - ajax
+### - Statisk side
+### - Connect
+### - Javascript - Ractive.js
+### - Less
+### - gulp
+### - Ajax (cors)
 ### - SSE
-
-TODO skisse bilde
 
 ???
 torgeir forklarer
@@ -175,12 +168,17 @@ torgeir forklarer
 
 # Raspberry PI
 
-## init.d startupscript
+## init.d services
 
-### - server-kode
-### - klient-kode
-### - hvordan deploye server-kode
-### - hvordan deploye klient-kode
+### - bekkboard-api, eksponerer api på :3000
+### - bekkboard-gui, eksponerer gui på :9000
+
+## Oppstart
+### - oppstartsscript starter begge
+
+## Logging
+### - logging til /var/log/bekkboard-api.log
+### - logging til /var/log/bekkboard-gui.log
 
 ---
 template: head
