@@ -1,7 +1,6 @@
 var EventEmitter = require('events').EventEmitter;
 
 var hardware = module.exports = new EventEmitter();
-//var e = nobleEmitter.connect(peripheralUuid, serviceUuid, characteristicUuid);
 
 var e = (process.env.DEVICE) ?
           require('./serial')(process.env.DEVICE) :
@@ -35,7 +34,7 @@ e.on('connected', function () {
 
 e.on('data', function (data) {
   console.log('data: ', data);
-  if(commands[data])
+  if (commands[data])
     commands[data]();
   else
     console.log('unknown command "' + data + '"');

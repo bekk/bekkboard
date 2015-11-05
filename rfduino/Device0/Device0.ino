@@ -18,8 +18,6 @@ long gzllLastCommandTime = 0;
 
 void setup()
 {
-  Serial.begin(9600);
-  Serial.println("waiting for connection...");
   RFduino_pinWake(button_a, HIGH);
   RFduino_pinWake(button_b, HIGH);
 
@@ -80,7 +78,6 @@ void sendToHost(int command)
 {
   startGzll();
   RFduinoGZLL.sendToHost(command);
-  // Serial.println("sent " + String(command));
   gzllLastCommandTime = millis();
   delay(10);
 }
@@ -117,7 +114,7 @@ void loop()
   tick();
   
   if (shouldSleep) {
-      // Hvis GZLL-stacken er paa, sov i 1 sek og sjekk s p nytt om stacken kan slaas av.
+      // Hvis GZLL-stacken er paa, sov til timeout og sjekk s p nytt om stacken kan slaas av.
       if(gzllRunning) {
         RFduino_ULPDelay(gzllTimeout);
       }

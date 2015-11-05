@@ -57,12 +57,12 @@ chmod u+x /home/pi/bekkboard.git/hooks/post-receive
 # go to the home folder
 cd
 
-# install node
-# rm node-v4.1.0-linux-armv7l.tar.gz
-# rm -rf node-v4.1.0-linux-armv7l
-# wget https://nodejs.org/dist/v4.1.0/node-v4.1.0-linux-armv7l.tar.gz
-# tar xvfz node-v4.1.0-linux-armv7l.tar.gz
-# cd node-v4.1.0-linux-armv7
+# TODO install node 4.2.1 - now that https://github.com/voodootikigod/node-serialport/issues/578 has been resolved
+# rm node-v4.2.1-linux-armv7l.tar.gz
+# rm -rf node-v4.2.1-linux-armv7l
+# wget https://nodejs.org/dist/v4.2.1/node-v4.2.1-linux-armv7l.tar.gz
+# tar xvfz node-v4.2.1-linux-armv7l.tar.gz
+# cd node-v4.2.1-linux-armv7l
 # sudo cp -R * /usr/local/
 rm -r iojs-v2.5.0-linux-armv7l.tar.gz
 wget https://iojs.org/dist/v2.5.0/iojs-v2.5.0-linux-armv7l.tar.gz

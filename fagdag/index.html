@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Internet-enabled bordtennisbord - Hands on fagdag 6.nov 2015</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style type="text/css">
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+      img {
+        max-width: 100%;
+      }
+
+      body {
+        font-family: 'Droid Serif';
+        font-size: 100%;
+        color: #333;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+      }
+      h1, h2, h3, p {
+        margin-top: 1rem;
+        margin-bottom: 0.25rem;
+      }
+      h2 {
+        color: #888;
+      }
+      a {
+        color: rgb(249, 38, 114);
+        text-decoration: none;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+      .inverse {
+        background: #272822;
+        color: #777872;
+        text-shadow: 0 0 20px #333;
+      }
+      .inverse h1,
+      .inverse h2 {
+        color: #f3f3f3;
+        line-height: 0.8em;
+      }
+      .inverse h2 {
+        color: #a3a3a3;
+      }
+      .remark-slide-content.left {
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+name: head
+class: center, middle, inverse
+---
+template: head
+# Internet-enabled bordtennisbord
+## Fagdag 6. nov - HANDS ON
+### [github.com/bekk/bekkboard](https://github.com/bekk/bekkboard)
+
+---
+template: head
+class: left
+# Agenda
+## - Komponenter
+## - Kode
+## - Demo
+## - Idemyldring
+## - ..HANDS ON!
+---
+template: head
+# Komponenter
+---
+
+# Komponenter
+
+![](./diagram.png)
+
+???
+eirik foklarer
+
+- Hardware (hw)
+- server
+- GUI
+
+https://www.lucidchart.com/invitations/accept/a552ed26-cc39-46ae-a059-e95c9f01e212
+
+---
+template: head
+# Kode
+---
+
+# RFduino (nesten Arduino med BLE)
+
+![](./rfduino.jpg)
+
+???
+- programmerbart mikrokontrollerbrett
+- med samme interface som en arduino, med BLE og er bitteliten.
+- analoge GPIO-porter man kan lese og skrive til.
+- stackable
+- programmerer i et enkelt C-lignende språk. Fra samme software som arduino
+
+---
+# RFduino
+
+```
+void setup() {
+  Serial.begin(9600);
+}
+
+void loop() {
+  Serial.println("Ping pong");
+}
+```
+
+???
+- flasher kode på kortet. Setup kjører med en gang den får strøm.
+- setup. For initialisering av variabler, sette opp pins, sette opp biblioteker o.l.
+- loop. Loopes kontinuerlig etter at setup er ferdig.
+- vis arduino-koden til bordtennisbordet
+
+---
+
+# Bluetooth Low Energy
+
+## Kommunikasjon mellom RFduino <=> RFduino
+
+### GaZeLL (GZZL)
+
+> Gazell , or GZLL, is a proprietary packet radio protocol released by Nordic Semiconductor. The protocol defines a star topology with one HOST and up to seven DEVICE's
+
+[GaZeLL Protocol Testing](http://thomasolson.com/PROJECTS/GZLL/)
+
+---
+
+# Kode
+
+## Server
+
+### - javascript, node.js
+### - node-serialport
+### - express
+### - SSE
+
+Har kjørt på iojs på pi'en - vil oppgradere til node 4.2.1!
+
+---
+
+# Kode
+
+## Klient
+
+### - javascript, ractive.js
+### - ajax
+### - SSE
+
+TODO skisse bilde
+
+???
+torgeir forklarer
+- får all state, rendrer på nytt
+- Ractive? ikke React?! laget før react
+
+---
+
+# Raspberry PI
+
+## init.d startupscript
+
+### - server-kode
+### - klient-kode
+### - hvordan deploye server-kode
+### - hvordan deploye klient-kode
+
+---
+template: head
+
+# Demo
+
+---
+
+# SSE
+
+## Server -> Klient kommunikasjon
+## Sender `type` og `data` som blir et event på klienten
+## Browser håndterer reconnects
+## Unik id sendes med hver melding
+
+---
+
+# Oppgaveforslag
+
+- Logging og retry-logikk i `serial.js`.
+- Få alt til å kjøre på nyeste Node.
+- Smoothere deploy til raspberry pi (både gui og server).
+- QR-kode-registrering av spillere.
+- Lagring av resultater i en database
+- Exception-håndtering, logging og stabilitet
+- Rankingsystem (ELO-rating)
+- Statistikk og realtime grafer.
+
+##
+Andre forslag?
+
+???
+# Idemyldring
+
+- QR-kode innlogging
+- Lagre bruker + qr-kode
+- Generere qr-kode som kan festes på adgangskort
+- Oppslag av spillere i adresselista til BEKK
+- Lagre scrores i database (igjen)
+- Exception håndtering
+- Logging
+- Stabilitet
+- Forbedre hw-kode mtp. strømforbruk
+- Vise gjenværende batterispenning?
+- Rankingsystem
+- Realtime grafer og statistikk
+- Turnering!
+
+---
+template: head
+
+# Lets hack this table!
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+      var slideshow = remark.create({
+        highlightStyle: 'monokai'
+      });
+    </script>
+  </body>
+</html>

@@ -17,7 +17,7 @@ var level = levelup('./database.db', options);
 
 var app = require('./app')(events, level);
 var server = app.listen(3000, function () {
-  console.log('up on 3000');
+  console.log('server listening on 3000');
 });
 process.once('SIGINT', function () {
   console.log('\napi got sigint, shutting down');
