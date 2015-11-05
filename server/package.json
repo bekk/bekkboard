@@ -6,7 +6,8 @@
   "scripts": {
     "start": "DEVICE=/dev/tty.usbserial-DC008KBF node server-hook.js",
     "start-mock": "node server-hook.js",
-    "watch-mock": "nodemon server-hook.js"
+    "watch-mock": "nodemon server-hook.js",
+    "test": "mocha --compilers js:babel-core/register"
   },
   "author": "@torgeir,@magnuf,@emilmork,@follesoe",
   "license": "mit",
