@@ -41,14 +41,6 @@ var API = module.exports = (function () {
       fn = fn || noop;
       return postJson("/stop", {}, fn);
     },
-    getPlayers: function (fn) {
-      fn = fn || noop;
-      return getJson('/players', fn);
-    },
-    removePlayer: function (number, fn) {
-      fn = fn || noop;
-      return delJson('/players/' + number, fn);
-    },
     connect: function (fn) {
       fn = fn || noop;
       return getJson('/connect', fn);
@@ -69,16 +61,6 @@ var API = module.exports = (function () {
     getRanking: function (fn) {
       return getJson('/ranking', fn);
     }
-    /*
-    replay: function (fn) {
-      request.get('http://localhost:3001/replay').end(handleResponse(fn));
-    },
-    continueStream: function (fn) {
-      request.get('http://localhost:3001/continue').end(handleResponse(fn));
-    },
-    getStreamHost: function (fn) {
-      request.get('http://localhost:3001/lookup').end(handleResponse(fn));
-    }*/
   };
 
   function getJson (path, fn) {

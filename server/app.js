@@ -63,15 +63,6 @@ module.exports = function (events, db) {
     sendSseEventScore();
   });
 
-  app.post('/signup', function (req, res, next) {
-    var user = req.body;
-
-    Users.save(user, function (err) {
-      if (err) return next(err);
-      res.json(user);
-    });
-  });
-
   app.get('/users', function (req, res, next) {
     Users.all(function (err, users) {
       if (err) return next(err);

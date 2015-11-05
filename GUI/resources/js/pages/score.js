@@ -17,9 +17,7 @@ module.exports = Ractive.extend({
     palyeraclass: '',
     playerbclass: '',
     vsinvertedclass: '',
-    ranking: [],
-    streaming: true,
-    streamHost: undefined
+    ranking: []
   },
 
   init: function () {
