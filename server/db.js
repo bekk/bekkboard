@@ -3,7 +3,7 @@ var noop = function () {};
 var SEP = "!",
     END = "~";
 
-var TDC = 'tdc';
+var DB_PREFIX = 'bekk';
 
 // escape characteds used for keys
 function escapeKey (key) {
@@ -16,7 +16,7 @@ function trim (str) {
 }
 
 function prepKey (prefix, key) {
-  return TDC + SEP + prefix + SEP + trim(escapeKey(key)).toLowerCase();
+  return DB_PREFIX + SEP + prefix + SEP + trim(escapeKey(key)).toLowerCase();
 }
 
 module.exports = function (prefix, db) {
