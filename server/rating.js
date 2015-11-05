@@ -43,7 +43,7 @@ module.exports = function(db) {
         }
         else if (match.score.a < match.score.b) {
           scoreA = 0;
-          scoreB = 1;	
+          scoreB = 1;
         }
         newRatings[match.players.a.number] = elorating.updateRating(currentA, scoreA, expectedScores.Ea);
         newRatings[match.players.b.number] = elorating.updateRating(currentB, scoreB, expectedScores.Eb);
@@ -55,7 +55,7 @@ module.exports = function(db) {
 
       fn(null, rating);
     });
-  }
+  };
 
   var getRating = function(fn){
     if(rating.length > 0){

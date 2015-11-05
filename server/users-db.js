@@ -46,4 +46,4 @@ module.exports = function (db) {
 
   return ret;
 
-}
+};
