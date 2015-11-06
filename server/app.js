@@ -16,6 +16,9 @@ module.exports = function (events, db) {
   var match;
   var browserEvents = new EventEmitter();
 
+  var playera = {id: 5, name: 'Torgeir'};
+  var playerb = {id: 6, name: 'Guro'};
+
   var app = express();
 
   app.use(cors());
@@ -30,28 +33,19 @@ module.exports = function (events, db) {
     respond(res);
   });
 
-  app.post('/start', function (req, res, next) {
-    var body = req.body;
-
-    match = new Match(events, body.a, body.b, Match.LengthSeconds);
-    match.on('change', function () {
-      sendSseEventScore();
-      if (match && match.done) {
-        MatchDb.save(match);
-
-        Rating.calculateRating(function (err, ranking){
-          if (err) return next(err);
-          sendSseEventRankingUpdated(ranking);
+  app.get('/register', function (req, res) {
+      Users.save(playera, function(err, savedUser) {
+        Users.save(playerb, function(err, savedUser) {
+          res.send('Users ' + playera.name  + ' and ' +  playerb.name + ' are registered');
         });
-
-        sendSseEventMatch(match);
-      }
-    });
-    match.start();
-    respond(res);
-
-    sendSseEventScore();
+      });
   });
+
+  app.get('/userlist', function (req, res) {
+      Users.all(function(err, savedUsers) {
+        res.send(savedUsers)
+      })
+  })
 
   app.post('/stop', function (req, res, next) {
     if (match) {
@@ -130,10 +124,17 @@ module.exports = function (events, db) {
       match.stop();
     }
 
-    match = new Match(events, {name: 'playerA'}, {name: 'playerB'});
+    match = new Match(events, playera , playerb);
     match.on('change', function () {
       sendSseEventScore();
-      if (match) {
+      if (match && match.done) {
+        MatchDb.save(match);
+        Rating.calculateRating(function (err, ranking){
+          console.log('RANKING' + ranking);
+          if (err) return next(err);
+          sendSseEventRankingUpdated(ranking);
+        });
+
         sendSseEventMatch(match);
       }
     });

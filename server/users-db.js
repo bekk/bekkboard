@@ -5,30 +5,32 @@ module.exports = function (db) {
   var ret = {};
 
   ret.save = function (user, fn) {
-    var number = user && user.number;
-    if (!number) {
-      return fn(new Error("user is missing a number: " + user));
+    var id = user && user.id;
+    if (!id) {
+      return fn(new Error("user is missing a id: " + user));
     }
 
-    UsersDb.get(number, function (err, existingUser) {
+    UsersDb.get(id, function (err, existingUser) {
       if (err) {
         if (err.notFound) {
           var newUser = {
-            number: number,
+            id: id,
             name: user.name,
+            rating: 0,
             registrations: [new Date()]
           };
-          return UsersDb.save(number, newUser, fn);
+          return UsersDb.save(id, newUser, fn);
         }
         return fn(err);
       }
 
       var updatedUser = {
-        number: existingUser.number,
+        id: existingUser.id,
         name: user.name,
         registrations: (existingUser.registrations || []).concat(new Date())
+
       };
-      UsersDb.save(number, updatedUser, fn);
+      UsersDb.save(id, updatedUser, fn);
     });
   };
 
@@ -38,6 +40,7 @@ module.exports = function (db) {
 
   ret.get = function (number, fn) {
     UsersDb.get(number, fn);
+
   };
 
   ret.del = function (number, fn) {

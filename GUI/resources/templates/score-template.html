@@ -1,4 +1,4 @@
-<div class="score">
+<div class="score {{!winner ? '' : 'score-hidden' }}">
   <connection/>
   <div>
     {{#showscore}}
@@ -20,25 +20,16 @@
     <div class="game-result {{draw ? '' : 'game-result-hidden'}}">
       <h2 class="draw">Draw!</h2>
     </div>
-    <div class="game-result {{winner ? '' : 'game-result-hidden'}}">
-      <h2 class="winner winner-name">{{winner}} wins!</h2>
-    </div>
-  </div>
-  <!--<div class="score-half">
-    <div class="ranking">
-      <h3 class="ranking-heading">Ranking</h3>
-      <ul>
-      {{^ranking}}
-        <li>No players, yet!</li>
-      {{/ranking}}
-      {{#ranking}}
-        <li class="player">
-          <span class="player-name">{{player.name}}</span>
-          <span class="player-number">{{player.number}}</span>
-          <span class="player-rating">{{rating}}</span>
-        </li>
-      {{/ranking}}
-      </ul>
-    </div>-->
   </div>
 </div>
+
+<div class="score {{ winner ? '' : 'score-hidden' }}">
+  <div class="time">Results</div>
+  <div class="game-result {{winner ? '' : 'game-result-hidden'}}">
+    <h2 class="winner winner-name">{{winner}} wins!</h2>
+  </div>
+  <div> Updated ranking</div>
+</div>
+
+
+
