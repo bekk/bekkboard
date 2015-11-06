@@ -109,7 +109,7 @@ module.exports = function (events, db) {
     }
     match = new Match(events, {name: 'playerA'}, {name: 'playerB'});
     MatchDb.save(match);
-
+    
     match.on('change', function () {
       sendSseEventScore();
       if (match) {
