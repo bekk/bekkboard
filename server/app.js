@@ -30,29 +30,6 @@ module.exports = function (events, db) {
     respond(res);
   });
 
-  app.post('/start', function (req, res, next) {
-    var body = req.body;
-
-    match = new Match(events, body.a, body.b, Match.LengthSeconds);
-    match.on('change', function () {
-      sendSseEventScore();
-      if (match && match.done) {
-        MatchDb.save(match);
-
-        Rating.calculateRating(function (err, ranking){
-          if (err) return next(err);
-          sendSseEventRankingUpdated(ranking);
-        });
-
-        sendSseEventMatch(match);
-      }
-    });
-    match.start();
-    respond(res);
-
-    sendSseEventScore();
-  });
-
   app.post('/stop', function (req, res, next) {
     if (match) {
       match.stop();
