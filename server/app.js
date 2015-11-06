@@ -119,6 +119,11 @@ module.exports = function (events, db) {
         }
       }
     });
+
+    match.on('set-is-done', function () {
+      var filename = match.sound();
+      sendSseEventSound(filename);
+    });
     match.ready();
 
     sendSseEventScore();
@@ -150,6 +155,12 @@ module.exports = function (events, db) {
 
   function sendSseEventWinner () {
     sendSseEvent('winner');
+  }
+
+  function sendSseEventSound (filename) {
+    if (filename) {
+      sendSseEvent('sound', filename);
+    }
   }
 
   function sendSseEventMatch (match) {
