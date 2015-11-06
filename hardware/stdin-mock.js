@@ -36,6 +36,11 @@ process.stdin.on('data', function (chunk) {
     else if (line == 'connected') {
         e.emit('connected');
     }
+    else if (line == 'winA') {
+        for (var i = 0; i<11; i++) {
+            e.emit('data', '0');
+        }
+    }
     else {
         e.emit('data', line);
     }

@@ -172,8 +172,8 @@ function Match (events, a, b, timelimit) {
 
   self.players = function () {
     return {
-      a: { name: a.name, number: a.number },
-      b: { name: b.name, number: b.number }
+      a: { name: a.name, id: a.id },
+      b: { name: b.name, id: b.id }
     };
   };
 
