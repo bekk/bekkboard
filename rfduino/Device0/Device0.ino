@@ -3,6 +3,13 @@
 
 device_t role = DEVICE0;
 
+int BUTTON_A_SINGLE = 0;
+int BUTTON_B_SINGLE = 1;
+int BUTTON_A_DOUBLE = 2;
+int BUTTON_B_DOUBLE = 3;
+int BUTTON_A_LONG = 4;
+int BUTTON_B_LONG = 5;
+
 int gzllTimeout = 10000;
 
 int button_a = 5;
@@ -33,37 +40,37 @@ void setup()
 
 void onClickA()
 {
-  sendToHost(0);
+  sendToHost(BUTTON_A_SINGLE);
   resetAndSleep();
 }
 
 void onClickB()
 {
-  sendToHost(1);
+  sendToHost(BUTTON_B_SINGLE);
   resetAndSleep();
 }
 
 void onDoubleClickA()
 {
-  sendToHost(2);
+  sendToHost(BUTTON_A_DOUBLE);
   resetAndSleep();
 }
 
 void onDoubleClickB()
 {
-  sendToHost(3);
+  sendToHost(BUTTON_B_DOUBLE);
   resetAndSleep();
 }
 
 void onLongPressA()
 {
-  sendToHost(4);
+  sendToHost(BUTTON_A_LONG);
   resetAndSleep();
 }
 
 void onLongPressB()
 {
-  sendToHost(5);
+  sendToHost(BUTTON_B_LONG);
   resetAndSleep();
 }
 
@@ -94,7 +101,7 @@ void stopGzll()
 {
   if(gzllRunning){
     RFduinoGZLL.end();
-    gzllRunning = false;  
+    gzllRunning = false;
   }
 }
 
@@ -110,9 +117,9 @@ void loop()
   if(gzllLastCommandTime != 0 && (millis() - gzllLastCommandTime) > gzllTimeout){
     stopGzll();
   }
-  
+
   tick();
-  
+
   if (shouldSleep) {
       // Hvis GZLL-stacken er paa, sov til timeout og sjekk s p nytt om stacken kan slaas av.
       if(gzllRunning) {
@@ -123,8 +130,8 @@ void loop()
         RFduino_ULPDelay(INFINITE);
       }
   }
-  
-  delay(10); // Kan ikke kalle tick for ofte... 
+
+  delay(10); // Kan ikke kalle tick for ofte...
 }
 
 void RFduinoGZLL_onReceive(device_t device, int rssi, char *data, int len)
