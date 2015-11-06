@@ -39,6 +39,10 @@ module.exports = Ractive.extend({
       self.set('ranking', ranking);
     });
 
+    ES.on('sound', function (filename) {
+      new Audio(filename).play();
+    });
+
     API.getRanking(function (ranking) {
       self.set('ranking', ranking);
     });
