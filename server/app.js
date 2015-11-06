@@ -30,29 +30,6 @@ module.exports = function (events, db) {
     respond(res);
   });
 
-  app.post('/start', function (req, res, next) {
-    var body = req.body;
-
-    match = new Match(events, body.a, body.b, Match.LengthSeconds);
-    match.on('change', function () {
-      sendSseEventScore();
-      if (match && match.done) {
-        MatchDb.save(match);
-
-        Rating.calculateRating(function (err, ranking){
-          if (err) return next(err);
-          sendSseEventRankingUpdated(ranking);
-        });
-
-        sendSseEventMatch(match);
-      }
-    });
-    match.start();
-    respond(res);
-
-    sendSseEventScore();
-  });
-
   app.post('/stop', function (req, res, next) {
     if (match) {
       match.stop();
@@ -96,6 +73,7 @@ module.exports = function (events, db) {
   app.post('/matches/:time/score', function (req, res, next) {
     var score = req.body;
     var time = req.param('time');
+
     MatchDb.updateScore(time, score, function () {
       res.json(score);
     });
@@ -129,12 +107,16 @@ module.exports = function (events, db) {
     if (match) {
       match.stop();
     }
-
     match = new Match(events, {name: 'playerA'}, {name: 'playerB'});
+    MatchDb.save(match);
+    
     match.on('change', function () {
       sendSseEventScore();
       if (match) {
         sendSseEventMatch(match);
+        if (match && match.done) {
+          MatchDb.save(match);
+        }
       }
     });
 
