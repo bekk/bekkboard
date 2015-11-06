@@ -176,7 +176,9 @@ module.exports = function (events, db) {
   }
 
   function sendSseEventSound (filename) {
-    sendSseEvent('sound', filename);
+    if (filename) {
+      sendSseEvent('sound', filename);
+    }
   }
 
   function sendSseEventMatch (match) {
