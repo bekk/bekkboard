@@ -199,23 +199,22 @@ function Match (events, a, b, timelimit) {
   });
 
 
-  self.sound = function() {
+  self.sound = function () {
     var sum = matchset.score.a + matchset.score.b;
     var matchScore = self.sets();
-    if((matchScore.a >= Match.SetGoal && matchScore.b === 0) || (matchScore.a === 0 && matchScore.b >= Match.SetGoal){
+    if ((matchScore.a >= Match.SetGoal && matchScore.b === 0) || (matchScore.a === 0 && matchScore.b >= Match.SetGoal)) {
       return "flawless.wav";
     }
 
     var isStartOfMatch = matchset.score.a === 0 && matchset.score.b === 0;
 
-    if( (allSets.size > 0 && isStartOfMatch )
-        || winner) {
+    if ((allSets.size > 0 && isStartOfMatch ) || winner) {
       var previousSet = allSets[allSets.size-1];
-      if(previousSet.score.a === 0  || previousSet.score.b === 0) {
+      if (previousSet.score.a === 0  || previousSet.score.b === 0) {
         return "unstoppable.wav";
       }
     }
-  }
+  };
 
   self.json = function () {
     var o = {
