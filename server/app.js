@@ -73,6 +73,7 @@ module.exports = function (events, db) {
   app.post('/matches/:time/score', function (req, res, next) {
     var score = req.body;
     var time = req.param('time');
+
     MatchDb.updateScore(time, score, function () {
       res.json(score);
     });
