@@ -52,7 +52,7 @@ var Camera = function(args){
     resolution : 'SVGA',
     framerate : 15,
     port : 8090,
-    fileFolder : '/usr/local/mjpg-streamer/',
+    fileFolder : '/usr/local/lib/mjpg-streamer/',
     imagesFolder: __dirname + "/images/"
   };
 
