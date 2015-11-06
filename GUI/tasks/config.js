@@ -15,6 +15,10 @@ c.TARGET_FOLDER_FONTS = 'fonts';
 c.FOLDER_IMAGES        = './resources/images/*';
 c.TARGET_FOLDER_IMAGES = 'images';
 
+// images
+c.FOLDER_SOUNDS        = './resources/sounds/*';
+c.TARGET_FOLDER_SOUNDS = 'sounds';
+
 // less
 c.FOLDER_LESS       = './resources/less';
 c.PATH_LESS_ENTRY   = './resources/less/app.less';

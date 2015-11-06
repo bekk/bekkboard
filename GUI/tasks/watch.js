@@ -10,6 +10,7 @@ module.exports = function () {
     gulp.watch(c.PATH_INDEX,              ['html']);
     gulp.watch(c.all(c.FOLDER_LESS),      ['less']);
     gulp.watch(c.all(c.FOLDER_IMAGES),    ['images']);
+    gulp.watch(c.all(c.FOLDER_SOUNDS),    ['sounds']);
     gulp.watch(c.all(c.FOLDER_JS),        ['scripts']);
     gulp.watch(c.all(c.FOLDER_TEMPLATES), ['scripts']);
 
@@ -18,4 +19,4 @@ module.exports = function () {
   };
 };
 
-module.exports.deps = ['fonts', 'html', 'scripts', 'images'];
+module.exports.deps = ['fonts', 'html', 'scripts', 'images', 'sounds'];

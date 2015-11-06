@@ -140,6 +140,7 @@ function Match (events, a, b, timelimit) {
         self.newSet();
       }
       servingPlayer = (servingPlayer === 'a') ? 'b' : 'a';
+      self.emit("set-is-done");
     }
     self.emit('change');
   });
@@ -196,6 +197,26 @@ function Match (events, a, b, timelimit) {
   self.__defineGetter__("done", function () {
     return timeout === true || winner === true;
   });
+
+
+  self.sound = function () {
+    var matchScore = self.sets();
+    var didAWinAllSets = (matchScore.a >= Match.SetGoal && matchScore.b === 0);
+    var didBWinAllSets = (matchScore.a === 0 && matchScore.b >= Match.SetGoal);
+    if (didAWinAllSets || didBWinAllSets) {
+      return "flawless.wav";
+    }
+
+    var isStartOfNewSet = allSets.length > 0 && matchset.score.a === 0 && matchset.score.b === 0;
+    if (isStartOfNewSet || winner) {
+      var previousSet = allSets[allSets.length-1];
+      if (previousSet.score.a === 0  || previousSet.score.b === 0) {
+        return "unstoppable.wav";
+      }
+    }
+
+    return;
+  };
 
   self.json = function () {
     var o = {
