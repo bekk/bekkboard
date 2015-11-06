@@ -132,6 +132,22 @@
   .serving-player {
     border-bottom: solid 1px @color-bekk-red;
     color: @color-bekk-red;
+    position: relative;
+  }
+  .serving-player:after {
+    content: "";
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    border-radius: 100%;
+    background-color: white;
+    left: -40px;
+    bottom: 0;
+    animation-name: animate-bounce;
+    animation-duration: 1.9s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+    animation-delay: 1s;
   }
 
   .time {
@@ -185,6 +201,33 @@
   100%{
     transform: scale(1)
   }      
+}
+
+@keyframes animate-bounce {        
+  0% {
+    bottom: 0%;
+  }
+  30% {
+    bottom: 65%;  
+  }
+  38%{
+    bottom: 0%
+  }
+  45%{
+    bottom: 30%;
+  }     
+  52%{
+    bottom: 0%;
+  } 
+  57%{
+    bottom: 10%
+  }
+  60%{
+    bottom: 0%
+  }
+  100%{
+    bottom: 0%;
+  }
 }
 
 .trigger-animate{
