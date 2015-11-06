@@ -6,23 +6,30 @@ var e = (process.env.DEVICE) ?
           require('./serial')(process.env.DEVICE) :
           require('./stdin-mock');
 
+const BUTTON_A_SINGLE = 0;
+const BUTTON_B_SINGLE = 1;
+const BUTTON_A_DOUBLE = 2;
+const BUTTON_B_DOUBLE = 3;
+const BUTTON_A_LONG = 4;
+const BUTTON_B_LONG = 5;
+
 var commands = {
-  0: function () {
+  [BUTTON_A_SINGLE]: function () {
     emitScore('a'); // single click
   },
-  1: function () {
+  [BUTTON_B_SINGLE]: function () {
     emitScore('b'); // single click
   },
-  2: function () {
+  [BUTTON_A_DOUBLE]: function () {
     emitUndo('a'); // double click
   },
-  3: function () {
+  [BUTTON_B_DOUBLE]: function () {
     emitUndo('b'); // double click
   },
-  4: function () {
+  [BUTTON_A_LONG]: function () {
     hardware.emit('restart'); // long press
   },
-  5: function () {
+  [BUTTON_B_LONG]: function () {
     hardware.emit('restart'); // long press
   }
 };
