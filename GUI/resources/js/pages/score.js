@@ -6,6 +6,12 @@ var $       = require('zepto-browserify').$,
 var ES  = require('../es'),
     API = require('../api');
 
+navigator.getUserMedia = navigator.getUserMedia ||
+                         navigator.webkitGetUserMedia ||
+                         navigator.mozGetUserMedia;
+
+var camera = require('../components/camera');
+
 module.exports = Ractive.extend({
 
   template: fs.readFileSync(__dirname + '/../../templates/score-template.html', 'utf-8'),
@@ -20,6 +26,30 @@ module.exports = Ractive.extend({
     ranking: [],
     animateA: '',
     animateB: ''
+  },
+
+  logName: function(id) {
+    id = parseInt(id.replace('http://bordtennis.no', ''), 10);
+
+    debugger;
+  },
+
+  initCamera: function() {
+    var cam_video_id = "camsource";
+    var video = document.getElementById(cam_video_id);
+
+    if (navigator.getUserMedia) {
+      navigator.getUserMedia({video:true}, function(stream) {
+        video.src = (window.URL && window.URL.createObjectURL(stream)) || stream;
+      }, function(error) {
+          console.log(error);
+      });
+    } else {
+      console.log("getUserMedia not supported");
+    }
+
+    var cam = camera(cam_video_id);
+    cam.start(this.logName);
   },
 
   init: function () {
@@ -46,5 +76,7 @@ module.exports = Ractive.extend({
     API.getRanking(function (ranking) {
       self.set('ranking', ranking);
     });
+
+    this.initCamera();
   }
 });

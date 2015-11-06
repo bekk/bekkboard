@@ -173,20 +173,26 @@
   @media @tv      { font-size: 6em; }
 }
 
-
-
-@keyframes animate-score {        
+@keyframes animate-score {
   0% {
     transform: scale(1);
   }
   70% {
-    transform: scale(1.25);  
+    transform: scale(1.25);
   }
   100%{
     transform: scale(1)
-  }      
+  }
 }
 
 .trigger-animate{
   animation: animate-score 0.3s ease;
+}
+
+.camsource {
+  margin: auto;
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  right: 0;
 }
