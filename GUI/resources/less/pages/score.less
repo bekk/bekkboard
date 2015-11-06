@@ -172,3 +172,21 @@
   @media @desktop { font-size: 5em; }
   @media @tv      { font-size: 6em; }
 }
+
+
+
+@keyframes animate-score {        
+  0% {
+    transform: scale(1);
+  }
+  70% {
+    transform: scale(1.25);  
+  }
+  100%{
+    transform: scale(1)
+  }      
+}
+
+.trigger-animate{
+  animation: animate-score 0.3s ease;
+}
