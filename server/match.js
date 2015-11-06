@@ -12,6 +12,7 @@ function Match (events, a, b, timelimit) {
 
   var status = 'stopped',
       winner,
+      date = new Date(),
       servingPlayer = 'not set';
 
   var matchset = new MatchSet();
@@ -195,6 +196,10 @@ function Match (events, a, b, timelimit) {
 
   self.__defineGetter__("done", function () {
     return timeout === true || winner === true;
+  });
+
+  self.__defineGetter__("date", function () {
+    return date;
   });
 
   self.json = function () {

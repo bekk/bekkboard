@@ -107,12 +107,16 @@ module.exports = function (events, db) {
     if (match) {
       match.stop();
     }
-
     match = new Match(events, {name: 'playerA'}, {name: 'playerB'});
+    MatchDb.save(match);
+
     match.on('change', function () {
       sendSseEventScore();
       if (match) {
         sendSseEventMatch(match);
+        if (match && match.done) {
+          MatchDb.save(match);
+        }
       }
     });
     match.ready();

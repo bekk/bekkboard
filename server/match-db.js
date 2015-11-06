@@ -11,13 +11,7 @@ module.exports = function (db) {
   };
 
   ret.save = function (match, fn) {
-    var date = match.date || new Date();
-
-    var matchCopy = _.extend({}, match.json(), {
-      date: date
-    });
-
-    MatchDb.save(date.getTime(), matchCopy, fn);
+    MatchDb.save(match.date, match.json(), fn);
   };
 
   ret.updateScore = function (time, score, fn) {
