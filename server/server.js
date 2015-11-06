@@ -11,11 +11,12 @@
 
 import events from '../hardware';
 import levelup from 'level';
+import Camera from './camera/camera';
 
 var options = { keyEncoding: 'utf-8', valueEncoding: 'json' };
-var level = levelup('./database.db', options);
+// var level = levelup('./database.db', options);
 
-var app = require('./app')(events, level);
+var app = require('./app')(events);
 var server = app.listen(3000, function () {
   console.log('server listening on 3000');
 });
@@ -24,3 +25,12 @@ process.once('SIGINT', function () {
   app.close();
   server.close();
 });
+
+var camera = new Camera();
+camera.start();
+
+setTimeout(() => {
+  camera.takeSnapshot("test", 10, function(err, file) {
+    console.log("Taking photo", file);
+  })
+}, 1000)
