@@ -39,6 +39,7 @@ module.exports = function(p_vid_id, p_inter, p_scale) {
 				callback(qrcode.decode(canvas));
 			}
 	    catch(err) {
+				console.log(err);
 			}
 		// console.timeEnd('capture');
 	}

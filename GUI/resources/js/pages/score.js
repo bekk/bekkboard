@@ -31,7 +31,18 @@ module.exports = Ractive.extend({
   logName: function(id) {
     id = parseInt(id.replace('http://bordtennis.no', ''), 10);
 
-    debugger;
+    var players = this.get('players');
+
+    if(players.a.name.toLowerCase() === 'playera') {
+      players.a.name = "" + id;
+      this.set('players', players);
+      return;
+    }
+    if (players.b.name.toLowerCase() === 'playerb') {
+      players.b.name = "" + id;
+      this.set('players', players);
+      return;
+    }
   },
 
   initCamera: function() {
@@ -49,7 +60,7 @@ module.exports = Ractive.extend({
     }
 
     var cam = camera(cam_video_id);
-    cam.start(this.logName);
+    cam.start($.proxy(this.logName, this));
   },
 
   init: function () {
