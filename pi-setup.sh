@@ -56,7 +56,9 @@ cd
 
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
 source ~/.nvm/nvm.sh
-nvm install 4.2.2
+NODE=4.2.2
+nvm install $NODE
+nvm alias default $NODE
 
 # install launch-on-boot scripts
 sudo rm -rf /etc/init/bekkboard-api.conf
