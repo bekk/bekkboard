@@ -194,7 +194,7 @@ module.exports = function (events, db) {
         retry:   3   // seconds
       });
 
-      const id = parseInt(es.lastEventId, 10) || 0;
+      let id = parseInt(es.lastEventId, 10) || 0;
       const sendEvent = function sendEvent (e) {
         es.send(JSON.stringify(e.data), { event: e.type, id: ++id });
       };
