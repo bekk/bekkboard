@@ -35,9 +35,6 @@ chmod u+x /home/pi/bekkboard.git/hooks/post-receive
 # go to the home folder
 cd
 
-# install node
-  # to be able to send f11 to the browser to make it go fullscreen
-
 sudo apt-get install upstart --force-yes
 
 # go to the home folder
