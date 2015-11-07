@@ -23,7 +23,7 @@ sudo apt-get install upstart --force-yes
 cd
 
 # create a folder well host the bare repo in
-mkdir bekkboard.git && cd bekkboard.git
+mkdir -p bekkboard.git && cd bekkboard.git
 git init --bare
 ln -s /home/pi/bekkboard/pi/post-receive /home/pi/bekkboard.git/hooks/post-receive
 chmod u+x /home/pi/bekkboard.git/hooks/post-receive
