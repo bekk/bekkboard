@@ -12,11 +12,11 @@
 import events from '../hardware';
 import levelup from 'level';
 
-var options = { keyEncoding: 'utf-8', valueEncoding: 'json' };
-var level = levelup('./database.db', options);
+const options = { keyEncoding: 'utf-8', valueEncoding: 'json' };
+const level = levelup('./database.db', options);
 
-var app = require('./app')(events, level);
-var server = app.listen(3000, function () {
+const app = require('./app')(events, level);
+const server = app.listen(3000, function () {
   console.log('server listening on 3000');
 });
 process.once('SIGINT', function () {

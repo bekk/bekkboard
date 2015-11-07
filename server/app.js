@@ -1,22 +1,22 @@
-var express       = require('express'),
-    bodyParser    = require('body-parser'),
-    cors          = require('cors'),
-    fayeWebsocket = require('faye-websocket'),
-    EventEmitter  = require('events').EventEmitter,
-    EventSource   = fayeWebsocket.EventSource;
+const express       = require('express'),
+      bodyParser    = require('body-parser'),
+      cors          = require('cors'),
+      fayeWebsocket = require('faye-websocket'),
+      EventEmitter  = require('events').EventEmitter,
+      EventSource   = fayeWebsocket.EventSource;
 
-var Match   = require('./match');
+const Match   = require('./match');
 
 module.exports = function (events, db) {
 
-  var Users   = require('./users-db')(db),
-      MatchDb = require('./match-db')(db),
-      Rating = require('./rating')(db);
+  const Users   = require('./users-db')(db),
+        MatchDb = require('./match-db')(db),
+        Rating = require('./rating')(db);
 
-  var match;
-  var browserEvents = new EventEmitter();
+  let match;
+  const browserEvents = new EventEmitter();
 
-  var app = express();
+  const app = express();
 
   app.use(cors());
   app.use(bodyParser.json({
@@ -48,7 +48,7 @@ module.exports = function (events, db) {
   });
 
   app.get('/users/:number', function (req, res, next) {
-    var number = req.param("number");
+    const number = req.param("number");
     Users.get(number, function (err, user) {
       if (err && err.notFound) return res.json({});
       if (err) return next(err);
@@ -71,9 +71,8 @@ module.exports = function (events, db) {
   });
 
   app.post('/matches/:time/score', function (req, res, next) {
-    var score = req.body;
-    var time = req.param('time');
-
+    const score = req.body;
+    const time = req.param('time');
     MatchDb.updateScore(time, score, function () {
       res.json(score);
     });
@@ -109,7 +108,7 @@ module.exports = function (events, db) {
     }
     match = new Match(events, {name: 'playerA'}, {name: 'playerB'});
     MatchDb.save(match);
-    
+
     match.on('change', function () {
       sendSseEventScore();
       if (match) {
@@ -121,8 +120,7 @@ module.exports = function (events, db) {
     });
 
     match.on('set-is-done', function () {
-      var filename = match.sound();
-      sendSseEventSound(filename);
+      sendSseEventSound(match.sound());
     });
     match.ready();
 
@@ -171,7 +169,7 @@ module.exports = function (events, db) {
     sendSseEvent('ranking', ranking);
   }
 
-  var connected = false;
+  let connected = false;
   events.on('connected', function () {
     sendSseEventScore();
     sendSseEventConnected();
@@ -190,14 +188,14 @@ module.exports = function (events, db) {
   app.get('/es', function(req, res) {
     if (EventSource.isEventSource(req)) {
 
-      var es = new EventSource(req, res, {
+      let es = new EventSource(req, res, {
         headers: { 'Access-Control-Allow-Origin': '*' },
         ping:    15, // seconds
         retry:   3   // seconds
       });
 
-      var id = parseInt(es.lastEventId, 10) || 0;
-      var sendEvent = function sendEvent (e) {
+      const id = parseInt(es.lastEventId, 10) || 0;
+      const sendEvent = function sendEvent (e) {
         es.send(JSON.stringify(e.data), { event: e.type, id: ++id });
       };
 
