@@ -36,7 +36,7 @@ module.exports = function (minify) {
       return gulpif(minify, stream, stream.on('error', c.notifyError('Browserify')))
         .pipe(source(c.TARGET_FILE_JS))
         .pipe(buffer())
-        .pipe(gulpif(minify, uglify()))
+        .pipe(gulpif(minify, uglify().on('error', function () { console.log(arguments); })))
         .pipe(gulp.dest(c.target(c.TARGET_FOLDER_JS)))
         .pipe(gulpif(watch, c.notify("Browserify", 'reloaded')));
     }

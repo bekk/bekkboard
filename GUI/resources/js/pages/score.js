@@ -44,7 +44,7 @@ module.exports = Ractive.extend({
     });
 
     ES.on('sound', function (filename) {
-      new Audio(`sounds/${filename}`).play();
+      new Audio('sounds/' + filename).play();
     });
 
     API.getRanking(function (ranking) {
