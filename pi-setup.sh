@@ -19,6 +19,13 @@ sudo apt-get install -y vim \
 
 sudo apt-get install upstart --force-yes
 
+# to name `serialport` work on node 4 on the pi
+sudo apt-get install gcc-4.8 g++-4.8
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.6 20
+sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 50
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.6 20
+sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 50
+
 # go to the home folder
 cd
 
