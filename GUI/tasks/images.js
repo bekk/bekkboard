@@ -1,6 +1,6 @@
 module.exports = function () {
 
-  return function fonts () {
+  return function images () {
 
     var gulp = require('gulp');
 
